@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 
 public class Board {
 	public static char[][] board = {
@@ -12,12 +14,17 @@ public class Board {
 		{'X', 'B', 'I', 'B', 'I', 'B', 'X', 'k', 'B', 'X'},
 		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
 	};
+	
+	public static int[] hero_pos = { 1, 1 };	
+	public static String[] moves = { "up", "down", "right", "left" };
+	public static Scanner s = new Scanner(System.in);
 
-
+	public static enum Event { WIN, LOSS, NONE };
 
 	public static void main(String[] args) {
 		printBoard();
 	}
+	
 	
 	public static void printBoard() {
 		for (char[] s : board) {
@@ -29,5 +36,24 @@ public class Board {
 			}
 			System.out.println();
 		}
+	}
+	
+	public static Event gameCycle() {
+		String input = s.next();
+		switch (input) {
+		case "up":
+			break;
+		case "down":
+			break;
+		case "right":
+			break;
+		case "left":
+			break;
+		default:
+							
+		}
+		
+		
+		return Event.NONE;
 	}
 }
