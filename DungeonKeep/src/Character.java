@@ -24,7 +24,7 @@ public class Character {
 		return true;
 	}
 
-	public void draw() {
-		Board.board[pos[0]][pos[1]] = symb;
+	public void draw(char[][] board) {
+		board[pos[0]][pos[1]] = symb;
 	}
 }
