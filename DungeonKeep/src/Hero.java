@@ -6,14 +6,7 @@ public class Hero extends Character {
 	}
 	
 	public Boolean isNear(Character other) {
-		if (other.pos[0] == pos[0]+1)
-			return true;
-		else if (other.pos[1] == pos[1]+1)
-			return true;
-		else if (other.pos[0] == pos[1]-1)
-			return true;
-		else if (other.pos[1] == pos[1]-1)
-			return true;
+		// TODO
 		
 		return false;
 	}

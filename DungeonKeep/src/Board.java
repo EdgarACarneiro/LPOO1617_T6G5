@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 
 public class Board {
-	public final static char[][] board = {
+	public final static char[][] map = {
 		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
 		{'X', 'B', 'B', 'B', 'I', 'B', 'X', 'B', 'B', 'X'},
 		{'X', 'X', 'X', 'B', 'X', 'X', 'X', 'B', 'B', 'X'},
@@ -35,7 +35,7 @@ public class Board {
 		do {
 			
 			// Draw game state
-			char[][] tmp_board = board.clone();
+			char[][] tmp_board = map.clone();
 			hero.draw(tmp_board);
 			guard.draw(tmp_board);
 			
@@ -61,7 +61,8 @@ public class Board {
 		
 		// Check Lever
 		if (hero.pos == key_pos) {
-			for (char[] s : board) {
+			System.out.println("KEY FOUND");
+			for (char[] s : map) {
 				for (char c : s) {
 					if (c == 'I')
 						c = 'S';
@@ -71,13 +72,17 @@ public class Board {
 		
 		// Check Loss
 		if (hero.isNear(guard)) {
+			System.out.println("YOU LOST");
 			return State.LOSS;
 		}
 		
 		// Check Win
-		for (int[] pos : victory_pos)
-			if (pos.equals(hero.pos))
+		for (int[] pos : victory_pos) {
+			if (pos.equals(hero.pos)) {
+				System.out.println("YOU WON!");
 				return State.WIN;
+			}
+		}
 		
 		return State.NONE;
 	}
@@ -87,16 +92,16 @@ public class Board {
 		String input = s.next();
 		switch (input.toUpperCase()) {
 		case "W":
-			hero.move(new int[] {0, -1});
-			break;
-		case "A":
 			hero.move(new int[] {-1, 0});
 			break;
+		case "A":
+			hero.move(new int[] {0, -1});
+			break;
 		case "S":
-			hero.move(new int[] {0, 1});
+			hero.move(new int[] {1, 0});
 			break;
 		case "D":
-			hero.move(new int[] {1, 0});
+			hero.move(new int[] {0, 1});
 			break;
 		default:
 			System.err.println("Invalid input. Use one of \"WASD\".");		
