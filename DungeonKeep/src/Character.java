@@ -13,7 +13,7 @@ public class Character {
 	}
 	
 	public Boolean move(int[] delta) {
-		char new_pos_char = Board.map[pos[0] + delta[0]][pos[1] + delta[1]];
+		char new_pos_char = Board.map1[pos[0] + delta[0]][pos[1] + delta[1]];
 		
 		if (new_pos_char == 'X' || new_pos_char == 'I')
 			return false;

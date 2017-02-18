@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 
 public class Board {
-	public final static char[][] map = {
+	public final static char[][] map1 = {
 		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
 		{'X', 'B', 'B', 'B', 'I', 'B', 'X', 'B', 'B', 'X'},
 		{'X', 'X', 'X', 'B', 'X', 'X', 'X', 'B', 'B', 'X'},
@@ -15,8 +15,29 @@ public class Board {
 		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
 	};
 	
+	public final static char[][] map2 = {
+		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
+		{'I', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'k', 'X'},
+		{'X', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'X'},
+		{'X', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'X'},
+		{'X', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'X'},
+		{'X', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'X'},
+		{'X', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'X'},
+		{'X', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'X'},
+		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
+	};
+	
+	public final static int[][] guard_mov = { 
+			{0, -1}, {1, 0} , {1, 0} , {1, 0} , {1, 0} ,
+			{0, -1}, {0, -1}, {0, -1}, {0, -1}, {0, -1},
+			{0, -1}, {1, 0} , {0, 1} , {0, 1} , {0, 1} ,
+			{0, 1} , {0, 1} , {0, 1} , {0, 1} , {-1, 0},
+			{-1, 0}, {-1, 0}, {-1, 0}, {-1, 0}, {-1, 0}
+	};
+	
 	public static Hero hero;
 	public static Guard guard;
+	public static int guard_mov_counter = 0;
 	
 	public static int[] key_pos = { 8, 7 };
 	public static int[][] victory_pos = {
@@ -33,11 +54,13 @@ public class Board {
 		guard = new Guard(new int[] {1, 8});
 				
 		do {
-			
 			// Draw game state
-			char[][] tmp_board = map.clone();
+			char[][] tmp_board = copyBoard(map1);
+			
 			hero.draw(tmp_board);
 			guard.draw(tmp_board);
+			
+			guard.move(guard_mov[guard_mov_counter++ % guard_mov.length]);
 			
 			printBoard(tmp_board);			
 			
@@ -57,15 +80,25 @@ public class Board {
 		}
 	}
 	
+	public static char[][] copyBoard(char[][] board) {
+		char[][] new_board = new char[board.length][board[0].length];
+		
+		for (int i = 0; i < board.length; ++i)
+			for (int j = 0; j < board[i].length; ++j)
+				new_board[i][j] = board[i][j];
+		
+		return new_board;
+	}
+	
 	public static State checkState() {
 		
 		// Check Lever
-		if (hero.pos == key_pos) {
+		if (hero.pos[0] == key_pos[0] && hero.pos[1] == key_pos[1]) {
 			System.out.println("KEY FOUND");
-			for (char[] s : map) {
-				for (char c : s) {
-					if (c == 'I')
-						c = 'S';
+			for (int i = 0;  i < map1.length; ++i) {
+				for (int j = 0;  j < map1[i].length; ++j) {
+					if (map1[i][j] == 'I')
+						map1[i][j] = 'S';
 				}
 			}
 		}
@@ -78,7 +111,7 @@ public class Board {
 		
 		// Check Win
 		for (int[] pos : victory_pos) {
-			if (pos.equals(hero.pos)) {
+			if (pos[0] == hero.pos[0] && pos[1] == hero.pos[1]) {
 				System.out.println("YOU WON!");
 				return State.WIN;
 			}
