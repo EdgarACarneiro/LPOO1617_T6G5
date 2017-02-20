@@ -5,12 +5,12 @@ public class Hero extends Character {
 		super('H', initial_pos);
 	}
 	
-	public Boolean isNear(Character other) {
-		if ((pos[0] + 1 == other.pos[0] && pos[1] == other.pos[1]) ||
-			(pos[0] - 1 == other.pos[0] && pos[1] == other.pos[1]) ||
-			(pos[1] + 1 == other.pos[1] && pos[0] == other.pos[0]) ||
-			(pos[1] - 1 == other.pos[1] && pos[0] == other.pos[0]) ||
-			(pos[0] == other.pos[0] && pos[1] == other.pos[1]))
+	public Boolean isNear(int[] position) {
+		if ((pos[0] + 1 == position[0] && pos[1] == position[1]) ||
+			(pos[0] - 1 == position[0] && pos[1] == position[1]) ||
+			(pos[1] + 1 == position[1] && pos[0] == position[0]) ||
+			(pos[1] - 1 == position[1] && pos[0] == position[0]) ||
+			(pos[0] == position[0] && pos[1] == position[1]))
 			return true;
 		
 		return false;
