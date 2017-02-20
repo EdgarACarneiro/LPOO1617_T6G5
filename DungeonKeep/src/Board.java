@@ -86,7 +86,7 @@ public class Board {
 			case 1:
 				ogre.overKey(keys[current_lvl]);
 				ogre.draw(tmp_board);
-				ogre.drawCub(tmp_board);
+				ogre.drawclub(tmp_board);
 				ogre.move(ogre.randomMove());
 				break;
 			}
@@ -147,7 +147,7 @@ public class Board {
 			}
 			break;
 		case 1:
-			if (hero.isNear(ogre.pos) || hero.isNear(ogre.cub)) {
+			if (hero.isNear(ogre.pos) || hero.isNear(ogre.club)) {
 				System.out.println("YOU LOST");
 				return State.LOSS; 
 			}

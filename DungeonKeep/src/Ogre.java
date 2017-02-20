@@ -1,11 +1,11 @@
 import java.util.Random;
 
 public class Ogre extends Character {
-	public int[] cub;
+	public int[] club;
 
 	public Ogre(int[] initial_pos) {
 		super('O', initial_pos);
-		cub = new int[] {initial_pos[0]+1, initial_pos[1]};
+		club = new int[] {initial_pos[0]+1, initial_pos[1]};
 	}
 	
 	public int[] randomMove() {
@@ -24,27 +24,27 @@ public class Ogre extends Character {
 	}
 	
 	public void overKey(Key key) {
-		if (((pos[0] == key.pos[0] && pos[1] ==key.pos[1]) || (cub[0] == key.pos[0] && cub[1] ==key.pos[1])) 
+		if (((pos[0] == key.pos[0] && pos[1] ==key.pos[1]) || (club[0] == key.pos[0] && club[1] ==key.pos[1])) 
 				&& key.picked_up == false)
 			symb = '$';
 		else
 			symb = 'O';
 	}
 	
-	public void swingCub() {
-		int[] cub_dir = randomMove();
+	public void swingclub() {
+		int[] club_dir = randomMove();
 		
-		cub[0] = pos[0] + cub_dir[0];
-		cub[1] = pos[1] + cub_dir[1];
+		club[0] = pos[0] + club_dir[0];
+		club[1] = pos[1] + club_dir[1];
 	}
 	
 	public Boolean move (int[] delta) {
 		Boolean result = super.move(delta);
-		swingCub();
+		swingclub();
 		return result;
 	}
 	
-	public void drawCub(char[][] board) {
-		board[cub[0]][cub[1]] = '*';
+	public void drawclub(char[][] board) {
+		board[club[0]][club[1]] = '*';
 	}
 }
