@@ -9,7 +9,8 @@ public class Hero extends Character {
 		if ((pos[0] + 1 == other.pos[0] && pos[1] == other.pos[1]) ||
 			(pos[0] - 1 == other.pos[0] && pos[1] == other.pos[1]) ||
 			(pos[1] + 1 == other.pos[1] && pos[0] == other.pos[0]) ||
-			(pos[1] - 1 == other.pos[1] && pos[0] == other.pos[0]) )
+			(pos[1] - 1 == other.pos[1] && pos[0] == other.pos[0]) ||
+			(pos[0] == other.pos[0] && pos[1] == other.pos[1]))
 			return true;
 		
 		return false;

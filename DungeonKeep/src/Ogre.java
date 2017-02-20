@@ -20,4 +20,11 @@ public class Ogre extends Character {
 		
 		return random_mov[rand.nextInt(4)];
 	}
+	
+	public void overKey(Key key) {
+		if (pos[0] == key.pos[0] && pos[1] ==key.pos[1])
+			symb = '$';
+		else
+			symb = 'O';
+	}
 }
