@@ -148,7 +148,7 @@ public class Board {
 		case 1:
 			if (hero.isNear(ogre)) {
 				System.out.println("YOU LOST");
-				return State.LOSS;
+				return State.LOSS; 
 			}
 			break;
 		}
