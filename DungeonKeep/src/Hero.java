@@ -15,4 +15,18 @@ public class Hero extends Character {
 		
 		return false;
 	}
+	
+	public Boolean move (int[] delta) {
+		Boolean result = super.move(delta);
+		
+		//If key was picked up, open door
+		if (!result) {
+			char new_pos_char = Board.maps[Board.current_lvl][pos[0]+ delta[0]][pos[1]+ delta[1]];	
+			
+			if (new_pos_char == 'I' && Board.keys[Board.current_lvl].picked_up)
+				Board.maps[Board.current_lvl][pos[0] + delta[0]][pos[1] + delta[1]] = 'S';
+		}
+	
+		return result;
+	}
 }

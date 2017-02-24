@@ -41,7 +41,7 @@ public class Board {
 	public static Ogre ogre;
 	
 	//Variables configurations for all maps
-	public static int current_lvl = 1;
+	public static int current_lvl = 0;
 	public static char[][][] maps = { map1, map2 };
 
 	public static int[][][] victory_pos = { 
