@@ -2,4 +2,4 @@
 
 FEUP - Laboratório de Programação Orientada por Objectos
 
-      Membros: Edgar Carneiro & André Cruz
+      Membros: André Cruz & Edgar Carneiro
