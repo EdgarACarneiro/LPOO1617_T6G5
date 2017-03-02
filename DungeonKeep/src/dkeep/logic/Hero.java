@@ -1,5 +1,4 @@
 package dkeep.logic;
-import dkeep.cli.Game;
 
 public class Hero extends Character {
 	

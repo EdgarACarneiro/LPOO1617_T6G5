@@ -8,58 +8,12 @@ import dkeep.logic.Ogre;
 
 
 public class Game {
-	public final static char[][] map1 = {
-		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
-		{'X', 'B', 'B', 'B', 'I', 'B', 'X', 'B', 'B', 'X'},
-		{'X', 'X', 'X', 'B', 'X', 'X', 'X', 'B', 'B', 'X'},
-		{'X', 'B', 'I', 'B', 'I', 'B', 'X', 'B', 'B', 'X'},
-		{'X', 'X', 'X', 'B', 'X', 'X', 'X', 'B', 'B', 'X'},
-		{'I', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'X'},
-		{'I', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'X'},
-		{'X', 'X', 'X', 'B', 'X', 'X', 'X', 'X', 'B', 'X'},
-		{'X', 'B', 'I', 'B', 'I', 'B', 'X', 'B', 'B', 'X'},
-		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
-	};
-	
-	public final static char[][] map2 = {
-		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
-		{'I', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'X'},
-		{'X', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'X'},
-		{'X', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'X'},
-		{'X', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'X'},
-		{'X', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'X'},
-		{'X', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'X'},
-		{'X', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'X'},
-		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
-	};
-	
-	public final static int[][] guard_mov = { 
-			{ 0, -1}, { 1,  0}, { 1,  0}, { 1,  0}, { 1,  0},
-			{ 0, -1}, { 0, -1}, { 0, -1}, { 0, -1}, { 0, -1},
-			{ 0, -1}, { 1,  0}, { 0,  1}, { 0,  1}, { 0,  1},
-			{ 0,  1}, { 0,  1}, { 0,  1}, { 0,  1}, {-1,  0},
-			{-1,  0}, {-1,  0}, {-1,  0}, {-1,  0}, {-1,  0}
-	};
 	
 	// Character's related variables
 	public static Hero hero;
 	public static Guard guard;
 	public static Ogre ogre;
-	
-	//Variables configurations for all maps
-	public static int current_lvl = 0;
-	public static char[][][] maps = { map1, map2 };
-
-	public static int[][][] victory_pos = { 
-			{ { 5, 0 }, { 6, 0 } },
-			{ { 1, 0 } }
-	};
-	
-	public static int[][] hero_init = { 
-			{ 1, 1 },
-			{ 7, 1 }
-	};
-	
+		
 	//Keys/ Levers Configuration
 	public static Key[] keys = { 
 			new Key(Key.k_type.LEVER, new int []{ 8, 7 }),

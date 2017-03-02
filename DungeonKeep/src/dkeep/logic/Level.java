@@ -1,9 +1,14 @@
 package dkeep.logic;
 
 public abstract class Level {
+	
+	/*
+	 * Update game-state with hero movement
+	 */
+	public abstract boolean update(int row, int col);
 
-	public Level() {
-		// TODO Auto-generated constructor stub
-	}
-
+	public abstract boolean isFinished();
+	
+	public abstract Level nextLevel();
+	
 }

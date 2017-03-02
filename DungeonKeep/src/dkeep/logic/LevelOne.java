@@ -1,9 +1,17 @@
 package dkeep.logic;
 
 public class LevelOne extends Level {
-
+	
+	private Hero hero;
+	private 
+	
 	public LevelOne() {
-		// TODO Auto-generated constructor stub
+		
+	}
+
+	@Override
+	public Level nextLevel() {
+		return new LevelTwo();
 	}
 
 }

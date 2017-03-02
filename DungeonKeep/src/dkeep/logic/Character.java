@@ -1,8 +1,6 @@
 package dkeep.logic;
 import java.lang.IllegalArgumentException;
 
-import dkeep.cli.Game;
-
 public abstract class Character {
 	public char symb;
 	public int[] pos;

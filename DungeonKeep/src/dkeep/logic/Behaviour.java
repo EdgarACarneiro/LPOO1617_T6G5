@@ -1,9 +1,7 @@
 package dkeep.logic;
 
-public abstract class Behaviour {
+public interface Behaviour {
 
-	public Behaviour() {
-		// TODO Auto-generated constructor stub
-	}
-
+	public int[] getMovement();
+		
 }

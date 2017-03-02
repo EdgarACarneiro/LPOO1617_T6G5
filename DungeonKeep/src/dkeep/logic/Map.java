@@ -1,9 +1,15 @@
 package dkeep.logic;
 
 public abstract class Map {
-
-	public Map() {
-		// TODO Auto-generated constructor stub
+	
+	protected char[][] map;
+	
+	public abstract boolean isValid(int row, int col);
+	
+	public abstract boolean update(int row, int col);
+	
+	public char[][] getMap() {
+		return map;
 	}
-
+	
 }
