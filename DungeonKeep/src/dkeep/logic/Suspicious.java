@@ -49,12 +49,10 @@ public class Suspicious implements Behaviour {
 		
 		count += direction;
 		if (count < 0) {
-			invertDirection();
-			count = 0;
+			count = guard_mov.length-1;
 			return guard_mov[count];
 		} else if (count >= guard_mov.length) {
-			invertDirection();
-			count = guard_mov.length - 1;
+			count = 0;
 			return guard_mov[count];
 		} else {
 			return guard_mov[count];
