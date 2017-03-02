@@ -3,7 +3,7 @@ package dkeep.logic;
 public class Hero extends Character {
 	
 	public Hero(int[] initial_pos) {
-		super('H', initial_pos);
+		super(initial_pos, 'H', 'A');
 	}
 	
 	public Boolean isNear(int[] position) {
@@ -17,6 +17,7 @@ public class Hero extends Character {
 		return false;
 	}
 	
+	@Override
 	public Boolean move (int[] delta) {
 		Boolean result = super.move(delta);
 		

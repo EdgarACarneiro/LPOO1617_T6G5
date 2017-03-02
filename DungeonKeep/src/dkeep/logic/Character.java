@@ -1,31 +1,40 @@
 package dkeep.logic;
 import java.lang.IllegalArgumentException;
 
+
+// HANDLED!! semi?
 public abstract class Character {
-	public char symb;
-	public int[] pos;
+	private final char[] symbols;
+	private int symb_idx;
+	private int[] pos;
 	
-	public Character(char symbol, int[] initial_pos) {
+	public Character(int[] initial_pos, char...symb) {
 		if (initial_pos.length != 2)
 			throw new IllegalArgumentException("Invalid Position");
 		
-		symb = symbol;
-		pos = initial_pos;		
+		pos = initial_pos;
+		if (symb.length == 0) {
+			System.err.println("No symbol provided for character constructor. Using placeholder 'P'.");
+			symbols = new char[] {'P'};
+		} else {
+			symbols = symb;
+		}
+		
+		symb_idx = 0;		
 	}
 	
-	public Boolean move(int[] delta) {
-		char new_pos_char = Game.maps[Game.current_lvl][pos[0] + delta[0]][pos[1] + delta[1]];
-		
-		if (new_pos_char == 'X' || new_pos_char == 'I')
+	public abstract boolean update();
+	
+	public boolean setSymbIdx(int i) {
+		if (i >= 0 && i < symbols.length) {
+			symb_idx = i;
+			return true;
+		} else {
 			return false;
-		else {
-			pos[0] += delta[0];
-			pos[1] += delta[1];
 		}
-		return true;
 	}
 
 	public void draw(char[][] board) {
-		board[pos[0]][pos[1]] = symb;
+		board[pos[0]][pos[1]] = symbols[symb_idx];
 	}
 }

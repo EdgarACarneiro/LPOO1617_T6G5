@@ -2,7 +2,7 @@ package dkeep.logic;
 import java.util.Random;
 import java.lang.IllegalArgumentException;
 
-
+// HANDLED!!
 public class Suspicious implements Behaviour {
 	
 	private final static double CONST_PROB = 0.1;
