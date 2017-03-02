@@ -19,7 +19,8 @@ public class LevelOne extends Level {
 
 	@Override
 	public boolean update(int row, int col) {
-		hero.update(row, col)
+		hero.update(row, col);
+		guard.update();
 		
 		return map.update(hero.pos);
 	}

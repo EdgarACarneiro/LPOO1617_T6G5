@@ -30,9 +30,7 @@ public class DungeonMap extends Map {
 
 	private void openDoors() {
 		// TODO abrir todas as portas?
-
 		//doors_open = true;
-		
 		map[5][0] = 'S';
 		map[5][1] = 'S';
 	}
@@ -48,12 +46,11 @@ public class DungeonMap extends Map {
 		return (map[row][col] == 'B' || map[row][col] == 'S');
 	}
 
-
 	@Override
-	public boolean update(int row, int col) {
-		// TODO receives hero position, updates map accoringly (possibly unlock doors?)
-		// returns true when hero reaches winning position
-		return false;
+	public boolean update(int[] hero_pos) {
+		if (super.isWon(hero_pos))
+			return false;
+		return true;
 	}
 
 }

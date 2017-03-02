@@ -2,9 +2,9 @@ package dkeep.logic;
 import java.util.Random;
 
 public class Ogre extends Character {
-	private Random rand = new Random();
+	private static Random rand = new Random();
 	
-	private int[][] moves = {
+	private static final int[][] moves = {
 			{1, 0},
 			{-1, 0},
 			{0, 1},
@@ -14,20 +14,12 @@ public class Ogre extends Character {
 	public int[] club;
 
 	public Ogre(int[] initial_pos) {
-		super('O', initial_pos);
+		super(initial_pos, 'O');
 		club = new int[] {initial_pos[0]+1, initial_pos[1]};
 	}
 	
-	public int[] randomMove() {
+	public static int[] randomMove() {
 		return moves[rand.nextInt(moves.length)];
-	}
-	
-	public void overKey(Key key) {
-		if (((pos[0] == key.pos[0] && pos[1] ==key.pos[1]) || (club[0] == key.pos[0] && club[1] ==key.pos[1])) 
-				&& key.picked_up == false)
-			symb = '$';
-		else
-			symb = 'O';
 	}
 	
 	public void swingclub() {
@@ -37,13 +29,16 @@ public class Ogre extends Character {
 		club[1] = pos[1] + club_dir[1];
 	}
 	
-	public Boolean move (int[] delta) {
-		Boolean result = super.move(delta);
+	public void update() {
+		int[] tmp = randomMove();
+		pos[0] += tmp[0];
+		pos[1] += tmp[1];
 		swingclub();
-		return result;
 	}
 	
-	public void drawclub(char[][] board) {
+	@Override
+	public void draw(char[][] board) {
+		super.draw(board);
 		board[club[0]][club[1]] = '*';
 	}
 }
