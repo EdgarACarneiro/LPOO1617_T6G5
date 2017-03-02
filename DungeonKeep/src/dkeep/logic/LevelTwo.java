@@ -6,4 +6,16 @@ public class LevelTwo extends Level {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public boolean update(int row, int col) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Level nextLevel() {
+		// there's no next level - return null
+		return null;
+	}
+
 }
