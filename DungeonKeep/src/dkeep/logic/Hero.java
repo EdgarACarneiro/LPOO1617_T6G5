@@ -1,3 +1,5 @@
+package dkeep.logic;
+import dkeep.cli.Game;
 
 public class Hero extends Character {
 	
@@ -21,10 +23,10 @@ public class Hero extends Character {
 		
 		//If key was picked up, open door
 		if (!result) {
-			char new_pos_char = Board.maps[Board.current_lvl][pos[0]+ delta[0]][pos[1]+ delta[1]];	
+			char new_pos_char = Game.maps[Game.current_lvl][pos[0]+ delta[0]][pos[1]+ delta[1]];	
 			
-			if (new_pos_char == 'I' && Board.keys[Board.current_lvl].picked_up)
-				Board.maps[Board.current_lvl][pos[0] + delta[0]][pos[1] + delta[1]] = 'S';
+			if (new_pos_char == 'I' && Game.keys[Game.current_lvl].picked_up)
+				Game.maps[Game.current_lvl][pos[0] + delta[0]][pos[1] + delta[1]] = 'S';
 		}
 	
 		return result;

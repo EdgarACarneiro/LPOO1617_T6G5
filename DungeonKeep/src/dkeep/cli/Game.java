@@ -1,7 +1,13 @@
+package dkeep.cli;
 import java.util.Scanner;
 
+import dkeep.logic.Guard;
+import dkeep.logic.Hero;
+import dkeep.logic.Key;
+import dkeep.logic.Ogre;
 
-public class Board {
+
+public class Game {
 	public final static char[][] map1 = {
 		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
 		{'X', 'B', 'B', 'B', 'I', 'B', 'X', 'B', 'B', 'X'},

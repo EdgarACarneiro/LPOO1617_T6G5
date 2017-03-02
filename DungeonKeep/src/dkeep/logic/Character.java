@@ -1,6 +1,9 @@
+package dkeep.logic;
 import java.lang.IllegalArgumentException;
 
-public class Character {
+import dkeep.cli.Game;
+
+public abstract class Character {
 	public char symb;
 	public int[] pos;
 	
@@ -13,7 +16,7 @@ public class Character {
 	}
 	
 	public Boolean move(int[] delta) {
-		char new_pos_char = Board.maps[Board.current_lvl][pos[0] + delta[0]][pos[1] + delta[1]];
+		char new_pos_char = Game.maps[Game.current_lvl][pos[0] + delta[0]][pos[1] + delta[1]];
 		
 		if (new_pos_char == 'X' || new_pos_char == 'I')
 			return false;
