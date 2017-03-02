@@ -1,5 +1,6 @@
 package dkeep.logic;
 
+// TODO
 public class OgreMap {
 
 	private final char[][] map = {
