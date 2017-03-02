@@ -1,5 +1,6 @@
 package dkeep.logic;
 
+// HANDLED!! semi?
 public class DungeonMap extends Map {
 
 	private final char[][] map = {
@@ -15,24 +16,22 @@ public class DungeonMap extends Map {
 			{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
 		};
 	
-	private boolean doors_open = false;
+	//private boolean doors_open = false;
 	
-	private static int[] key_pos = {8, 7};
+	private static final int[] key_pos = {8, 7};
 	
-	private static int[][] victory_pos = {
-			{5, 0}, {6, 0}
-	};
+	public static final int[] hero_pos = {1, 1};	// initial hero position
 	
-	private static int[] hero_pos = {1, 1};	// initial hero position
+	public static final int[] guard_pos = {1, 8};
 	
 	public DungeonMap() {
-		// TODO Auto-generated constructor stub
+		super.setVictoryPos(new int[][] {{5, 0}, {6, 0}});
 	}
 
 	private void openDoors() {
 		// TODO abrir todas as portas?
 
-		doors_open = true;
+		//doors_open = true;
 		
 		map[5][0] = 'S';
 		map[5][1] = 'S';
@@ -46,7 +45,7 @@ public class DungeonMap extends Map {
 
 	@Override
 	public boolean isValid(int row, int col) {
-		return map[row][col] == 'B' || map[row][col] == 'S';
+		return (map[row][col] == 'B' || map[row][col] == 'S');
 	}
 
 

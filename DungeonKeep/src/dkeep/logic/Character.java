@@ -1,12 +1,14 @@
 package dkeep.logic;
 import java.lang.IllegalArgumentException;
+import java.lang.Math;
 
 
 // HANDLED!! semi?
 public abstract class Character {
+	
 	private final char[] symbols;
 	private int symb_idx;
-	private int[] pos;
+	protected int[] pos;
 	
 	public Character(int[] initial_pos, char...symb) {
 		if (initial_pos.length != 2)
@@ -23,7 +25,23 @@ public abstract class Character {
 		symb_idx = 0;		
 	}
 	
-	public abstract boolean update();
+//	public abstract boolean update();
+//	
+//	public abstract boolean update(int[] delta);
+	
+	public boolean isAdjacent(Character c) {
+		if ( Math.abs(this.pos[0] - c.pos[0]) <= 1 && this.pos[1] == c.pos[1] ||
+				Math.abs(this.pos[1] - c.pos[1]) <= 1 && this.pos[0] == c.pos[1] ) {
+			System.out.println("Characters adjacents: " + this.getSymb() + " " + c.getSymb());
+			return true;
+		}
+		else
+			return false;
+	}
+	
+	public boolean isAt(int[] pos) {
+		return (this.pos.equals(pos));
+	}
 	
 	public boolean setSymbIdx(int i) {
 		if (i >= 0 && i < symbols.length) {
@@ -34,7 +52,15 @@ public abstract class Character {
 		}
 	}
 
+	public void nextSymb() {
+		symb_idx = (symb_idx + 1) % symbols.length;
+	}
+	
 	public void draw(char[][] board) {
-		board[pos[0]][pos[1]] = symbols[symb_idx];
+		board[pos[0]][pos[1]] = this.getSymb();
+	}
+	
+	private char getSymb() {
+		return symbols[symb_idx];
 	}
 }
