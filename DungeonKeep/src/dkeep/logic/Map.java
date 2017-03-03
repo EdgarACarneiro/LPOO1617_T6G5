@@ -1,30 +1,38 @@
 package dkeep.logic;
 
+import java.util.Arrays;
+
 public abstract class Map {
 	
 	protected char[][] map;
 	
-	private int[][] victory_pos;
+	protected char[] valid_symbs;
 	
+	private int[][] victory_pos;
+		
 	protected void setVictoryPos(int[][] positions) {
 		victory_pos = positions;
 	}
-	
-	public abstract boolean isValid(int row, int col);
-	
-	public abstract boolean update(int[] hero_pos);
-	
+			
 	public final char[][] getMap() {
 		return map;
 	}
 	
-	protected boolean isWon(int[] hero_pos) {
-		for (int[] pos : victory_pos) {
-			if (hero_pos.equals(pos))
+	public boolean isValid(int row, int col) {
+		for (char c : valid_symbs)
+			if (map[row][col] == c)
 				return true;
+		return false;
+	}
+	
+	// Returns false when game is over (hero reached victory position)
+	public boolean update(int[] hero_pos) {
+		for (int[] v_pos : victory_pos) {
+			if (Arrays.equals(v_pos, hero_pos))
+				return false;
 		}
-		
-		return false;		
+				
+		return true;		
 	}
 	
 }

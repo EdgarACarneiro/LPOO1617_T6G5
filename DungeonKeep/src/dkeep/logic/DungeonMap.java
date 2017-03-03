@@ -1,13 +1,14 @@
 package dkeep.logic;
 
-// HANDLED!! semi?
+import java.util.Arrays;
+
 public class DungeonMap extends Map {
 	
-	//private boolean doors_open = false;
+	private boolean doors_open = false;
 	
-	private static final int[] key_pos = {8, 7};
+	private static final int[] lever_pos = {8, 7};
 	
-	public static final int[] hero_pos = {1, 1};	// initial hero position
+	public static final int[] hero_pos = {7, 8};	// initial hero position TODO change
 	
 	public static final int[] guard_pos = {1, 8};	// initial guard position
 	
@@ -23,30 +24,31 @@ public class DungeonMap extends Map {
 				{'I', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'X'},
 				{'I', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'X'},
 				{'X', 'X', 'X', 'B', 'X', 'X', 'X', 'X', 'B', 'X'},
-				{'X', 'B', 'I', 'B', 'I', 'B', 'X', 'B', 'B', 'X'},
+				{'X', 'B', 'I', 'B', 'I', 'B', 'X', 'k', 'B', 'X'},
 				{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
 			};
-
+			
+		this.valid_symbs = new char[] {'B', 'S', 'k'};
 	}
 
-	private void openDoors() {
-		// TODO abrir todas as portas?
-		//doors_open = true;
-		map[5][0] = 'S';
-		map[5][1] = 'S';
+	private void openDoors() {		
+		if (doors_open)
+			return;
+		
+		for (int r = 0; r < map.length; r++)
+			for (int c = 0; c < map[r].length; c++)
+				if (map[r][c] == 'I')
+					map[r][c] = 'S';
+		
+		doors_open = true;
 	}
 	
-
-	@Override
-	public boolean isValid(int row, int col) {
-		return (map[row][col] == 'B' || map[row][col] == 'S');
-	}
-
 	@Override
 	public boolean update(int[] hero_pos) {
-		if (super.isWon(hero_pos))
-			return true;
-		return false;
+		if (Arrays.equals(lever_pos, hero_pos))
+			this.openDoors();
+		
+		return super.update(hero_pos);		
 	}
 
 }
