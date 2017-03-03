@@ -14,7 +14,7 @@ public abstract class Map {
 	
 	public abstract boolean update(int[] hero_pos);
 	
-	public char[][] getMap() {
+	public final char[][] getMap() {
 		return map;
 	}
 	

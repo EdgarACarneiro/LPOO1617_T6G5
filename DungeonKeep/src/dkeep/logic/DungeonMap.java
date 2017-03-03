@@ -2,19 +2,6 @@ package dkeep.logic;
 
 // HANDLED!! semi?
 public class DungeonMap extends Map {
-
-	private final char[][] map = {
-			{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
-			{'X', 'B', 'B', 'B', 'I', 'B', 'X', 'B', 'B', 'X'},
-			{'X', 'X', 'X', 'B', 'X', 'X', 'X', 'B', 'B', 'X'},
-			{'X', 'B', 'I', 'B', 'I', 'B', 'X', 'B', 'B', 'X'},
-			{'X', 'X', 'X', 'B', 'X', 'X', 'X', 'B', 'B', 'X'},
-			{'I', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'X'},
-			{'I', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'X'},
-			{'X', 'X', 'X', 'B', 'X', 'X', 'X', 'X', 'B', 'X'},
-			{'X', 'B', 'I', 'B', 'I', 'B', 'X', 'B', 'B', 'X'},
-			{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
-		};
 	
 	//private boolean doors_open = false;
 	
@@ -26,6 +13,20 @@ public class DungeonMap extends Map {
 	
 	public DungeonMap() {
 		super.setVictoryPos(new int[][] {{5, 0}, {6, 0}});
+		
+		this.map = new char[][] {
+				{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
+				{'X', 'B', 'B', 'B', 'I', 'B', 'X', 'B', 'B', 'X'},
+				{'X', 'X', 'X', 'B', 'X', 'X', 'X', 'B', 'B', 'X'},
+				{'X', 'B', 'I', 'B', 'I', 'B', 'X', 'B', 'B', 'X'},
+				{'X', 'X', 'X', 'B', 'X', 'X', 'X', 'B', 'B', 'X'},
+				{'I', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'X'},
+				{'I', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'X'},
+				{'X', 'X', 'X', 'B', 'X', 'X', 'X', 'X', 'B', 'X'},
+				{'X', 'B', 'I', 'B', 'I', 'B', 'X', 'B', 'B', 'X'},
+				{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
+			};
+
 	}
 
 	private void openDoors() {

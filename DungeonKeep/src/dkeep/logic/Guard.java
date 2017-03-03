@@ -9,7 +9,7 @@ public class Guard extends Character {
 		super(initial_pos, 'G', 'g');
 		
 		Random rand = new Random();
-		switch (rand.nextInt(3)) {
+		switch (rand.nextInt(1)) {
 		case 0:
 			strategy = new Drunken();
 			break;
