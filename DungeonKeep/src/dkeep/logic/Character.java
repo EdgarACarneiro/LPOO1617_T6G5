@@ -30,9 +30,10 @@ public abstract class Character {
 //	public boolean update(int[] delta);
 	
 	public boolean isAdjacent(Character c) {
-		if ( Math.abs(this.pos[0] - c.pos[0]) <= 1 && this.pos[1] == c.pos[1] ||
-				Math.abs(this.pos[1] - c.pos[1]) <= 1 && this.pos[0] == c.pos[1] ) {
-			System.out.println("Characters adjacents: " + this.getSymb() + " " + c.getSymb());
+		
+		if ( (Math.abs(this.pos[0] - c.pos[0]) <= 1 && this.pos[1] == c.pos[1]) ||
+				(Math.abs(this.pos[1] - c.pos[1]) <= 1 && this.pos[0] == c.pos[0]) ) {
+			System.out.println("Characters adjacents: " + this.getSymb() + " " +  c.getSymb());
 			return true;
 		}
 		else
