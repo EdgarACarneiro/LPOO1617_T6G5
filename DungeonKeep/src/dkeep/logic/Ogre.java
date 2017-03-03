@@ -11,7 +11,7 @@ public class Ogre extends Character {
 			{0, -1}
 	};
 	
-	public int[] club;
+	private int[] club;
 
 	public Ogre(int[] initial_pos) {
 		super(initial_pos, 'O');
@@ -22,7 +22,7 @@ public class Ogre extends Character {
 		return moves[rand.nextInt(moves.length)];
 	}
 	
-	public void swingClub() {
+	private void swingClub() {
 		int[] club_dir = randomMove();
 		
 		club[0] = pos[0] + club_dir[0];

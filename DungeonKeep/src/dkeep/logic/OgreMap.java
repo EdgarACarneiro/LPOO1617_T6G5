@@ -1,15 +1,15 @@
 package dkeep.logic;
 
+import java.util.Arrays;
+
 // TODO
 public class OgreMap extends Map{
-
-	//private boolean doors_open = false;
 	
-	private static int[] key_pos = {1, 8};
+	public static final int[] ogre_pos = {1, 4};
+	public static final int[] hero_pos = {7, 1};	// initial hero position
 	
-	public static int[] ogre_pos = {1, 4};
-	
-	public static int[] hero_pos = {7, 1};	// initial hero position
+	private int[] key_pos = {1, 8};
+	private boolean key_found = false;
 	
 	public OgreMap() {
 		super.setVictoryPos(new int[][] {{1, 0}});
@@ -26,17 +26,23 @@ public class OgreMap extends Map{
 			{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
 		};
 	}
-
-	public void openDoors() {
-		//doors_open = true;
+	
+	@Override
+	public char[][] getMap() {
+		char[][] ret = super.getMap();
 		
-		//map[1][0] = 'S';
+		if (! key_found)
+			ret[key_pos[0]][key_pos[1]] = 'k';
+		
+		return ret;
 	}
 	
 	@Override
-	public boolean isValid(int row, int col) {
-		return (map[row][col] == 'B' || map[row][col] == 'S');
+	public boolean update(int[] hero_pos) {
+		if (Arrays.equals(key_pos, hero_pos))
+			key_found = true;
+		
+		return super.update(hero_pos);
 	}
-
 
 }

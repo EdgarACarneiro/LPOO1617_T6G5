@@ -14,7 +14,7 @@ public abstract class Map {
 		victory_pos = positions;
 	}
 			
-	public final char[][] getMap() {
+	public char[][] getMap() {
 		return map;
 	}
 	

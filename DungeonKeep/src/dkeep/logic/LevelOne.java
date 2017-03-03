@@ -8,8 +8,8 @@ public class LevelOne extends Level {
 	
 	public LevelOne() {
 		map = new DungeonMap();
-		hero = new Hero(map.hero_pos);
-		guard = new Guard(map.guard_pos);
+		hero = new Hero(DungeonMap.hero_pos);
+		guard = new Guard(DungeonMap.guard_pos);
 	}
 
 	@Override
