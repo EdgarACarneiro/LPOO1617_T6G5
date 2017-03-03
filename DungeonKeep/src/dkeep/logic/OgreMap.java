@@ -38,11 +38,13 @@ public class OgreMap extends Map{
 	}
 	
 	@Override
-	public boolean update(int[] hero_pos) {
-		if (Arrays.equals(key_pos, hero_pos))
+	public boolean update(Hero hero) {
+		if (Arrays.equals(key_pos, hero.pos))
 			key_found = true;
 		
-		return super.update(hero_pos);
+		//if (hero.isAdjacent(victory_pos))
+		
+		return super.update(hero);
 	}
 
 }

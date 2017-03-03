@@ -38,13 +38,20 @@ public abstract class Character {
 		
 		if ( (Math.abs(this.pos[0] - c.pos[0]) <= 1 && this.pos[1] == c.pos[1]) ||
 				(Math.abs(this.pos[1] - c.pos[1]) <= 1 && this.pos[0] == c.pos[0]) ) {
-			System.out.println("Characters adjacents: " + this.getSymb() + " " +  c.getSymb());
 			return true;
 		}
 		else
 			return false;
 	}
 	
+	public boolean isAdjacent(int[] pos) {
+		if ( (Math.abs(this.pos[0] - pos[0]) <= 1 && this.pos[1] == pos[1]) ||
+				(Math.abs(this.pos[1] - pos[1]) <= 1 && this.pos[0] == pos[0]) ) {
+			return true;
+		}
+		else
+			return false;
+	}
 	
 	public boolean isAt(int[] pos) {
 		return (this.pos.equals(pos));

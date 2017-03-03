@@ -26,9 +26,9 @@ public abstract class Map {
 	}
 	
 	// Returns false when game is over (hero reached victory position)
-	public boolean update(int[] hero_pos) {
+	public boolean update(Hero hero) {
 		for (int[] v_pos : victory_pos) {
-			if (Arrays.equals(v_pos, hero_pos))
+			if (Arrays.equals(v_pos, hero.pos))
 				return false;
 		}
 				

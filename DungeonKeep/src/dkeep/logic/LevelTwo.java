@@ -38,7 +38,7 @@ public class LevelTwo extends Level {
 			}			
 		}
 		
-		if (map.update(hero.pos)) {
+		if (map.update(hero)) {
 			return state.RUNNING;
 		} else {
 			System.out.println("You Won!!");

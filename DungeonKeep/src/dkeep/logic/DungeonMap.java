@@ -42,11 +42,11 @@ public class DungeonMap extends Map {
 	}
 	
 	@Override
-	public boolean update(int[] hero_pos) {
-		if (Arrays.equals(lever_pos, hero_pos))
+	public boolean update(Hero hero) {
+		if (Arrays.equals(lever_pos, hero.pos))
 			this.openDoors();
 		
-		return super.update(hero_pos);		
+		return super.update(hero);		
 	}
 
 }
