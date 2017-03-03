@@ -7,7 +7,7 @@ public class Drunken implements Behaviour {
 	
 	private final static double CONST_PROB1 = 0.2;
 	private final static double CONST_PROB2 = 0.4;
-	private final static int[] NO_MOVE = {0, 0};
+	//private final static int[] NO_MOVE = {0, 0};
 	
 	private final static int[][] guard_mov = { 
 			{ 0, -1}, { 1,  0}, { 1,  0}, { 1,  0}, { 1,  0},
@@ -56,13 +56,13 @@ public class Drunken implements Behaviour {
 		// Randomly falls asleep
 		if (rand.nextDouble() < probSleep) {
 			asleep = true;
-			return NO_MOVE;
+			return null;
 		}
 		
 		// Check if still sleeping
 		if (asleep)
 			if (rand.nextDouble() < probWake)
-				return NO_MOVE;
+				return null;
 		
 		//Waked up -> Might change direction
 		asleep = false;

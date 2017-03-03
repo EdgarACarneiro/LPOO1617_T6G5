@@ -7,9 +7,9 @@ public class LevelTwo extends Level {
 	}
 
 	@Override
-	public boolean update(int row, int col, boolean running) {
+	public state update(int row, int col) {
 		// TODO Auto-generated method stub
-		return false;
+		return state.RUNNING;
 	}
 
 	@Override

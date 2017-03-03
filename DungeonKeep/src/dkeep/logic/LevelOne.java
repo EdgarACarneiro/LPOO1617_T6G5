@@ -18,16 +18,21 @@ public class LevelOne extends Level {
 	}
 
 	@Override
-	public boolean update(int row, int col, boolean running) {
+	public state update(int row, int col) {
 		if (map.isValid(hero.pos[0]+row, hero.pos[1]+col))
 			hero.update(row, col);
 		guard.update();
-		draw();		//TODO: Check -> Shouldnt be draw Game on cli?
 		
-		if (hero.isAdjacent(guard))
-			running = false;
-		
-		return map.update(hero.pos);
+		if (hero.isAdjacent(guard)) {
+			System.out.println("You lost...");
+			return state.LOST;
+		} else if (! map.update(hero.pos)) {
+			return state.RUNNING;
+		} else {
+			System.out.println("You Won!!");
+			return state.WON;
+		}
+			
 	}
 	
 	@Override
