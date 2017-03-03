@@ -30,12 +30,6 @@ public class OgreMap {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-
-	public char[][] getMap() {
-		return map;
-	}
-
 	public void openDoors() {
 		doors_open = true;
 		

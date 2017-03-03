@@ -22,7 +22,7 @@ public class DungeonMap extends Map {
 	
 	public static final int[] hero_pos = {1, 1};	// initial hero position
 	
-	public static final int[] guard_pos = {1, 8};
+	public static final int[] guard_pos = {1, 8};	// initial guard position
 	
 	public DungeonMap() {
 		super.setVictoryPos(new int[][] {{5, 0}, {6, 0}});
@@ -33,11 +33,6 @@ public class DungeonMap extends Map {
 		//doors_open = true;
 		map[5][0] = 'S';
 		map[5][1] = 'S';
-	}
-	
-	@Override
-	public char[][] getMap() {
-		return map;
 	}
 	
 
