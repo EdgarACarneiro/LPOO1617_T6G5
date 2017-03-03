@@ -6,6 +6,8 @@ import java.lang.Math;
 // HANDLED!! semi?
 public abstract class Character {
 	
+	protected boolean active;
+	
 	private final char[] symbols;
 	private int symb_idx;
 	protected int[] pos;
@@ -14,6 +16,7 @@ public abstract class Character {
 		if (initial_pos.length != 2)
 			throw new IllegalArgumentException("Invalid Position");
 		
+		active = true;
 		pos = initial_pos;
 		if (symb.length == 0) {
 			System.err.println("No symbol provided for character constructor. Using placeholder 'P'.");
@@ -22,7 +25,7 @@ public abstract class Character {
 			symbols = symb;
 		}
 		
-		symb_idx = 0;		
+		symb_idx = 0;
 	}
 	
 //	public abstract boolean update();
@@ -63,5 +66,15 @@ public abstract class Character {
 	
 	private char getSymb() {
 		return symbols[symb_idx];
+	}
+	
+	public void setInactive() {
+		this.active = false;
+		this.setSymbIdx(1);
+	}
+	
+	public void setActive() {
+		this.active = true;
+		this.setSymbIdx(0);
 	}
 }

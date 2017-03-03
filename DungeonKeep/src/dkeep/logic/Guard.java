@@ -28,7 +28,7 @@ public class Guard extends Character {
 		int[] tmp = strategy.getMovement();
 		
 		if (tmp == null) {
-			this.nextSymb();
+			this.setInactive();
 		} else {
 			pos[0] += tmp[0];
 			pos[1] += tmp[1];	

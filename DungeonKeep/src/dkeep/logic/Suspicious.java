@@ -39,6 +39,7 @@ public class Suspicious implements Behaviour {
 
 	private int invertDirection() {
 		direction *= -1;
+		count -= direction; // revert last move
 		return direction;
 	}
 
@@ -50,9 +51,9 @@ public class Suspicious implements Behaviour {
 			
 			System.out.println("Inverted direction.");
 			
-		} else {
-			count += direction;
 		}
+		
+		count += direction;
 		
 		if (count < 0)
 			count = guard_mov.length-1;

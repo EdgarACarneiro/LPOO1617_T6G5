@@ -5,9 +5,9 @@ import java.lang.IllegalArgumentException;
 
 public class Drunken implements Behaviour {
 	
-	private final static double CONST_PROB1 = 0.2;
-	private final static double CONST_PROB2 = 0.4;
-	//private final static int[] NO_MOVE = {0, 0};
+	private final static double CONST_PROB_SLEEP = 0.1;
+	private final static double CONST_PROB_WAKE = 0.5;
+	private final static double CONST_PROB_INVERT = 0.7;
 	
 	private final static int[][] guard_mov = { 
 			{ 0, -1}, { 1,  0}, { 1,  0}, { 1,  0}, { 1,  0},
@@ -17,12 +17,12 @@ public class Drunken implements Behaviour {
 			{-1,  0}, {-1,  0}, {-1,  0}, {-1,  0}
 	};
 	
+	private boolean asleep;
 	private int direction;
 	private int count;
 	private double probSleep;		// probability of falling asleep
 	private double probWake;		// probability of waking up, if asleep
-	private double probDirection;	// probability of inverting direction
-	private boolean asleep;
+	private double probInvert;		// probability of inverting direction
 		
 	private Random rand = new Random();
 	
@@ -30,24 +30,26 @@ public class Drunken implements Behaviour {
 		System.out.print("Drunken Guard!\n");
 		direction = 1;
 		count = -1;
-		probSleep = CONST_PROB1;
-		probWake = CONST_PROB2;
-		probDirection = CONST_PROB2;
+		probSleep = CONST_PROB_SLEEP;
+		probWake = CONST_PROB_WAKE;
+		probInvert = CONST_PROB_INVERT;
 		asleep = false;
 	}
 	
-	public Drunken(double prob_sleep, double prob_dir) {
+	public Drunken(double prob_sleep, double prob_wake, double prob_inv) {
 		this();
 
-		if (prob_dir > 1 || prob_dir < 0 || prob_sleep > 1 || prob_sleep < 0)
+		if ( prob_sleep > 1 || prob_sleep < 0 || prob_wake > 1 || prob_wake < 0 || prob_inv > 1 || prob_inv < 0 )
 			throw new IllegalArgumentException("Probability must be in range [0, 1]");
 		
 		probSleep = prob_sleep;
-		probDirection = prob_dir;
+		probWake = prob_wake;
+		probInvert = prob_inv;
 	}
 	
 	private int invertDirection() {
 		direction *= -1;
+		count -= direction;
 		return direction;
 	}
 
@@ -60,22 +62,16 @@ public class Drunken implements Behaviour {
 		}
 		
 		// Check if still sleeping
-		if (asleep)
-			if (rand.nextDouble() < probWake)
+		if (asleep) {
+			if (rand.nextDouble() < (1 - probWake))
 				return null;
-		
-		//Waked up -> Might change direction
-		asleep = false;
-		if (rand.nextDouble() < probDirection) {
-			invertDirection();
-			
-			//Because we want him to reverse the last move and not the next move
-			if (direction == -1)
-				++count;
-			else --count;
+
+			if (rand.nextDouble() < probInvert)
+				invertDirection();
 		}
 		
 		count += direction;
+		
 		if (count < 0)
 			count = guard_mov.length-1;
 		else if (count >= guard_mov.length)
