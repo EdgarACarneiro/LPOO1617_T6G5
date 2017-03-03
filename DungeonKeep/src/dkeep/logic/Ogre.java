@@ -22,18 +22,26 @@ public class Ogre extends Character {
 		return moves[rand.nextInt(moves.length)];
 	}
 	
-	public void swingclub() {
+	public void swingClub() {
 		int[] club_dir = randomMove();
 		
 		club[0] = pos[0] + club_dir[0];
 		club[1] = pos[1] + club_dir[1];
 	}
 	
-	public void update() {
-		int[] tmp = randomMove();
-		pos[0] += tmp[0];
-		pos[1] += tmp[1];
-		swingclub();
+	public void update(Map map) {
+		int[] tmp;
+		int[] new_pos = new int[2];
+		
+		do {
+			tmp = randomMove();
+			new_pos[0] = pos[0] + tmp[0];
+			new_pos[1] = pos[1] + tmp[1];
+		} while (! map.isValid(new_pos[0], new_pos[1]));
+
+		do {
+			swingClub();
+		} while(! map.isValid(club[0], club[1]));
 	}
 	
 	@Override

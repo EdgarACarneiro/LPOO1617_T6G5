@@ -8,7 +8,7 @@ public class DungeonMap extends Map {
 	
 	private static final int[] lever_pos = {8, 7};
 	
-	public static final int[] hero_pos = {7, 8};	// initial hero position TODO change
+	public static final int[] hero_pos = {1, 1};	// initial hero position
 	
 	public static final int[] guard_pos = {1, 8};	// initial guard position
 	
