@@ -30,6 +30,7 @@ public class Guard extends Character {
 		if (tmp == null) {
 			this.setInactive();
 		} else {
+			this.setActive();
 			pos[0] += tmp[0];
 			pos[1] += tmp[1];	
 		}

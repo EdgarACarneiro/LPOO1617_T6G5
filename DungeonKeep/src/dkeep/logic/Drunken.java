@@ -5,7 +5,7 @@ import java.lang.IllegalArgumentException;
 
 public class Drunken implements Behaviour {
 	
-	private final static double CONST_PROB_SLEEP = 0.1;
+	private final static double CONST_PROB_SLEEP = 0.2;
 	private final static double CONST_PROB_WAKE = 0.5;
 	private final static double CONST_PROB_INVERT = 0.7;
 	
@@ -63,9 +63,12 @@ public class Drunken implements Behaviour {
 		
 		// Check if still sleeping
 		if (asleep) {
+			// Continue sleeping ?
 			if (rand.nextDouble() < (1 - probWake))
 				return null;
 
+			// Wake-up
+			asleep = false;
 			if (rand.nextDouble() < probInvert)
 				invertDirection();
 		}
