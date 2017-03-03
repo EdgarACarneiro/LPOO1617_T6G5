@@ -12,7 +12,7 @@ public class Suspicious implements Behaviour {
 			{ 0, -1}, { 0, -1}, { 0, -1}, { 0, -1}, { 0, -1},
 			{ 0, -1}, { 1,  0}, { 0,  1}, { 0,  1}, { 0,  1},
 			{ 0,  1}, { 0,  1}, { 0,  1}, { 0,  1}, {-1,  0},
-			{-1,  0}, {-1,  0}, {-1,  0}, {-1,  0}, {-1,  0}
+			{-1,  0}, {-1,  0}, {-1,  0}, {-1,  0}
 	};
 	
 	private int direction;
@@ -24,7 +24,7 @@ public class Suspicious implements Behaviour {
 	public Suspicious() {
 		System.out.print("Suspicious Guard!\n");
 		direction = 1;
-		count = 0;
+		count = -1;
 		probability = CONST_PROB;
 	}
 	
