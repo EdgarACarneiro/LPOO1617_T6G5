@@ -6,7 +6,7 @@ public abstract class Map {
 	
 	protected char[][] map;
 	
-	protected char[] valid_symbs;
+	protected char[] valid_symbs = {'B', 'S', 'k'};
 	
 	private int[][] victory_pos;
 		

@@ -27,8 +27,6 @@ public class DungeonMap extends Map {
 				{'X', 'B', 'I', 'B', 'I', 'B', 'X', 'k', 'B', 'X'},
 				{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
 			};
-			
-		this.valid_symbs = new char[] {'B', 'S', 'k'};
 	}
 
 	private void openDoors() {		
