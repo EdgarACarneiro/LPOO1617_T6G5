@@ -42,6 +42,6 @@ public final class Game {
 		if ( ret == Level.state.WON )
 			level = level.nextLevel();
 		
-		return ((level != null) && ret == Level.state.RUNNING);
+		return ((level != null) && ret != Level.state.LOST);
 	}
 }

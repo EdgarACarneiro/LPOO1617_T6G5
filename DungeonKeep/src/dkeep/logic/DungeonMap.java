@@ -46,7 +46,7 @@ public class DungeonMap extends Map {
 		if (Arrays.equals(lever_pos, hero.pos))
 			this.openDoors();
 		
-		return super.update(hero);		
+		return super.update(hero);
 	}
 
 }

@@ -1,8 +1,6 @@
 package dkeep.logic;
-
 import java.util.Arrays;
 
-// TODO
 public class OgreMap extends Map{
 	
 	public static final int[] ogre_pos = {1, 4};
@@ -42,7 +40,10 @@ public class OgreMap extends Map{
 		if (Arrays.equals(key_pos, hero.pos))
 			key_found = true;
 		
-		//if (hero.isAdjacent(victory_pos))
+		for (int[] cell : hero.adjacentCells()) {
+			if (map[cell[0]][cell[1]] == 'I')
+				map[cell[0]][cell[1]] = 'S';
+		}
 		
 		return super.update(hero);
 	}
