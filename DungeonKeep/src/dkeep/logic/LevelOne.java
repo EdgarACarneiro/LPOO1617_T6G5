@@ -23,12 +23,16 @@ public class LevelOne extends Level {
 			hero.update(row, col);
 		guard.update();
 		
-		if (hero.isAdjacent(guard))
+		if (hero.isAdjacent(guard)) {
+			System.out.println("You lost...");
 			return state.LOST;
-		else if (map.update(hero.pos))
+		} else if (! map.update(hero.pos)) {
 			return state.RUNNING;
-		else
+		} else {
+			System.out.println("You Won!!");
 			return state.WON;
+		}
+			
 	}
 	
 	@Override

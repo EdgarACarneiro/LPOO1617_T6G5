@@ -16,6 +16,8 @@ public final class Game {
 
 	private static boolean updateGame() {
 		
+		level.draw();
+		
 		String s = input.next();
 		int[] hero_move = {0, 0};
 		
@@ -37,7 +39,6 @@ public final class Game {
 		}
 		
 		Level.state ret = level.update(hero_move[0], hero_move[1]);
-		level.draw();
 		if ( ret == Level.state.WON )
 			level = level.nextLevel();
 		

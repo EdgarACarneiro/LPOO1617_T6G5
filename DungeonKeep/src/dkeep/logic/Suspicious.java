@@ -48,13 +48,12 @@ public class Suspicious implements Behaviour {
 		if (rand.nextDouble() < probability) {
 			invertDirection();
 			
-			//Because we want him to reverse the last move and not the next move
-			if (direction == -1)
-				++count;
-			else --count;
+			System.out.println("Inverted direction.");
+			
+		} else {
+			count += direction;
 		}
 		
-		count += direction;
 		if (count < 0)
 			count = guard_mov.length-1;
 		else if (count >= guard_mov.length)
@@ -62,7 +61,7 @@ public class Suspicious implements Behaviour {
 		
 		
 		if (direction == -1) {
-			final int[] reverse = new int[2];
+			int[] reverse = new int[2];
 			reverse[0] = -guard_mov[count][0];
 			reverse[1] = -guard_mov[count][1];
 			return reverse;
