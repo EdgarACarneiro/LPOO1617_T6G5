@@ -4,12 +4,10 @@ import dkeep.logic.*;
 
 public final class Game {
 
-	private static boolean running;
 	private static Level level;
 	private static Scanner input;
 	
 	public static void main(String[] args) {
-		running = true;
 		level = new LevelOne();
 		input = new Scanner(System.in);
 		
@@ -38,11 +36,10 @@ public final class Game {
 			System.out.println("Invalid input! Was: " + s);
 		}
 		
-		
-		if (level.update(hero_move[0], hero_move[1], running))
+		Level.state ret = level.update(hero_move[0], hero_move[1]);
+		if ( ret == Level.state.WON )
 			level = level.nextLevel();
-				
 		
-		return ((level != null) && running);
+		return ((level != null) && ret == Level.state.RUNNING);
 	}
 }
