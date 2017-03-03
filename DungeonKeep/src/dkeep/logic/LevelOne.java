@@ -18,11 +18,43 @@ public class LevelOne extends Level {
 	}
 
 	@Override
-	public boolean update(int row, int col) {
-		hero.update(row, col);
+	public boolean update(int row, int col, boolean running) {
+		if (map.isValid(hero.pos[0]+row, hero.pos[1]+col))
+			hero.update(row, col);
 		guard.update();
+		draw();		//TODO: Check -> Shouldnt be draw Game on cli?
+		
+		if (hero.isAdjacent(guard))
+			running = false;
 		
 		return map.update(hero.pos);
+	}
+	
+	@Override
+	public void draw() {
+		
+		// Creating a modifiable version of the map
+		char[][] map_copy = new char[map.getMap().length][map.getMap()[0].length];
+		
+		for (int i = 0; i < map.getMap().length; ++i)
+			for (int j = 0; j < map.getMap()[i].length; ++j)
+				map_copy[i][j] = map.getMap()[i][j];
+		
+		hero.draw(map_copy);
+		guard.draw(map_copy);
+		
+		// Printing the modified map
+		for (char[] s : map_copy) {
+			for (char c : s) {
+				if (c == 'B')
+					System.out.print("  ");
+				else
+					System.out.print(c + " ");
+			}
+			System.out.println();
+		}
+		
+		
 	}
 
 }

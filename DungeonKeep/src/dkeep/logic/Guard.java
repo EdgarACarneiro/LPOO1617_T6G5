@@ -1,7 +1,6 @@
 package dkeep.logic;
 import java.util.Random;
 
-// HANDLED!! semi?
 public class Guard extends Character {
 	
 	private Behaviour strategy;
@@ -10,7 +9,7 @@ public class Guard extends Character {
 		super(initial_pos, 'G', 'g');
 		
 		Random rand = new Random();
-		switch (rand.nextInt(1)) {	// TODO alterar para 3 depois de implementar restantes behaviours
+		switch (rand.nextInt(3)) {
 		case 0:
 			strategy = new Drunken();
 			break;
@@ -29,7 +28,7 @@ public class Guard extends Character {
 		int[] tmp = strategy.getMovement();
 		
 		pos[0] += tmp[0];
-		pos[1] += tmp[1];		
+		pos[1] += tmp[1];
 	}
 
 }

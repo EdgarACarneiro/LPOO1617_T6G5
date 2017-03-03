@@ -7,7 +7,7 @@ public class LevelTwo extends Level {
 	}
 
 	@Override
-	public boolean update(int row, int col) {
+	public boolean update(int row, int col, boolean running) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -16,6 +16,11 @@ public class LevelTwo extends Level {
 	public Level nextLevel() {
 		// there's no next level - return null
 		return null;
+	}
+	
+	@Override
+	public void draw() {
+		
 	}
 
 }

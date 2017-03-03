@@ -10,4 +10,5 @@ public class Hero extends Character {
 		pos[0] += row;
 		pos[1] += col;
 	}
+	
 }

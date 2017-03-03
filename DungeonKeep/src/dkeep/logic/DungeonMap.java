@@ -49,8 +49,8 @@ public class DungeonMap extends Map {
 	@Override
 	public boolean update(int[] hero_pos) {
 		if (super.isWon(hero_pos))
-			return false;
-		return true;
+			return true;
+		return false;
 	}
 
 }

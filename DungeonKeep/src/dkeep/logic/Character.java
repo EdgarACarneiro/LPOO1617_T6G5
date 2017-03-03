@@ -26,8 +26,8 @@ public abstract class Character {
 	}
 	
 //	public abstract boolean update();
-//	
-//	public abstract boolean update(int[] delta);
+	
+//	public boolean update(int[] delta);
 	
 	public boolean isAdjacent(Character c) {
 		if ( Math.abs(this.pos[0] - c.pos[0]) <= 1 && this.pos[1] == c.pos[1] ||
@@ -38,6 +38,7 @@ public abstract class Character {
 		else
 			return false;
 	}
+	
 	
 	public boolean isAt(int[] pos) {
 		return (this.pos.equals(pos));

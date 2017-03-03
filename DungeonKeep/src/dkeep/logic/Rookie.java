@@ -7,13 +7,14 @@ public class Rookie implements Behaviour {
 			{ 0, -1}, { 0, -1}, { 0, -1}, { 0, -1}, { 0, -1},
 			{ 0, -1}, { 1,  0}, { 0,  1}, { 0,  1}, { 0,  1},
 			{ 0,  1}, { 0,  1}, { 0,  1}, { 0,  1}, {-1,  0},
-			{-1,  0}, {-1,  0}, {-1,  0}, {-1,  0}, {-1,  0}
+			{-1,  0}, {-1,  0}, {-1,  0}, {-1,  0}
 	};
 	
 	private int count;
 
 	public Rookie() {
-		count = 0;
+		System.out.print("Rookie Guard!\n");
+		count = -1;
 	}
 
 	@Override

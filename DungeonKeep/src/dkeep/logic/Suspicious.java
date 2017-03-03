@@ -22,6 +22,7 @@ public class Suspicious implements Behaviour {
 	private Random rand = new Random();
 	
 	public Suspicious() {
+		System.out.print("Suspicious Guard!\n");
 		direction = 1;
 		count = 0;
 		probability = CONST_PROB;
@@ -44,18 +45,28 @@ public class Suspicious implements Behaviour {
 	@Override
 	public final int[] getMovement() {
 		// Randomly reverses patrolling direction, after a while
-		if (rand.nextDouble() < probability)
+		if (rand.nextDouble() < probability) {
 			invertDirection();
+			
+			//Because we want him to reverse the last move and not the next move
+			if (direction == -1)
+				++count;
+			else --count;
+		}
 		
 		count += direction;
-		if (count < 0) {
+		if (count < 0)
 			count = guard_mov.length-1;
-			return guard_mov[count];
-		} else if (count >= guard_mov.length) {
+		else if (count >= guard_mov.length)
 			count = 0;
-			return guard_mov[count];
-		} else {
-			return guard_mov[count];
-		}
+		
+		
+		if (direction == -1) {
+			final int[] reverse = new int[2];
+			reverse[0] = -guard_mov[count][0];
+			reverse[1] = -guard_mov[count][1];
+			return reverse;
+		}		
+		else return guard_mov[count];
 	}
 }

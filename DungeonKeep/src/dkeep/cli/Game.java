@@ -38,9 +38,11 @@ public final class Game {
 			System.out.println("Invalid input! Was: " + s);
 		}
 		
-		if (level.update(hero_move[0], hero_move[1]))
+		
+		if (level.update(hero_move[0], hero_move[1], running))
 			level = level.nextLevel();
 				
-		return level != null;
+		
+		return ((level != null) && running);
 	}
 }
