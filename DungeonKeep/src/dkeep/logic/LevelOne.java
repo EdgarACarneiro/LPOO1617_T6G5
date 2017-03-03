@@ -22,7 +22,6 @@ public class LevelOne extends Level {
 		if (map.isValid(hero.pos[0]+row, hero.pos[1]+col))
 			hero.update(row, col);
 		guard.update();
-		draw();		//TODO: Check -> Shouldnt be draw Game on cli?
 		
 		if (hero.isAdjacent(guard))
 			return state.LOST;
