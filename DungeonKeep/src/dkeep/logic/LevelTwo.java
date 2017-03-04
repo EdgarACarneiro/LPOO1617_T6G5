@@ -11,13 +11,16 @@ public class LevelTwo extends Level {
 	public LevelTwo() {
 		Random rand = new Random();
 		
-		ogres = new Ogre[rand.nextInt(2) + 2];
+//		ogres = new Ogre[rand.nextInt(2) + 2];
+		ogres = new Ogre[1];
 		map = new OgreMap();
 		hero = new Hero(OgreMap.hero_pos, 'A', 'K');
 		
 		//Initializing all the ogres in the same place
 		for (int i = 0; i < ogres.length; ++i)
 			ogres[i] = new Ogre(OgreMap.ogre_pos);
+		
+		System.out.println(ogres.length + " wild Ogres appear !!");
 		
 	}
 	
@@ -30,7 +33,7 @@ public class LevelTwo extends Level {
 	@Override
 	public state update(int row, int col) {
 		
-		if (map.isValid(hero.pos[0]+row, hero.pos[1]+col))
+		if (map.isValid(hero, new int[] {row, col}))
 			hero.update(row, col);
 		
 		for (int i = 0; i < ogres.length; ++i) {

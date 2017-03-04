@@ -42,17 +42,22 @@ public class OgreMap extends Map {
 		return ret;
 	}
 	
+	public boolean isValid(Hero hero, int[] delta) {
+		int[] new_pos = {hero.pos[0] + delta[0], hero.pos[1] + delta[1]};
+		
+		if (hero.hasKey() && map[new_pos[0]][new_pos[1]] == 'I') {
+			map[new_pos[0]][new_pos[1]] = 'S';
+			return false;
+		}
+		
+		return super.isValid(new_pos[0], new_pos[1]);
+	}
+	
 	@Override
 	public boolean update(Hero hero) {
-		// doors should open only on push to that position -- overload is valid with Hero param ?
-		if (Arrays.equals(key_pos, hero.pos))
+		if (Arrays.equals(key_pos, hero.pos)) {
 			key_found = true;
-		
-		for (int[] cell : hero.adjacentCells()) {
-			if (cell[0] < 0 || cell[0] >= map.length || cell[1] < 0 || cell[1] >= map[cell[0]].length)
-				continue;
-			if (map[cell[0]][cell[1]] == 'I')
-				map[cell[0]][cell[1]] = 'S';
+			hero.keyFoundStatus(true);
 		}
 		
 		return super.update(hero);
