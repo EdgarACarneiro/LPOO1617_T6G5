@@ -4,16 +4,17 @@ import java.util.Random;
 public class Ogre extends Character {
 	
 	private static Random rand = new Random();
-	private double PROB_WAKE_UP = 0.1;
+	private int TURN_WAKE_UP = 2;
 	
 	private static final int[][] moves = {
-			{1, 0},
+			{ 1, 0},
 			{-1, 0},
-			{0, 1},
-			{0, -1}
+			{ 0, 1},
+			{ 0,-1}
 	};
 	
 	private int[] club;
+	private int sleep_turn;
 
 	public Ogre(int[] initial_pos) {
 		super(initial_pos, 'O', '8');
@@ -34,10 +35,13 @@ public class Ogre extends Character {
 	
 	public void update(Map map) {
 		if (! active) {
-			if (rand.nextDouble() < PROB_WAKE_UP)
+			if (sleep_turn == TURN_WAKE_UP) {
+				sleep_turn = 0;
 				this.setActive();
-			else
+			} else {
+				++sleep_turn;
 				return;
+			}
 		}
 			
 		int[] tmp;
