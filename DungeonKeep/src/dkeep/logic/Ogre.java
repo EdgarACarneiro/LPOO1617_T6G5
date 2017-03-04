@@ -39,7 +39,8 @@ public class Ogre extends Character {
 			new_pos[0] = pos[0] + tmp[0];
 			new_pos[1] = pos[1] + tmp[1];
 		} while (! map.isValid(new_pos[0], new_pos[1]));
-
+		pos = new_pos;
+		
 		do {
 			swingClub();
 		} while(! map.isValid(club[0], club[1]));
