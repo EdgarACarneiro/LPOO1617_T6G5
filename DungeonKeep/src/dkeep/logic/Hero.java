@@ -17,7 +17,8 @@ public class Hero extends Character {
 	}
 	
 	public void keyFoundStatus(boolean status) {	// future: picks key item
-		hasKey = status;
+		if ( (hasKey = status) == true )
+			this.setSymbIdx(1);
 	}
 	
 	public boolean hasKey() {

@@ -11,8 +11,8 @@ public class LevelTwo extends Level {
 	public LevelTwo() {
 		Random rand = new Random();
 		
-//		ogres = new Ogre[rand.nextInt(2) + 2];
-		ogres = new Ogre[1];
+		ogres = new Ogre[rand.nextInt(2) + 2];
+//		ogres = new Ogre[1];
 		map = new OgreMap();
 		hero = new Hero(OgreMap.hero_pos, 'A', 'K');
 		
@@ -38,7 +38,8 @@ public class LevelTwo extends Level {
 		
 		for (int i = 0; i < ogres.length; ++i) {
 			
-			hero.attack(ogres[i]);
+			if (hero.attack(ogres[i]))
+				System.out.println("Hero stunned an Ogre at " + ogres[i].pos[0] + ", " + ogres[i].pos[1]);
 			
 			ogres[i].update(map);
 			if (ogres[i].attack(hero)) {
@@ -47,7 +48,7 @@ public class LevelTwo extends Level {
 			}			
 		}
 		
-		if (map.update(hero)) { // change to reflect holding key ?
+		if (map.update(hero)) {
 			return state.RUNNING;
 		} else {
 			System.out.println("You Won!!");

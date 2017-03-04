@@ -2,7 +2,9 @@ package dkeep.logic;
 import java.util.Random;
 
 public class Ogre extends Character {
+	
 	private static Random rand = new Random();
+	private double PROB_WAKE_UP = 0.1;
 	
 	private static final int[][] moves = {
 			{1, 0},
@@ -31,6 +33,13 @@ public class Ogre extends Character {
 	}
 	
 	public void update(Map map) {
+		if (! active) {
+			if (rand.nextDouble() < PROB_WAKE_UP)
+				this.setActive();
+			else
+				return;
+		}
+			
 		int[] tmp;
 		int[] new_pos = new int[2];
 		
