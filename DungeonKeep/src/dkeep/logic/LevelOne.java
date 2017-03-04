@@ -21,9 +21,9 @@ public class LevelOne extends Level {
 	public state update(int row, int col) {
 		if (map.isValid(hero.pos[0]+row, hero.pos[1]+col))
 			hero.update(row, col);
-		guard.update();
 		
-		if (hero.isAdjacent(guard)) {
+		guard.update();
+		if (guard.attack(hero)) {
 			System.out.println("You lost...");
 			return state.LOST;
 		} else if (map.update(hero)) {

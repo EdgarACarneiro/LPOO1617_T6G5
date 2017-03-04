@@ -3,24 +3,28 @@ package dkeep.logic;
 import java.util.Random;
 
 public class LevelTwo extends Level {
-
-	private Random rand = new Random();
 	
 	private Hero hero;
-	int ogreNumber ;
 	private Ogre[] ogres;
 	private OgreMap map;
 	
 	public LevelTwo() {
+		Random rand = new Random();
+		
+		ogres = new Ogre[rand.nextInt(2) + 2];
 		map = new OgreMap();
-		hero = new Hero(map.hero_pos);
-		ogreNumber = rand.nextInt(3) + 2;
-		ogres = new Ogre[ogreNumber];
+		hero = new Hero(OgreMap.hero_pos, 'A', 'K');
 		
 		//Initializing all the ogres in the same place
 		for (int i = 0; i < ogres.length; ++i)
-			ogres[i] = new Ogre(map.ogre_pos);
+			ogres[i] = new Ogre(OgreMap.ogre_pos);
 		
+	}
+	
+	@Override
+	public Level nextLevel() {
+		// there's no next level - return null
+		return null;
 	}
 
 	@Override
@@ -30,26 +34,22 @@ public class LevelTwo extends Level {
 			hero.update(row, col);
 		
 		for (int i = 0; i < ogres.length; ++i) {
-			ogres[i].update(map);
 			
-			if (hero.isAdjacent(ogres[i])) {
+			hero.attack(ogres[i]);
+			
+			ogres[i].update(map);
+			if (ogres[i].attack(hero)) {
 				System.out.println("You lost...");
 				return state.LOST;
 			}			
 		}
 		
-		if (map.update(hero)) {
+		if (map.update(hero)) { // change to reflect holding key ?
 			return state.RUNNING;
 		} else {
 			System.out.println("You Won!!");
 			return state.WON;
 		}
-	}
-
-	@Override
-	public Level nextLevel() {
-		// there's no next level - return null
-		return null;
 	}
 	
 	@Override

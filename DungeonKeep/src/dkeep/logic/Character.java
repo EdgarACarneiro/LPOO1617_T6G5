@@ -7,6 +7,7 @@ import java.lang.Math;
 public abstract class Character {
 	
 	protected boolean active;
+	protected boolean armed;
 	
 	private final char[] symbols;
 	private int symb_idx;
@@ -17,6 +18,7 @@ public abstract class Character {
 			throw new IllegalArgumentException("Invalid Position");
 		
 		active = true;
+		armed = false;
 		pos = initial_pos;
 		if (symb.length == 0) {
 			System.err.println("No symbol provided for character constructor. Using placeholder 'P'.");
@@ -32,7 +34,15 @@ public abstract class Character {
 	
 //	public boolean update(int[] delta);
 	
-	public boolean isAdjacent(Character c) {
+	public boolean attack(Character c) {
+		if (! armed || ! this.isAdjacent(c))
+			return false;
+		
+		c.setInactive();
+		return true;
+	}
+	
+	protected boolean isAdjacent(Character c) {
 		if (! c.active)
 			return false;
 		
@@ -44,7 +54,7 @@ public abstract class Character {
 			return false;
 	}
 	
-	public boolean isAdjacent(int[] pos) {
+	protected boolean isAdjacent(int[] pos) {
 		if ( (Math.abs(this.pos[0] - pos[0]) <= 1 && this.pos[1] == pos[1]) ||
 				(Math.abs(this.pos[1] - pos[1]) <= 1 && this.pos[0] == pos[0]) ) {
 			return true;

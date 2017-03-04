@@ -7,6 +7,7 @@ public class Guard extends Character {
 		
 	public Guard(int[] initial_pos) {
 		super(initial_pos, 'G', 'g');
+		armed = true;
 		
 		Random rand = new Random();
 		switch (rand.nextInt(3)) {

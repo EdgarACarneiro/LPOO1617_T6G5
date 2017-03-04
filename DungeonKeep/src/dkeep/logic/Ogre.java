@@ -14,8 +14,9 @@ public class Ogre extends Character {
 	private int[] club;
 
 	public Ogre(int[] initial_pos) {
-		super(initial_pos, 'O');
+		super(initial_pos, 'O', '8');
 		club = new int[] {initial_pos[0]+1, initial_pos[1]};
+		armed = true;
 	}
 	
 	public static int[] randomMove() {
@@ -48,5 +49,19 @@ public class Ogre extends Character {
 	public void draw(char[][] board) {
 		super.draw(board);
 		board[club[0]][club[1]] = '*';
+	}
+	
+	@Override
+	public boolean isAdjacent(Character c) {
+		return (c.isAdjacent(this) || c.isAdjacent(club));
+	}
+	
+	@Override
+	public boolean attack(Character c) {
+		if (! armed || ! this.isAdjacent(c) )
+			return false;
+		
+		c.setInactive();
+		return true;
 	}
 }

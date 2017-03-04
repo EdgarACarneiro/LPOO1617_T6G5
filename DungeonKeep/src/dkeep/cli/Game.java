@@ -8,10 +8,12 @@ public final class Game {
 	private static Scanner input;
 	
 	public static void main(String[] args) {
-		level = new LevelOne();
+		//level = new LevelOne();
+		level = new LevelTwo();
 		input = new Scanner(System.in);
 		
 		while (updateGame());
+		level.draw();
 	}
 
 	private static boolean updateGame() {
@@ -39,9 +41,16 @@ public final class Game {
 		}
 		
 		Level.state ret = level.update(hero_move[0], hero_move[1]);
-		if ( ret == Level.state.WON )
-			level = level.nextLevel();
 		
-		return ((level != null) && ret != Level.state.LOST);
+		if ( ret == Level.state.WON ) {
+			Level new_level;
+			if ( (new_level = level.nextLevel()) == null )
+				return false;
+			else
+				level = new_level;
+		}
+
+		
+		return ret != Level.state.LOST;
 	}
 }
