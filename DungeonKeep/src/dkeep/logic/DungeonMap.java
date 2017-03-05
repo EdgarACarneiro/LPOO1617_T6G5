@@ -41,6 +41,16 @@ public class DungeonMap extends Map {
 		doors_open = true;
 	}
 	
+	public boolean setLeverPos(int[] newPos) {
+		if (map.length > newPos[0] && map.length > newPos[1]) {
+			lever_pos[0] = newPos[0];
+			lever_pos[1] = newPos[1];
+			return true;
+		}
+		
+		return false;
+	}
+	
 	@Override
 	public boolean update(Hero hero) {
 		if (Arrays.equals(lever_pos, hero.pos))

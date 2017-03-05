@@ -2,13 +2,19 @@ package dkeep.logic;
 
 import java.util.Arrays;
 
-public abstract class Map {
+public class Map {
 	
 	protected char[][] map;
 	
 	protected char[] valid_symbs = {'B', 'S', 'k'};
 	
 	private int[][] victory_pos;
+	
+	Map (char[][] map) {
+		this.map = map;
+	}
+	
+	Map() {};
 		
 	protected void setVictoryPos(int[][] positions) {
 		victory_pos = positions;

@@ -11,6 +11,7 @@ public class LevelTwo extends Level {
 	public LevelTwo() {
 		Random rand = new Random();
 		
+		enemies_activity = true;
 		ogres = new Ogre[rand.nextInt(2) + 2];
 //		ogres = new Ogre[1];
 		map = new OgreMap();
@@ -22,6 +23,10 @@ public class LevelTwo extends Level {
 		
 		System.out.println(ogres.length + " wild Ogres appear !!");
 		
+	}
+	
+	public LevelTwo(char[][] map, boolean activity) {
+		super(map, activity);
 	}
 	
 	@Override
@@ -41,7 +46,8 @@ public class LevelTwo extends Level {
 			if (hero.attack(ogres[i]))
 				System.out.println("Hero stunned an Ogre at " + ogres[i].pos[0] + ", " + ogres[i].pos[1]);
 			
-			ogres[i].update(map);
+			if (this.enemies_activity)
+				ogres[i].update(map);
 			if (ogres[i].attack(hero)) {
 				System.out.println("You lost...");
 				return state.LOST;
@@ -82,4 +88,13 @@ public class LevelTwo extends Level {
 		}
 	}
 
+	@Override
+	public int[] getHeroPos() {
+		return hero.pos;
+	}
+	
+	@Override
+	public char[][] getMap() {
+		return this.map.getMap();
+	}
 }

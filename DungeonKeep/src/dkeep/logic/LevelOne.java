@@ -7,9 +7,14 @@ public class LevelOne extends Level {
 	private DungeonMap map;
 	
 	public LevelOne() {
+		enemies_activity = true;
 		map = new DungeonMap();
 		hero = new Hero(DungeonMap.hero_pos);
 		guard = new Guard(DungeonMap.guard_pos);
+	}
+	
+	public LevelOne(char[][] map, boolean activity) {
+		super(map, activity);
 	}
 
 	@Override
@@ -22,7 +27,9 @@ public class LevelOne extends Level {
 		if (map.isValid(hero.pos[0]+row, hero.pos[1]+col))
 			hero.update(row, col);
 		
-		guard.update();
+		if (enemies_activity)
+			guard.update();
+		
 		if (guard.attack(hero)) {
 			System.out.println("You lost...");
 			return state.LOST;
@@ -58,8 +65,15 @@ public class LevelOne extends Level {
 			}
 			System.out.println();
 		}
-		
-		
 	}
-
+	
+	@Override
+	public int[] getHeroPos() {
+		return hero.pos;
+	}
+	
+	@Override
+	public char[][] getMap() {
+		return this.map.getMap();
+	}
 }
