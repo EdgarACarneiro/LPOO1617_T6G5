@@ -89,8 +89,8 @@ public class LevelTwo extends Level {
 	}
 
 	@Override
-	public int[] getHeroPos() {
-		return hero.pos;
+	public Hero getHero() {
+		return hero;
 	}
 	
 	@Override

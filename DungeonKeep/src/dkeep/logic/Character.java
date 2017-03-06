@@ -84,7 +84,7 @@ public abstract class Character {
 		board[pos[0]][pos[1]] = this.getSymb();
 	}
 	
-	private char getSymb() {
+	public char getSymb() {
 		return symbols[symb_idx];
 	}
 	
@@ -105,5 +105,9 @@ public abstract class Character {
 			{pos[0], pos[1] + 1},
 			{pos[0], pos[1] - 1}
 		};
+	}
+	
+	public int[] getPos() {
+		return pos;
 	}
 }

@@ -19,12 +19,12 @@ public class TestDungeonLevelLogic {
 		
 		LevelOne level = new LevelOne (board, false);
 			
-		assertEquals(1, level.getHeroPos()[0]);
-		assertEquals(1, level.getHeroPos()[1]);
+		assertEquals(1, level.getHero().getPos()[0]);
+		assertEquals(1, level.getHero().getPos()[1]);
 		
 		level.update(0, 1);
-		assertEquals(1, level.getHeroPos()[0]);
-		assertEquals(2, level.getHeroPos()[1]);
+		assertEquals(1, level.getHero().getPos()[0]);
+		assertEquals(2, level.getHero().getPos()[1]);
 	}
 	
 	@Test
@@ -32,12 +32,12 @@ public class TestDungeonLevelLogic {
 		
 		LevelOne level = new LevelOne (board, false);
 		
-		assertEquals(1, level.getHeroPos()[0]);
-		assertEquals(1, level.getHeroPos()[1]);
+		assertEquals(1, level.getHero().getPos()[0]);
+		assertEquals(1, level.getHero().getPos()[1]);
 		
 		level.update(-1, 0);
-		assertEquals(1, level.getHeroPos()[0]);
-		assertEquals(1, level.getHeroPos()[1]);
+		assertEquals(1, level.getHero().getPos()[0]);
+		assertEquals(1, level.getHero().getPos()[1]);
 	}
 	
 	@Test
@@ -56,12 +56,11 @@ public class TestDungeonLevelLogic {
 		
 		//One step down
 		assertEquals(state.RUNNING, level.update(1,  0));
+		
 		//One step to the left -> did not move
 		assertEquals(state.RUNNING, level.update(0, -1));
-		assertEquals(2, level.getHeroPos()[0]);
-		assertEquals(1, level.getHeroPos()[1]);
-		
-		
+		assertEquals(2, level.getHero().getPos()[0]);
+		assertEquals(1, level.getHero().getPos()[1]);
 	}
 	
 	@Test
@@ -87,10 +86,8 @@ public class TestDungeonLevelLogic {
 		assertEquals(state.RUNNING, level.update(1, 0));
 		//One step down
 		assertEquals(state.RUNNING, level.update(1, 0));
+		
 		//One step to the left -> Over Open Door
 		assertEquals(state.WON, level.update(0, -1));
-		//assertEquals(2, level.getHeroPos()[0]);
-		//assertEquals(0, level.getHeroPos()[1]);
-		
 	}
 }

@@ -61,7 +61,7 @@ public abstract class Level {
 	
 	public abstract void draw();
 	
-	public abstract int[] getHeroPos();
+	public abstract Hero getHero();
 	
 	public abstract char[][] getMap();
 	
