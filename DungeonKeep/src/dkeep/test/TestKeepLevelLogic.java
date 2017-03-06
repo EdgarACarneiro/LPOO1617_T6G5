@@ -6,7 +6,7 @@ import org.junit.Test;
 import dkeep.logic.LevelTwo;
 import dkeep.logic.Level.state;
 
-public class TestKeepLevelLoigc {
+public class TestKeepLevelLogic {
 	
 	char[][] board = {{'X', 'X', 'X', 'X', 'X'},
 			  		  {'X', 'H', 'B', 'O', 'X'},
@@ -14,10 +14,12 @@ public class TestKeepLevelLoigc {
 			  		  {'I', 'k', 'B', 'B', 'X'},
 			  		  {'X', 'X', 'X', 'X', 'X'}};
 
+	int[][] victory_pos = {{ 2, 0}, { 3, 0}};
+	
 	@Test
 	public void testMoveHeroToOgre() {
 	
-		LevelTwo level = new LevelTwo (board, false);
+		LevelTwo level = new LevelTwo (board, false, victory_pos);
 		
 		//One step to the right
 		assertEquals(state.LOST, level.update(0, 1));
@@ -26,7 +28,7 @@ public class TestKeepLevelLoigc {
 	@Test
 	public void testMoveHeroToKey() {
 	
-		LevelTwo level = new LevelTwo (board, false);
+		LevelTwo level = new LevelTwo (board, false, victory_pos);
 		
 		//One step down
 		assertEquals(state.RUNNING, level.update(1,  0));
@@ -40,7 +42,7 @@ public class TestKeepLevelLoigc {
 	@Test
 	public void testMoveHeroToClosedDoor() {
 	
-		LevelTwo level = new LevelTwo (board, false);
+		LevelTwo level = new LevelTwo (board, false, victory_pos);
 		
 		//One step down
 		assertEquals(state.RUNNING, level.update(1,  0));
@@ -53,7 +55,7 @@ public class TestKeepLevelLoigc {
 	@Test
 	public void testHeroOpenedDoor() {
 
-		LevelTwo level = new LevelTwo (board, false);
+		LevelTwo level = new LevelTwo (board, false, victory_pos);
 		
 		//One step down
 		assertEquals(state.RUNNING, level.update(1, 0));
@@ -62,17 +64,17 @@ public class TestKeepLevelLoigc {
 		
 		//One step to the left -> Open Door
 		assertEquals(state.RUNNING, level.update(0, -1));
-		assertEquals(2, level.getHero().getPos()[0]);
+		assertEquals(3, level.getHero().getPos()[0]);
 		assertEquals(1, level.getHero().getPos()[1]);
 		
 		//Check if doors open
-		assertEquals(level.getMap()[2][0], 'S');
+		assertEquals(level.getMap()[3][0], 'S');
 	}
 	
 	@Test
 	public void testHeroWon() {
 		
-		LevelTwo level = new LevelTwo (board, false);
+		LevelTwo level = new LevelTwo (board, false, victory_pos);
 		
 		//One step down
 		assertEquals(state.RUNNING, level.update(1, 0));
@@ -81,7 +83,7 @@ public class TestKeepLevelLoigc {
 		
 		//One step to the left -> Open Door
 		assertEquals(state.RUNNING, level.update(0, -1));
-		assertEquals(2, level.getHero().getPos()[0]);
+		assertEquals(3, level.getHero().getPos()[0]);
 		assertEquals(1, level.getHero().getPos()[1]);
 		
 		//Finish Game -> Move to Open Door

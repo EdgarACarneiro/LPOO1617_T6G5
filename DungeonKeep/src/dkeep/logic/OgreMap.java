@@ -27,6 +27,19 @@ public class OgreMap extends Map {
 		this.valid_symbs = new char[] {'B', 'S', 'k', 'O', '*'};	// Ogres and clubs can overlap
 	}
 	
+	public OgreMap(char[][] board, int[][] victory_pos) {
+		this.map = board;
+		
+		for (int i = 0 ; i < board.length; ++i) {
+			for (int j = 0; j < board.length; ++j) {
+				if (board[i][j] == 'k')
+					key_pos = new int[] {i, j};
+			}
+		}
+		
+		this.setVictoryPos(victory_pos);
+	}
+	
 	@Override
 	public char[][] getMap() {
 		char[][] ret = new char[map.length][map[0].length];

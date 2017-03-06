@@ -10,8 +10,9 @@ public class Map {
 	
 	private int[][] victory_pos;
 	
-	Map (char[][] map) {
+	Map (char[][] map, int[][] pos_vic) {
 		this.map = map;
+		this.victory_pos = pos_vic;
 	}
 	
 	Map() {};

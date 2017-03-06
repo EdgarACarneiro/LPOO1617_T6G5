@@ -29,10 +29,12 @@ public abstract class Character {
 		
 		symb_idx = 0;
 	}
+
+	//For Forced Movement
+	public abstract void update(int row, int col);
 	
-//	public abstract boolean update();
-	
-//	public boolean update(int[] delta);
+	//For Automated Movement
+	public abstract void update(Map map);
 	
 	public boolean attack(Character c) {
 		if (! armed || ! this.isAdjacent(c))

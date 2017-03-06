@@ -14,10 +14,12 @@ public class TestDungeonLevelLogic {
 					  {'I', 'k', 'B', 'B', 'X'},
 					  {'X', 'X', 'X', 'X', 'X'}};
 	
+	int[][] victory_pos = {{ 2, 0}, { 3, 0}};
+	
 	@Test
 	public void testMoveHeroIntoFreeCell() {
 		
-		LevelOne level = new LevelOne (board, false);
+		LevelOne level = new LevelOne (board, false, victory_pos);
 			
 		assertEquals(1, level.getHero().getPos()[0]);
 		assertEquals(1, level.getHero().getPos()[1]);
@@ -30,7 +32,7 @@ public class TestDungeonLevelLogic {
 	@Test
 	public void testMoveHeroIntoWall() {
 		
-		LevelOne level = new LevelOne (board, false);
+		LevelOne level = new LevelOne (board, false, victory_pos);
 		
 		assertEquals(1, level.getHero().getPos()[0]);
 		assertEquals(1, level.getHero().getPos()[1]);
@@ -43,7 +45,7 @@ public class TestDungeonLevelLogic {
 	@Test
 	public void testMoveHeroToGuard() {
 		
-		LevelOne level = new LevelOne (board, false);
+		LevelOne level = new LevelOne (board, false, victory_pos);
 		
 		//One step to the right
 		assertEquals(state.LOST, level.update(0, 1));
@@ -52,7 +54,7 @@ public class TestDungeonLevelLogic {
 	@Test
 	public void testMoveHeroToClosedDoor() {
 		
-		LevelOne level = new LevelOne (board, false);
+		LevelOne level = new LevelOne (board, false, victory_pos);
 		
 		//One step down
 		assertEquals(state.RUNNING, level.update(1,  0));
@@ -66,7 +68,7 @@ public class TestDungeonLevelLogic {
 	@Test
 	public void testMoveHeroToLever() {
 		
-		LevelOne level = new LevelOne (board, false);
+		LevelOne level = new LevelOne (board, false, victory_pos);
 		
 		//One step down
 		assertEquals(state.RUNNING, level.update(1,  0));
@@ -80,7 +82,7 @@ public class TestDungeonLevelLogic {
 	@Test
 	public void testMoveHeroToOpenDoor() {
 		
-		LevelOne level = new LevelOne (board, false);
+		LevelOne level = new LevelOne (board, false, victory_pos);
 		
 		//One step down
 		assertEquals(state.RUNNING, level.update(1, 0));

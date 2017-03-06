@@ -4,29 +4,28 @@ import java.util.Random;
 
 public class LevelTwo extends Level {
 	
-	private Hero hero;
-	private Ogre[] ogres;
-	private OgreMap map;
+	OgreMap map;
 	
 	public LevelTwo() {
 		Random rand = new Random();
 		
 		enemies_activity = true;
-		ogres = new Ogre[rand.nextInt(2) + 2];
-//		ogres = new Ogre[1];
-		map = new OgreMap();
+		//enemies.add(new Ogre(OgreMap.ogre_pos));
+		map = new OgreMap();  
 		hero = new Hero(OgreMap.hero_pos, 'A', 'K');
 		
 		//Initializing all the ogres in the same place
-		for (int i = 0; i < ogres.length; ++i)
-			ogres[i] = new Ogre(OgreMap.ogre_pos);
+		int ogres_number = rand.nextInt(2) + 2;
+		for (int i = 0; i <= ogres_number; ++i)
+			enemies.add(new Ogre(OgreMap.ogre_pos));
 		
-		System.out.println(ogres.length + " wild Ogres appear !!");
-		
+		System.out.println(enemies.size() + " wild Ogres appear !!");
 	}
 	
-	public LevelTwo(char[][] map, boolean activity) {
-		super(map, activity);
+	public LevelTwo(char[][] map, boolean activity, int[][] victory_pos) {
+		super(map, activity, victory_pos);
+		
+		this.map = new OgreMap(board.getMap(), victory_pos);
 	}
 	
 	@Override
@@ -41,14 +40,15 @@ public class LevelTwo extends Level {
 		if (map.isValid(hero, new int[] {row, col}))
 			hero.update(row, col);
 		
-		for (int i = 0; i < ogres.length; ++i) {
+		for (Character e : enemies) {
 			
-			if (hero.attack(ogres[i]))
-				System.out.println("Hero stunned an Ogre at " + ogres[i].pos[0] + ", " + ogres[i].pos[1]);
+			if (hero.attack(e))
+				System.out.println("Hero stunned an Ogre at " + e.pos[0] + ", " + e.pos[1]);
 			
 			if (this.enemies_activity)
-				ogres[i].update(map);
-			if (ogres[i].attack(hero)) {
+				e.update(map);
+			
+			if (e.attack(hero)) {
 				System.out.println("You lost...");
 				return state.LOST;
 			}			
@@ -73,8 +73,8 @@ public class LevelTwo extends Level {
 				map_copy[i][j] = map.getMap()[i][j];
 		
 		hero.draw(map_copy);
-		for (int i = 0; i < ogres.length; ++i)
-			ogres[i].draw(map_copy);
+		for (Character e : enemies)
+			e.draw(map_copy);
 		
 		// Printing the modified map
 		for (char[] s : map_copy) {

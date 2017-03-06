@@ -16,6 +16,10 @@ public class Hero extends Character {
 		pos[1] += col;
 	}
 	
+	public void update(Map map) {
+		//Stays in the same Position
+	}
+	
 	public void keyFoundStatus(boolean status) {	// future: picks key item
 		if ( (hasKey = status) == true )
 			this.setSymbIdx(1);

@@ -25,16 +25,26 @@ public class Guard extends Character {
 		}
 	}
 
-	public void update() {
+	@Override
+	public void update(Map map) {
 		int[] tmp = strategy.getMovement();
 		
 		if (tmp == null) {
 			this.setInactive();
 		} else {
 			this.setActive();
-			pos[0] += tmp[0];
-			pos[1] += tmp[1];	
+			
+			if (map.isValid(tmp[0] + pos[0], tmp[1] + pos[1])) {
+				pos[0] += tmp[0];
+				pos[1] += tmp[1];
+			}
 		}
+	}
+	
+	@Override
+	public void update(int row, int col) {
+		pos[0] += row;
+		pos[1] += col;
 	}
 
 }

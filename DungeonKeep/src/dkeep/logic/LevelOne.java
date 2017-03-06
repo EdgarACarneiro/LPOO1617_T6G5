@@ -2,19 +2,20 @@ package dkeep.logic;
 
 public class LevelOne extends Level {
 	
-	private Hero hero;
-	private Guard guard;
-	private DungeonMap map;
+	DungeonMap map;
 	
 	public LevelOne() {
 		enemies_activity = true;
 		map = new DungeonMap();
 		hero = new Hero(DungeonMap.hero_pos);
-		guard = new Guard(DungeonMap.guard_pos);
+		enemies.add(new Guard(DungeonMap.guard_pos));
 	}
 	
-	public LevelOne(char[][] map, boolean activity) {
-		super(map, activity);
+	public LevelOne(char[][] map, boolean activity, int[][] victory_pos) {
+		super(map, activity, victory_pos);
+		
+		this.map = new DungeonMap(board.getMap(), victory_pos);
+		
 	}
 
 	@Override
@@ -27,19 +28,25 @@ public class LevelOne extends Level {
 		if (map.isValid(hero.pos[0]+row, hero.pos[1]+col))
 			hero.update(row, col);
 		
-		if (enemies_activity)
-			guard.update();
+		if (enemies_activity) {
+			for (Character e : enemies)
+				e.update(map);
+		}
+		//guard.update();
 		
-		if (guard.attack(hero)) {
-			System.out.println("You lost...");
-			return state.LOST;
-		} else if (map.update(hero)) {
+		for (Character e : enemies) {
+			if (e.attack(hero)) {
+				System.out.println("You lost...");
+				return state.LOST;
+			}
+		}
+		
+		if (map.update(hero))
 			return state.RUNNING;
-		} else {
+		else {
 			System.out.println("You Won!!");
 			return state.WON;
 		}
-			
 	}
 	
 	@Override
@@ -53,7 +60,8 @@ public class LevelOne extends Level {
 				map_copy[i][j] = map.getMap()[i][j];
 		
 		hero.draw(map_copy);
-		guard.draw(map_copy);
+		for (Character e : enemies)
+			e.draw(map_copy);
 		
 		// Printing the modified map
 		for (char[] s : map_copy) {

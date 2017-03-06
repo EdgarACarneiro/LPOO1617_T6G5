@@ -6,11 +6,11 @@ public class DungeonMap extends Map {
 	
 	private boolean doors_open = false;
 	
-	private static final int[] lever_pos = {8, 7};
+	private static int[] lever_pos = {8, 7};
 	
-	public static final int[] hero_pos = {1, 1};	// initial hero position
+	public static int[] hero_pos = {1, 1};	// initial hero position
 	
-	public static final int[] guard_pos = {1, 8};	// initial guard position
+	public static int[] guard_pos = {1, 8};	// initial guard position
 	
 	public DungeonMap() {
 		super.setVictoryPos(new int[][] {{5, 0}, {6, 0}});
@@ -28,6 +28,19 @@ public class DungeonMap extends Map {
 				{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
 			};
 	}
+	
+	public DungeonMap(char[][] board, int[][] victory_pos) {
+		this.map = board;
+		
+		for (int i = 0 ; i < board.length; ++i) {
+			for (int j = 0; j < board.length; ++j) {
+				if (board[i][j] == 'k')
+					lever_pos = new int[] {i, j};
+			}
+		}	
+		
+		this.setVictoryPos(victory_pos);
+	}
 
 	private void openDoors() {		
 		if (doors_open)
@@ -39,16 +52,6 @@ public class DungeonMap extends Map {
 					map[r][c] = 'S';
 		
 		doors_open = true;
-	}
-	
-	public boolean setLeverPos(int[] newPos) {
-		if (map.length > newPos[0] && map.length > newPos[1]) {
-			lever_pos[0] = newPos[0];
-			lever_pos[1] = newPos[1];
-			return true;
-		}
-		
-		return false;
 	}
 	
 	@Override

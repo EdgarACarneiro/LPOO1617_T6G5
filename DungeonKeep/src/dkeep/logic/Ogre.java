@@ -60,6 +60,13 @@ public class Ogre extends Character {
 	}
 	
 	@Override
+	public void update(int row, int col) {
+		pos[0] += row;
+		pos[1] += col;
+		swingClub();
+	}
+	
+	@Override
 	public void draw(char[][] board) {
 		super.draw(board);
 		board[club[0]][club[1]] = '*';
@@ -78,4 +85,5 @@ public class Ogre extends Character {
 		c.setInactive();
 		return true;
 	}
+	
 }

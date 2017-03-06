@@ -1,11 +1,16 @@
 package dkeep.logic;
 
+import java.util.ArrayList;
+
 public abstract class Level {
 	public enum state {RUNNING, WON, LOST};
 	
+	protected Hero hero;
 	protected boolean enemies_activity;
+	protected ArrayList<Character> enemies = new ArrayList();
+	protected Map board;
 	
-	public Level(char[][] map, boolean activity) {
+	public Level(char[][] map, boolean activity, int[][] victory_pos) {
 		
 		char[][] own_map = new char[map.length][map[0].length];
 		
@@ -29,25 +34,24 @@ public abstract class Level {
 					break;
 				case 'k':
 					own_map[i][j] = 'k';
-					//setLeverPos(new int[] {i, j});
 					break;
 				case 'H':
 					own_map[i][j] = 'B';
-					Hero hero = new Hero(new int[] {i, j}, 'H', 'K', 'A');
+					hero = new Hero(new int[] {i, j}, 'H', 'K', 'A');
 					break;
 				case 'G':
 					own_map[i][j] = 'B';
-					Guard guard = new Guard(new int[] {i, j});
+					enemies.add(new Guard(new int[] {i, j}));
 					break;
 				case 'O':
 					own_map[i][j] = 'B';
-					Ogre ogre = new Ogre(new int[] {i, j});
+					enemies.add(new Ogre(new int[] {i, j}));
 					break;
 				}	
 			}
 		}
 		
-		Map board = new Map (own_map);
+		this.board = new Map (own_map, victory_pos);
 	}
 	
 	public Level() {};
