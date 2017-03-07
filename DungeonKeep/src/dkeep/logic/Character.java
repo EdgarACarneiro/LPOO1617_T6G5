@@ -3,7 +3,6 @@ import java.lang.IllegalArgumentException;
 import java.lang.Math;
 
 
-// HANDLED!! semi?
 public abstract class Character {
 	
 	protected boolean active;
@@ -30,10 +29,17 @@ public abstract class Character {
 		symb_idx = 0;
 	}
 
-	//For Forced Movement
-	public abstract void update(int row, int col);
+	// For Player Controlled Movement
+	public void update(Map map, int row, int col) {
+		if (! this.active)
+			return;
+		
+		int[] new_pos = new int[] {pos[0] + row, pos[1] + col};
+		if (map.isValid(new_pos[0], new_pos[1]))
+			this.pos = new_pos;
+	}
 	
-	//For Automated Movement
+	// For NPC Movement
 	public abstract void update(Map map);
 	
 	public boolean attack(Character c) {

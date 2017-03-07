@@ -15,7 +15,7 @@ public class LevelTwo extends Level {
 		hero = new Hero(OgreMap.hero_pos, 'A', 'K');
 		
 		//Initializing all the ogres in the same place
-		int ogres_number = rand.nextInt(2) + 2;
+		int ogres_number = rand.nextInt(2) + 1;
 		for (int i = 0; i <= ogres_number; ++i)
 			enemies.add(new Ogre(OgreMap.ogre_pos));
 		
@@ -39,8 +39,7 @@ public class LevelTwo extends Level {
 	@Override
 	public state update(int row, int col) {
 		
-		if (map.isValid(hero, new int[] {row, col}))
-			hero.update(row, col);
+		hero.update(map, row, col);
 		
 		for (Character e : enemies) {
 			

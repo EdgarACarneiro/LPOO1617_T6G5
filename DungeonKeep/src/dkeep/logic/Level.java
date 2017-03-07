@@ -7,7 +7,7 @@ public abstract class Level {
 	
 	protected Hero hero;
 	protected boolean enemies_activity;
-	protected ArrayList<Character> enemies = new ArrayList();
+	protected ArrayList<Character> enemies = new ArrayList<Character>();
 	protected Map board;
 	
 	public Level(char[][] map, boolean activity, int[][] victory_pos) {

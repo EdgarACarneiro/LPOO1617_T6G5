@@ -33,6 +33,13 @@ public class Ogre extends Character {
 		club[1] = pos[1] + club_dir[1];
 	}
 	
+	@Override
+	public void update(Map map, int row, int col) {
+		super.update(map, row, col);
+		swingClub();
+	}
+	
+	@Override
 	public void update(Map map) {
 		if (! active) {
 			if (sleep_turn == TURN_WAKE_UP) {
@@ -57,13 +64,6 @@ public class Ogre extends Character {
 		do {
 			swingClub();
 		} while(! map.isValid(club[0], club[1]));
-	}
-	
-	@Override
-	public void update(int row, int col) {
-		pos[0] += row;
-		pos[1] += col;
-		swingClub();
 	}
 	
 	@Override

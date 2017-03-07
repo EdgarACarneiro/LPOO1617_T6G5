@@ -10,11 +10,6 @@ public class Hero extends Character {
 		if (symbs.length > 0)
 			armed = true;
 	}
-
-	public void update(int row, int col) {
-		pos[0] += row;
-		pos[1] += col;
-	}
 	
 	public void update(Map map) {
 		//Stays in the same Position

@@ -40,11 +40,5 @@ public class Guard extends Character {
 			}
 		}
 	}
-	
-	@Override
-	public void update(int row, int col) {
-		pos[0] += row;
-		pos[1] += col;
-	}
 
 }

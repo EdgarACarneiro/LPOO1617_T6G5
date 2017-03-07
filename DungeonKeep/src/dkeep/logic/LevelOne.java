@@ -25,14 +25,12 @@ public class LevelOne extends Level {
 
 	@Override
 	public state update(int row, int col) {
-		if (map.isValid(hero.pos[0]+row, hero.pos[1]+col))
-			hero.update(row, col);
+		hero.update(map, row, col);
 		
 		if (enemies_activity) {
 			for (Character e : enemies)
 				e.update(map);
 		}
-		//guard.update();
 		
 		for (Character e : enemies) {
 			if (e.attack(hero)) {
