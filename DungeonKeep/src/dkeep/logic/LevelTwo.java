@@ -22,8 +22,10 @@ public class LevelTwo extends Level {
 		System.out.println(enemies.size() + " wild Ogres appear !!");
 	}
 	
-	public LevelTwo(char[][] map, boolean activity, int[][] victory_pos) {
+	public LevelTwo(char[][] map, boolean activity, boolean hero_armed, int[][] victory_pos) {
 		super(map, activity, victory_pos);
+		
+		hero.armed = hero_armed;
 		
 		this.map = new OgreMap(board.getMap(), victory_pos);
 	}

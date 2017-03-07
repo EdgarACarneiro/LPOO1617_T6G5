@@ -13,13 +13,15 @@ public class TestKeepLevelLogic {
 			  		  {'I', 'B', 'B', 'B', 'X'},
 			  		  {'I', 'k', 'B', 'B', 'X'},
 			  		  {'X', 'X', 'X', 'X', 'X'}};
+	
+	boolean enemy_activity, hero_armed = false;
 
 	int[][] victory_pos = {{ 2, 0}, { 3, 0}};
 	
 	@Test
 	public void testMoveHeroToOgre() {
 	
-		LevelTwo level = new LevelTwo (board, false, victory_pos);
+		LevelTwo level = new LevelTwo (board, enemy_activity, hero_armed, victory_pos);
 		
 		//One step to the right
 		assertEquals(state.LOST, level.update(0, 1));
@@ -28,7 +30,7 @@ public class TestKeepLevelLogic {
 	@Test
 	public void testMoveHeroToKey() {
 	
-		LevelTwo level = new LevelTwo (board, false, victory_pos);
+		LevelTwo level = new LevelTwo (board, enemy_activity, hero_armed, victory_pos);
 		
 		//One step down
 		assertEquals(state.RUNNING, level.update(1,  0));
@@ -42,7 +44,7 @@ public class TestKeepLevelLogic {
 	@Test
 	public void testMoveHeroToClosedDoor() {
 	
-		LevelTwo level = new LevelTwo (board, false, victory_pos);
+		LevelTwo level = new LevelTwo (board, enemy_activity, hero_armed, victory_pos);
 		
 		//One step down
 		assertEquals(state.RUNNING, level.update(1,  0));
@@ -55,7 +57,7 @@ public class TestKeepLevelLogic {
 	@Test
 	public void testHeroOpenedDoor() {
 
-		LevelTwo level = new LevelTwo (board, false, victory_pos);
+		LevelTwo level = new LevelTwo (board, enemy_activity, hero_armed, victory_pos);
 		
 		//One step down
 		assertEquals(state.RUNNING, level.update(1, 0));
@@ -74,7 +76,7 @@ public class TestKeepLevelLogic {
 	@Test
 	public void testHeroWon() {
 		
-		LevelTwo level = new LevelTwo (board, false, victory_pos);
+		LevelTwo level = new LevelTwo (board, enemy_activity, hero_armed, victory_pos);
 		
 		//One step down
 		assertEquals(state.RUNNING, level.update(1, 0));
