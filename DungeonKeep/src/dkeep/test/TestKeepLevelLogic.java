@@ -91,4 +91,26 @@ public class TestKeepLevelLogic {
 		//Finish Game -> Move to Open Door
 		assertEquals(state.WON, level.update(0, -1));
 	}
+	
+	@Test
+	public void testHeroStunOgre() {
+		
+		hero_armed = true;
+		LevelTwo level = new LevelTwo (board, enemy_activity, hero_armed, victory_pos);
+		
+		//One step to the right -> Stun Ogre
+		assertEquals(state.RUNNING, level.update(0, 1));
+	}
+	
+	@Test
+	public void testClubKillsHero() {
+		
+		LevelTwo level = new LevelTwo (board, enemy_activity, hero_armed, victory_pos);
+		
+		//One step Down
+		assertEquals(state.RUNNING, level.update(1, 0));
+		//One step to the right -> Next to Club
+		assertEquals(state.LOST, level.update(0, 1));
+	}
+	
 }

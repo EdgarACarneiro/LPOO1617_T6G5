@@ -92,4 +92,18 @@ public class TestDungeonLevelLogic {
 		//One step to the left -> Over Open Door
 		assertEquals(state.WON, level.update(0, -1));
 	}
+	
+	@Test
+	public void testGuardCatchHero() {
+		
+		LevelOne level = new LevelOne (board, true, victory_pos);
+		
+		//One step down
+		assertEquals(state.RUNNING, level.update(1, 0));
+		//One step down
+		assertEquals(state.RUNNING, level.update(1, 0));
+		//One step down -> Does not Move -> Hero Catches
+		assertEquals(state.LOST, level.update(1, 0));
+	}
+	
 }
