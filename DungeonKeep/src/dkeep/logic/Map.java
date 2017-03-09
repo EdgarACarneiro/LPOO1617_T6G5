@@ -42,7 +42,12 @@ public class Map {
 		return true;		
 	}
 	
-	public void setOnMap(int[] pos, char symb) {
-		this.map[pos[0]][pos[1]] = symb;
+	public boolean openDoorAt(int row, int col) {
+		if (map[row][col] == 'I') {
+			map[row][col] = 'S';
+			return true;
+		}
+		
+		return false;
 	}
 }

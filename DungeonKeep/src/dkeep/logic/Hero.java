@@ -22,11 +22,9 @@ public class Hero extends Character {
 		
 		int[] new_pos = new int[] {pos[0] + row, pos[1] + col};
 		
-		if (hasKey() && map.getMap()[new_pos[0]][new_pos[1]] == 'I') {
-			map.setOnMap(new_pos,'S');
+		if (hasKey() && map.openDoorAt(new_pos[0], new_pos[1]))
 			return;
-		}
-		if (map.isValid(new_pos[0], new_pos[1]))
+		else if (map.isValid(new_pos[0], new_pos[1]))
 			this.pos = new_pos;
 	}
 	
