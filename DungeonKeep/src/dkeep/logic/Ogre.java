@@ -33,6 +33,10 @@ public class Ogre extends Character {
 		club[1] = pos[1] + club_dir[1];
 	}
 	
+	public int[] getClubPos() {
+		return club;
+	}
+	
 	@Override
 	public void update(Map map, int row, int col) {
 		super.update(map, row, col);

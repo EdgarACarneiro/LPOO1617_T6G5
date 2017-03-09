@@ -43,6 +43,19 @@ public class TestDungeonLevelLogic {
 	}
 	
 	@Test
+	public void testDraw() {
+		
+		LevelOne level = new LevelOne (board, true, victory_pos);
+		
+		//Draw does not crash even with guard moving -> No other way to test draw.
+		
+		level.draw();
+		assertEquals(state.RUNNING, level.update(1, 0));
+		level.draw();
+		assertEquals(state.RUNNING, level.update(1, 0));
+	}
+	
+	@Test
 	public void testMoveHeroToGuard() {
 		
 		LevelOne level = new LevelOne (board, false, victory_pos);

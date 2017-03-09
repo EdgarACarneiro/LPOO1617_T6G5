@@ -28,6 +28,7 @@ public class Suspicious implements Behaviour {
 		probability = CONST_PROB;
 	}
 	
+	/*
 	public Suspicious(double prob) {
 		this();
 
@@ -35,7 +36,7 @@ public class Suspicious implements Behaviour {
 			throw new IllegalArgumentException("Probability must be in range [0, 1]");
 		
 		probability = prob;
-	}
+	}*/
 
 	private int invertDirection() {
 		direction *= -1;

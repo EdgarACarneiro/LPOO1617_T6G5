@@ -31,12 +31,13 @@ public class OgreMap extends Map {
 		this.map = board;
 		
 		for (int i = 0 ; i < board.length; ++i) {
-			for (int j = 0; j < board.length; ++j) {
+			for (int j = 0; j < board[0].length; ++j) {
 				if (board[i][j] == 'k')
 					key_pos = new int[] {i, j};
 			}
 		}
 		
+		this.valid_symbs = new char[] {'B', 'S', 'k', 'O', '*'};
 		this.setVictoryPos(victory_pos);
 	}
 	

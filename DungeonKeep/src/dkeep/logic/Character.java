@@ -72,7 +72,7 @@ public abstract class Character {
 	}
 	
 	public boolean isAt(int[] pos) {
-		return (this.pos.equals(pos));
+		return (this.pos[0] == pos[0] && this.pos[1] == pos[1]);
 	}
 	
 	public boolean setSymbIdx(int i) {
@@ -106,14 +106,14 @@ public abstract class Character {
 		this.setSymbIdx(0);
 	}
 	
-	public final int[][] adjacentCells() {
+	/*public final int[][] adjacentCells() {
 		return new int[][] {
 			{pos[0] + 1, pos[1]},
 			{pos[0] - 1, pos[1]},
 			{pos[0], pos[1] + 1},
 			{pos[0], pos[1] - 1}
 		};
-	}
+	}*/
 	
 	public int[] getPos() {
 		return pos;

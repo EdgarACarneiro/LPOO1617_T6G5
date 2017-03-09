@@ -29,9 +29,6 @@ public abstract class Level {
 				case 'I':
 					own_map[i][j] = 'I';
 					break;
-				case 'S':
-					own_map[i][j] = 'S';
-					break;
 				case 'k':
 					own_map[i][j] = 'k';
 					break;
@@ -68,5 +65,9 @@ public abstract class Level {
 	public abstract Hero getHero();
 	
 	public abstract char[][] getMap();
+	
+	public ArrayList<Character> getEnemies() {
+		return enemies;
+	}
 	
 }

@@ -36,6 +36,7 @@ public class Drunken implements Behaviour {
 		asleep = false;
 	}
 	
+	/*
 	public Drunken(double prob_sleep, double prob_wake, double prob_inv) {
 		this();
 
@@ -46,6 +47,7 @@ public class Drunken implements Behaviour {
 		probWake = prob_wake;
 		probInvert = prob_inv;
 	}
+	*/
 	
 	private int invertDirection() {
 		direction *= -1;
