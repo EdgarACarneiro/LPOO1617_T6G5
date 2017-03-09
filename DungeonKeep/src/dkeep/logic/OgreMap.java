@@ -55,17 +55,6 @@ public class OgreMap extends Map {
 		return ret;
 	}
 	
-	public boolean isValid(Hero hero, int[] delta) {
-		int[] new_pos = {hero.pos[0] + delta[0], hero.pos[1] + delta[1]};
-		
-		if (hero.hasKey() && map[new_pos[0]][new_pos[1]] == 'I') {
-			map[new_pos[0]][new_pos[1]] = 'S';
-			return false;
-		}
-		
-		return super.isValid(new_pos[0], new_pos[1]);
-	}
-	
 	@Override
 	public boolean update(Hero hero) {
 		if (Arrays.equals(key_pos, hero.pos)) {

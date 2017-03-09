@@ -42,4 +42,7 @@ public class Map {
 		return true;		
 	}
 	
+	public void setOnMap(int[] pos, char symb) {
+		this.map[pos[0]][pos[1]] = symb;
+	}
 }
