@@ -119,4 +119,34 @@ public class TestDungeonLevelLogic {
 		assertEquals(state.LOST, level.update(1, 0));
 	}
 	
+	@Test
+	public void testDefaultCoonstrcutor() {
+		
+		LevelOne level = new LevelOne();
+		
+		/*
+		  		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
+				{'X', 'H', 'B', 'B', 'I', 'B', 'X', 'B', 'B', 'X'}
+				{'X', 'X', 'X', 'B', 'X', 'X', 'X', 'B', 'G', 'X'}
+				{'X', 'B', 'I', 'B', 'I', 'B', 'X', 'B', 'B', 'X'}
+				{'X', 'X', 'X', 'B', 'X', 'X', 'X', 'B', 'B', 'X'}
+				{'I', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'X'}
+				{'I', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'X'}
+				{'X', 'X', 'X', 'B', 'X', 'X', 'X', 'X', 'B', 'X'}
+				{'X', 'B', 'I', 'B', 'I', 'B', 'X', 'k', 'B', 'X'}
+				{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
+		 */
+		
+		assertEquals(1, level.getHero().getPos()[0]);
+		assertEquals(1, level.getHero().getPos()[1]);
+		
+		level.update(0, 1);
+		assertEquals(1, level.getHero().getPos()[0]);
+		assertEquals(2, level.getHero().getPos()[1]);
+		
+		level.update(-1, 0);
+		assertEquals(1, level.getHero().getPos()[0]);
+		assertEquals(2, level.getHero().getPos()[1]);
+		
+	}
 }

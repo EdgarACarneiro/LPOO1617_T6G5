@@ -103,4 +103,34 @@ public class TestKeepLevelRandomLogic {
 		level.draw();
 		assertEquals(state.RUNNING,level.update(-1, 0));
 	}
+	
+	@Test
+	public void testDefaultCoonstrcutor() {
+		
+		LevelTwo level = new LevelTwo();
+		
+		/*
+		  	{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
+			{'I', 'B', 'B', 'B', 'O', 'B', 'B', 'B', 'B', 'X'}
+			{'X', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'X'}
+			{'X', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'X'}
+			{'X', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'X'}
+			{'X', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'X'}
+			{'X', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'X'}
+			{'X', 'A', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'X'}
+			{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
+		 */
+		
+		assertEquals(7, level.getHero().getPos()[0]);
+		assertEquals(1, level.getHero().getPos()[1]);
+		
+		level.update(0, 1);
+		assertEquals(7, level.getHero().getPos()[0]);
+		assertEquals(2, level.getHero().getPos()[1]);
+		
+		level.update(1, 0);
+		assertEquals(7, level.getHero().getPos()[0]);
+		assertEquals(2, level.getHero().getPos()[1]);
+		
+	}
 }
