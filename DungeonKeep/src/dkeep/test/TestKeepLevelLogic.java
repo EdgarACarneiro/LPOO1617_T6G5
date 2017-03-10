@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import dkeep.logic.Level.state;
+import dkeep.logic.Level.State;
 import dkeep.logic.LevelTwo;
 
 public class TestKeepLevelLogic {
@@ -25,7 +25,7 @@ public class TestKeepLevelLogic {
 		LevelTwo level = new LevelTwo (board, enemy_activity, hero_armed, victory_pos);
 		
 		//One step to the right
-		assertEquals(state.LOST, level.update(0, 1));
+		assertEquals(State.LOST, level.update(0, 1));
 	}
 	
 	@Test
@@ -34,9 +34,9 @@ public class TestKeepLevelLogic {
 		LevelTwo level = new LevelTwo (board, enemy_activity, hero_armed, victory_pos);
 		
 		//One step down
-		assertEquals(state.RUNNING, level.update(1,  0));
+		assertEquals(State.RUNNING, level.update(1,  0));
 		//One step down
-		assertEquals(state.RUNNING, level.update(1,  0));
+		assertEquals(State.RUNNING, level.update(1,  0));
 		
 		//Check if Hero symbol is 'K'
 		assertEquals(level.getHero().getSymb(), 'K');
@@ -48,9 +48,9 @@ public class TestKeepLevelLogic {
 		LevelTwo level = new LevelTwo (board, enemy_activity, hero_armed, victory_pos);
 		
 		//One step down
-		assertEquals(state.RUNNING, level.update(1,  0));
+		assertEquals(State.RUNNING, level.update(1,  0));
 		//One step to the left -> did not move
-		assertEquals(state.RUNNING, level.update(0, -1));
+		assertEquals(State.RUNNING, level.update(0, -1));
 		assertEquals(2, level.getHero().getPos()[0]);
 		assertEquals(1, level.getHero().getPos()[1]);
 	}
@@ -61,12 +61,12 @@ public class TestKeepLevelLogic {
 		LevelTwo level = new LevelTwo (board, enemy_activity, hero_armed, victory_pos);
 		
 		//One step down
-		assertEquals(state.RUNNING, level.update(1, 0));
+		assertEquals(State.RUNNING, level.update(1, 0));
 		//One step down
-		assertEquals(state.RUNNING, level.update(1, 0));
+		assertEquals(State.RUNNING, level.update(1, 0));
 		
 		//One step to the left -> Open Door
-		assertEquals(state.RUNNING, level.update(0, -1));
+		assertEquals(State.RUNNING, level.update(0, -1));
 		assertEquals(3, level.getHero().getPos()[0]);
 		assertEquals(1, level.getHero().getPos()[1]);
 		
@@ -80,17 +80,17 @@ public class TestKeepLevelLogic {
 		LevelTwo level = new LevelTwo (board, enemy_activity, hero_armed, victory_pos);
 		
 		//One step down
-		assertEquals(state.RUNNING, level.update(1, 0));
+		assertEquals(State.RUNNING, level.update(1, 0));
 		//One step down
-		assertEquals(state.RUNNING, level.update(1, 0));
+		assertEquals(State.RUNNING, level.update(1, 0));
 		
 		//One step to the left -> Open Door
-		assertEquals(state.RUNNING, level.update(0, -1));
+		assertEquals(State.RUNNING, level.update(0, -1));
 		assertEquals(3, level.getHero().getPos()[0]);
 		assertEquals(1, level.getHero().getPos()[1]);
 		
 		//Finish Game -> Move to Open Door
-		assertEquals(state.WON, level.update(0, -1));
+		assertEquals(State.WON, level.update(0, -1));
 	}
 	
 	@Test
@@ -100,7 +100,7 @@ public class TestKeepLevelLogic {
 		LevelTwo level = new LevelTwo (board, enemy_activity, hero_armed, victory_pos);
 		
 		//One step to the right -> Stun Ogre
-		assertEquals(state.RUNNING, level.update(0, 1));
+		assertEquals(State.RUNNING, level.update(0, 1));
 	}
 	
 	@Test
@@ -109,9 +109,9 @@ public class TestKeepLevelLogic {
 		LevelTwo level = new LevelTwo (board, enemy_activity, hero_armed, victory_pos);
 		
 		//One step Down
-		assertEquals(state.RUNNING, level.update(1, 0));
+		assertEquals(State.RUNNING, level.update(1, 0));
 		//One step to the right -> Next to Club
-		assertEquals(state.LOST, level.update(0, 1));
+		assertEquals(State.LOST, level.update(0, 1));
 	}
 	
 }

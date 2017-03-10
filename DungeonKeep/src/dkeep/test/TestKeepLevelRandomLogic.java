@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
-import dkeep.logic.Level.state;
+import dkeep.logic.Level.State;
 import dkeep.logic.LevelTwo;
 import dkeep.logic.Ogre;
 
@@ -99,9 +99,9 @@ public class TestKeepLevelRandomLogic {
 		//Draw does not crash even with ogre moving -> No other way to test draw.
 		
 		level.draw();
-		assertEquals(state.RUNNING, level.update(1, 0));
+		assertEquals(State.RUNNING, level.update(1, 0));
 		level.draw();
-		assertEquals(state.RUNNING,level.update(-1, 0));
+		assertEquals(State.RUNNING,level.update(-1, 0));
 	}
 	
 	@Test

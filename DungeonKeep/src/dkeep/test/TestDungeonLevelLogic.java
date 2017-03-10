@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import dkeep.logic.Level.state;
+import dkeep.logic.Level.State;
 import dkeep.logic.LevelOne;
 
 public class TestDungeonLevelLogic {
@@ -51,9 +51,9 @@ public class TestDungeonLevelLogic {
 		//Draw does not crash even with guard moving -> No other way to test draw.
 		
 		level.draw();
-		assertEquals(state.RUNNING, level.update(1, 0));
+		assertEquals(State.RUNNING, level.update(1, 0));
 		level.draw();
-		assertEquals(state.RUNNING, level.update(1, 0));
+		assertEquals(State.RUNNING, level.update(1, 0));
 	}
 	
 	@Test
@@ -62,7 +62,7 @@ public class TestDungeonLevelLogic {
 		LevelOne level = new LevelOne (board, false, victory_pos);
 		
 		//One step to the right
-		assertEquals(state.LOST, level.update(0, 1));
+		assertEquals(State.LOST, level.update(0, 1));
 	}
 	
 	@Test
@@ -71,10 +71,10 @@ public class TestDungeonLevelLogic {
 		LevelOne level = new LevelOne (board, false, victory_pos);
 		
 		//One step down
-		assertEquals(state.RUNNING, level.update(1,  0));
+		assertEquals(State.RUNNING, level.update(1,  0));
 		
 		//One step to the left -> did not move
-		assertEquals(state.RUNNING, level.update(0, -1));
+		assertEquals(State.RUNNING, level.update(0, -1));
 		assertEquals(2, level.getHero().getPos()[0]);
 		assertEquals(1, level.getHero().getPos()[1]);
 	}
@@ -85,9 +85,9 @@ public class TestDungeonLevelLogic {
 		LevelOne level = new LevelOne (board, false, victory_pos);
 		
 		//One step down
-		assertEquals(state.RUNNING, level.update(1,  0));
+		assertEquals(State.RUNNING, level.update(1,  0));
 		//One step down
-		assertEquals(state.RUNNING, level.update(1,  0));
+		assertEquals(State.RUNNING, level.update(1,  0));
 		
 		//Check if doors open
 		assertEquals(level.getMap()[2][0], 'S');
@@ -99,12 +99,12 @@ public class TestDungeonLevelLogic {
 		LevelOne level = new LevelOne (board, false, victory_pos);
 		
 		//One step down
-		assertEquals(state.RUNNING, level.update(1, 0));
+		assertEquals(State.RUNNING, level.update(1, 0));
 		//One step down
-		assertEquals(state.RUNNING, level.update(1, 0));
+		assertEquals(State.RUNNING, level.update(1, 0));
 		
 		//One step to the left -> Over Open Door
-		assertEquals(state.WON, level.update(0, -1));
+		assertEquals(State.WON, level.update(0, -1));
 	}
 	
 	@Test
@@ -113,11 +113,11 @@ public class TestDungeonLevelLogic {
 		LevelOne level = new LevelOne (board, true, victory_pos);
 		
 		//One step down
-		assertEquals(state.RUNNING, level.update(1, 0));
+		assertEquals(State.RUNNING, level.update(1, 0));
 		//One step down
-		assertEquals(state.RUNNING, level.update(1, 0));
+		assertEquals(State.RUNNING, level.update(1, 0));
 		//One step down -> Does not Move -> Hero Catches
-		assertEquals(state.LOST, level.update(1, 0));
+		assertEquals(State.LOST, level.update(1, 0));
 	}
 	
 	@Test

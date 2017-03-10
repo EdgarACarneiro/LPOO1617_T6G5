@@ -37,7 +37,7 @@ public class LevelTwo extends Level {
 	}
 
 	@Override
-	public state update(int row, int col) {
+	public State update(int row, int col) {
 		
 		hero.update(map, row, col);
 		
@@ -51,15 +51,15 @@ public class LevelTwo extends Level {
 			
 			if (e.attack(hero)) {
 				System.out.println("You lost...");
-				return state.LOST;
+				return State.LOST;
 			}			
 		}
 		
 		if (map.update(hero)) {
-			return state.RUNNING;
+			return State.RUNNING;
 		} else {
 			System.out.println("You Won!!");
-			return state.WON;
+			return State.WON;
 		}
 	}
 	

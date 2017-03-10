@@ -1,5 +1,7 @@
 package dkeep.gui;
 
+import dkeep.logic.*;
+
 import java.awt.EventQueue;
 import java.awt.Font;
 
@@ -11,13 +13,17 @@ import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 public class GameGUI {
 
 	private JFrame frame;
 	private JTextField textField;
-
+	
+	private GameHandler game;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -57,7 +63,7 @@ public class GameGUI {
 		
 		textField = new JTextField();
 		textField.setHorizontalAlignment(SwingConstants.CENTER);
-		textField.setText("#");
+		textField.setText("2");
 		textField.setBounds(160, 27, 118, 26);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
@@ -67,18 +73,48 @@ public class GameGUI {
 		lblGuardPersonality.setBounds(22, 63, 118, 16);
 		frame.getContentPane().add(lblGuardPersonality);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Rookie", "Drunken", "Suspicious"}));
+		JComboBox<String> comboBox = new JComboBox<String>();
+		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Rookie", "Drunken", "Suspicious"}));
 		comboBox.setToolTipText("Persona");
 		comboBox.setBounds(160, 59, 118, 27);
 		frame.getContentPane().add(comboBox);
 		
 		JButton btnNewGame = new JButton("New Game");
-		btnNewGame.setBounds(450, 79, 117, 29);
+		btnNewGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Guard.Personality gp = null;
+				
+				switch ((String) comboBox.getSelectedItem()) {
+				case "Rookie":
+					gp = Guard.Personality.ROOKIE;
+					break;
+				case "Drunken":
+					gp = Guard.Personality.DRUNKEN;
+					break;
+				case "Suspicious":
+					gp = Guard.Personality.SUSPICIOUS;
+					break;
+				default:		
+					System.err.println("Invalid Personality");
+				}
+				
+				int numOgres = Integer.parseInt(textField.getText());
+				if (numOgres >= 0 && numOgres <= 4 && gp != null)
+					game = new GameHandler(gp, numOgres);
+				else
+					textField.setText("Invalid Game Parameters");
+			}
+		});
+		btnNewGame.setBounds(428, 82, 131, 29);
 		frame.getContentPane().add(btnNewGame);
 		
 		JButton btnExit = new JButton("Exit");
-		btnExit.setBounds(450, 407, 117, 29);
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		btnExit.setBounds(428, 389, 131, 29);
 		frame.getContentPane().add(btnExit);
 		
 		JTextArea textArea = new JTextArea();
@@ -92,6 +128,15 @@ public class GameGUI {
 		frame.getContentPane().add(lblNewLabel);
 		
 		JButton btnUp = new JButton("Up");
+		btnUp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (game == null) {
+					textArea.setText("Game not yet initialized");
+				} else {
+					game.update(-1, 0);
+				}
+			}
+		});
 		btnUp.setBounds(463, 185, 62, 30);
 		frame.getContentPane().add(btnUp);
 		
@@ -100,7 +145,7 @@ public class GameGUI {
 		frame.getContentPane().add(btnLeft);
 		
 		JButton btnDown = new JButton("Down");
-		btnDown.setBounds(463, 264, 62, 30);
+		btnDown.setBounds(463, 258, 62, 30);
 		frame.getContentPane().add(btnDown);
 		
 		JButton btnRight = new JButton("Right");

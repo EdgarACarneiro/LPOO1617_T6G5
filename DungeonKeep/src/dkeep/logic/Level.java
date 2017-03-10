@@ -3,7 +3,7 @@ package dkeep.logic;
 import java.util.ArrayList;
 
 public abstract class Level {
-	public enum state {RUNNING, WON, LOST};
+	public enum State {RUNNING, WON, LOST};
 	
 	protected Hero hero;
 	protected boolean enemies_activity;
@@ -56,7 +56,7 @@ public abstract class Level {
 	/*
 	 * Update game-state with hero movement
 	 */
-	public abstract state update(int row, int col);
+	public abstract State update(int row, int col);
 	
 	public abstract Level nextLevel();
 	

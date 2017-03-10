@@ -42,9 +42,9 @@ public final class Game {
 			System.out.println("Invalid input! Was: " + s);
 		}
 		
-		Level.state ret = level.update(hero_move[0], hero_move[1]);
+		Level.State ret = level.update(hero_move[0], hero_move[1]);
 		
-		if ( ret == Level.state.WON ) {
+		if ( ret == Level.State.WON ) {
 			Level new_level;
 			if ( (new_level = level.nextLevel()) == null )
 				return false;
@@ -53,6 +53,6 @@ public final class Game {
 		}
 
 		
-		return ret != Level.state.LOST;
+		return ret != Level.State.LOST;
 	}
 }
