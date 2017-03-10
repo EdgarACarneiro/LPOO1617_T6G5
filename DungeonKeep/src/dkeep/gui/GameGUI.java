@@ -135,6 +135,9 @@ public class GameGUI {
 				} else {
 					game.update(-1, 0);
 				}
+				
+				// TODO
+				//textArea.setText(game.getMapStr());
 			}
 		});
 		btnUp.setBounds(463, 185, 62, 30);

@@ -14,9 +14,18 @@ public class GameHandler {
 		level = new LevelOne(gp);
 	}
 	
+	// TODO
 	public boolean update(int row, int col) {
 		Level.State state = level.update(row, col);
 		
 		return false;
+	}
+	
+	// TODO
+	public String getMapStr() {
+		String res = null;
+		
+		// Level method to draw to string
+		return res;
 	}
 }
