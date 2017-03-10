@@ -8,7 +8,7 @@ public abstract class Level {
 	protected Hero hero;
 	protected boolean enemies_activity;
 	protected ArrayList<Character> enemies = new ArrayList<Character>();
-	protected Map board;
+	protected Map map;
 	
 	public Level(char[][] map, boolean activity, int[][] victory_pos) {
 		
@@ -48,7 +48,7 @@ public abstract class Level {
 			}
 		}
 		
-		this.board = new Map (own_map, victory_pos);
+		this.map = new Map (own_map, victory_pos);
 	}
 	
 	public Level() {};
@@ -60,11 +60,37 @@ public abstract class Level {
 	
 	public abstract Level nextLevel();
 	
-	public abstract void draw();
+	public void draw() {
+		
+		// Creating a modifiable version of the map
+		char[][] map_copy = new char[map.getMap().length][map.getMap()[0].length];
+		
+		for (int i = 0; i < map.getMap().length; ++i)
+			for (int j = 0; j < map.getMap()[i].length; ++j)
+				map_copy[i][j] = map.getMap()[i][j];
+		
+		hero.draw(map_copy);
+		for (Character e : enemies)
+			e.draw(map_copy);
+		
+		// Printing the modified map
+		for (char[] s : map_copy) {
+			for (char c : s) {
+				if (c == 'B')
+					System.out.print("  ");
+				else
+					System.out.print(c + " ");
+			}
+			System.out.println();
+		}
+	}
+	
 	
 	public abstract Hero getHero();
 	
-	public abstract char[][] getMap();
+	public char[][] getMap() {
+		return this.map.getMap();
+	}
 	
 	public ArrayList<Character> getEnemies() {
 		return enemies;
