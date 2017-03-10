@@ -92,19 +92,19 @@ public class GameGUI {
 		frame.getContentPane().add(lblNewLabel);
 		
 		JButton btnUp = new JButton("Up");
-		btnUp.setBounds(475, 182, 75, 29);
+		btnUp.setBounds(463, 185, 62, 30);
 		frame.getContentPane().add(btnUp);
 		
 		JButton btnLeft = new JButton("Left");
-		btnLeft.setBounds(432, 223, 81, 29);
+		btnLeft.setBounds(428, 223, 62, 30);
 		frame.getContentPane().add(btnLeft);
 		
 		JButton btnDown = new JButton("Down");
-		btnDown.setBounds(475, 264, 75, 29);
+		btnDown.setBounds(463, 264, 62, 30);
 		frame.getContentPane().add(btnDown);
 		
 		JButton btnRight = new JButton("Right");
-		btnRight.setBounds(511, 223, 75, 29);
+		btnRight.setBounds(497, 223, 62, 30);
 		frame.getContentPane().add(btnRight);
 	}
 }
