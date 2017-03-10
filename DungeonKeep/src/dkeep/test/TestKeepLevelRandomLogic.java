@@ -1,15 +1,15 @@
 package dkeep.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.util.Arrays;
 
 import org.junit.Test;
 
-import dkeep.logic.LevelOne;
+import dkeep.logic.Level.state;
 import dkeep.logic.LevelTwo;
 import dkeep.logic.Ogre;
-import dkeep.logic.Level.state;
 
 public class TestKeepLevelRandomLogic {
 	

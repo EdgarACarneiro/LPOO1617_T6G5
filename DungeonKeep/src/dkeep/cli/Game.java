@@ -1,6 +1,8 @@
 package dkeep.cli;
 import java.util.Scanner;
-import dkeep.logic.*;
+
+import dkeep.logic.Level;
+import dkeep.logic.LevelOne;
 
 public final class Game {
 

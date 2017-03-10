@@ -1,7 +1,4 @@
 package dkeep.logic;
-import java.lang.IllegalArgumentException;
-import java.lang.Math;
-
 
 public abstract class Character {
 	

@@ -1,6 +1,5 @@
 package dkeep.logic;
 import java.util.Random;
-import java.lang.IllegalArgumentException;
 
 // HANDLED!!
 public class Suspicious implements Behaviour {

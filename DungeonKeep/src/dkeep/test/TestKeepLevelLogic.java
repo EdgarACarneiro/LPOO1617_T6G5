@@ -1,10 +1,11 @@
 package dkeep.test;
 
 import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
-import dkeep.logic.LevelTwo;
 import dkeep.logic.Level.state;
+import dkeep.logic.LevelTwo;
 
 public class TestKeepLevelLogic {
 	

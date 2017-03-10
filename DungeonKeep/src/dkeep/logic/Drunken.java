@@ -1,7 +1,6 @@
 package dkeep.logic;
 
 import java.util.Random;
-import java.lang.IllegalArgumentException;
 
 public class Drunken implements Behaviour {
 	
