@@ -118,7 +118,7 @@ public class GameGUI {
 		frame.getContentPane().add(btnExit);
 		
 		JTextArea textArea = new JTextArea();
-		textArea.setFont(new Font("Nadeem", Font.BOLD, 15));
+		textArea.setFont(new Font("Courier New", Font.PLAIN, 25));
 		textArea.setBounds(22, 105, 390, 300);
 		frame.getContentPane().add(textArea);
 		
@@ -135,23 +135,55 @@ public class GameGUI {
 				} else {
 					game.update(-1, 0);
 				}
-				
-				// TODO
-				//textArea.setText(game.getMapStr());
+
+				textArea.setText(game.getMapStr());
 			}
 		});
 		btnUp.setBounds(463, 185, 62, 30);
 		frame.getContentPane().add(btnUp);
 		
 		JButton btnLeft = new JButton("Left");
+		btnLeft.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (game == null) {
+					textArea.setText("Game not yet initialized");
+				} else {
+					game.update(0, -1);
+				}
+
+				textArea.setText(game.getMapStr());
+			}
+		});
 		btnLeft.setBounds(428, 223, 62, 30);
 		frame.getContentPane().add(btnLeft);
 		
 		JButton btnDown = new JButton("Down");
+		btnDown.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (game == null) {
+					textArea.setText("Game not yet initialized");
+				} else {
+					game.update(1, 0);
+				}
+
+				textArea.setText(game.getMapStr());
+			}
+		});
 		btnDown.setBounds(463, 258, 62, 30);
 		frame.getContentPane().add(btnDown);
 		
 		JButton btnRight = new JButton("Right");
+		btnRight.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (game == null) {
+					textArea.setText("Game not yet initialized");
+				} else {
+					game.update(0, 1);
+				}
+
+				textArea.setText(game.getMapStr());
+			}
+		});
 		btnRight.setBounds(497, 223, 62, 30);
 		frame.getContentPane().add(btnRight);
 	}

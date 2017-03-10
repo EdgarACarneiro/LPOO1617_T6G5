@@ -21,11 +21,7 @@ public class GameHandler {
 		return false;
 	}
 	
-	// TODO
 	public String getMapStr() {
-		String res = null;
-		
-		// Level method to draw to string
-		return res;
+		return level.getMapStr();
 	}
 }

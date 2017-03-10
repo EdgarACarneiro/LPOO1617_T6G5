@@ -85,6 +85,33 @@ public abstract class Level {
 		}
 	}
 	
+	public String getMapStr() {
+		String string = "";
+		
+		// Creating a modifiable version of the map
+		char[][] map_copy = new char[map.getMap().length][map.getMap()[0].length];
+		
+		for (int i = 0; i < map.getMap().length; ++i)
+			for (int j = 0; j < map.getMap()[i].length; ++j)
+				map_copy[i][j] = map.getMap()[i][j];
+		
+		hero.draw(map_copy);
+		for (Character e : enemies)
+			e.draw(map_copy);
+		
+		//Saving the content of the map to the return string
+		for (char[] s : map_copy) {
+			for (char c : s) {
+				if (c == 'B')
+					string += "  ";
+				else
+					string += c + " ";
+			}
+			string += "\n";
+		}
+		
+		return string;
+	}
 	
 	public abstract Hero getHero();
 	

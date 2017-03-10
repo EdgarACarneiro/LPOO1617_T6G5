@@ -28,6 +28,17 @@ public class LevelTwo extends Level {
 		this.map = new OgreMap(map.getMap(), victory_pos);
 	}
 	
+	public LevelTwo(int numOgres) {
+		
+		enemies_activity = true;
+		map = new OgreMap();  
+		hero = new Hero(OgreMap.hero_pos, 'A', 'K');
+		
+		//Initializing all the ogres in the same place
+		for (int i = 0; i <= numOgres; ++i)
+			enemies.add(new Ogre(OgreMap.ogre_pos));
+	}
+	
 	@Override
 	public Level nextLevel() {
 		// there's no next level - return null
