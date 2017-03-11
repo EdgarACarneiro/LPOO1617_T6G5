@@ -3,6 +3,8 @@ package dkeep.logic;
 public class GameHandler {
 	
 	private Level level;
+	private int current_lvl;
+	private String statusInfo;
 	
 	private Guard.Personality gp;
 	private int numOgres;
@@ -11,17 +13,55 @@ public class GameHandler {
 		this.gp = gp;
 		this.numOgres = numOgres;
 		
-		level = new LevelOne(gp);
+		current_lvl = 1;
+		level = new LevelOne(this.gp);
 	}
 	
-	// TODO
+	private void updatingLevel() {
+		switch (current_lvl) {	
+		case 1:
+			statusInfo = "New Level achievied! You can play now.";
+			++current_lvl;
+			level = new LevelTwo(numOgres);
+			break;
+		
+		case 2:
+			statusInfo = "You Won! Congratulations!";
+			current_lvl = 0;
+			level = null;
+			break;
+		}
+	}
+	
 	public boolean update(int row, int col) {
 		Level.State state = level.update(row, col);
 		
-		return false;
+		switch (state) {
+		case RUNNING:
+			statusInfo = "You can play now.";
+			break;
+
+		case WON:
+			updatingLevel();
+			break;
+			
+		case LOST:
+			statusInfo = "Game Over.";
+			return false;
+		}
+		
+		return true;
 	}
 	
 	public String getMapStr() {
-		return level.getMapStr();
+		if (level != null)
+			return level.getMapStr();
+		else
+			return "";
+	}
+	
+	public String getStatusInfo() {
+		return statusInfo;
 	}
 }
+	

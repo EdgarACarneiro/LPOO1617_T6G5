@@ -40,7 +40,7 @@ public abstract class Character {
 	public abstract void update(Map map);
 	
 	public boolean attack(Character c) {
-		if (! armed || ! this.isAdjacent(c))
+		if (! armed || ! this.isAdjacent(c) || ! active)
 			return false;
 		
 		c.setInactive();

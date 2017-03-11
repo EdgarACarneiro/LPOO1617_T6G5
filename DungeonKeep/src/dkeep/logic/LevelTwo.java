@@ -35,7 +35,7 @@ public class LevelTwo extends Level {
 		hero = new Hero(OgreMap.hero_pos, 'A', 'K');
 		
 		//Initializing all the ogres in the same place
-		for (int i = 0; i <= numOgres; ++i)
+		for (int i = 1; i <= numOgres; ++i)
 			enemies.add(new Ogre(OgreMap.ogre_pos));
 	}
 	

@@ -76,8 +76,83 @@ public class GameGUI {
 		JComboBox<String> comboBox = new JComboBox<String>();
 		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Rookie", "Drunken", "Suspicious"}));
 		comboBox.setToolTipText("Persona");
-		comboBox.setBounds(160, 59, 118, 27);
+		comboBox.setBounds(160, 59, 118, 26);
 		frame.getContentPane().add(comboBox);
+		
+		JTextArea textArea = new JTextArea();
+		textArea.setFont(new Font("Courier New", Font.PLAIN, 25));
+		textArea.setBounds(22, 105, 354, 300);
+		textArea.setEditable(false);
+		frame.getContentPane().add(textArea);
+		
+		JLabel lblNewLabel = new JLabel("Game Status Placeholder");
+		lblNewLabel.setFont(new Font("Malayalam MN", Font.PLAIN, 13));
+		lblNewLabel.setBounds(22, 417, 390, 19);
+		frame.getContentPane().add(lblNewLabel);			
+		
+		//Setting this Game Status Text and Buttons
+		if (game == null)
+			lblNewLabel.setText("You can start a new game.");
+		else
+			lblNewLabel.setText(game.getStatusInfo());
+		
+		JButton btnUp = new JButton("Up");
+		if (game == null)
+			btnUp.setEnabled(false);
+		btnUp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if (game != null) {
+					game.update(-1, 0);
+					textArea.setText(game.getMapStr());
+				}
+				
+			}
+		});
+		btnUp.setBounds(451, 186, 68, 30);
+		frame.getContentPane().add(btnUp);
+		
+		JButton btnLeft = new JButton("Left");
+		btnLeft.setEnabled(false);
+		btnLeft.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if (game != null) {
+					game.update(0, -1);
+					textArea.setText(game.getMapStr());
+				}
+			}
+		});
+		btnLeft.setBounds(411, 225, 68, 30);
+		frame.getContentPane().add(btnLeft);
+		
+		JButton btnDown = new JButton("Down");
+		btnDown.setEnabled(false);
+		btnDown.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if (game != null) {
+					game.update(1, 0);
+					textArea.setText(game.getMapStr());
+				}
+			}
+		});
+		btnDown.setBounds(451, 264, 68, 30);
+		frame.getContentPane().add(btnDown);
+		
+		JButton btnRight = new JButton("Right");
+		btnRight.setEnabled(false);
+		btnRight.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if (game != null) {
+					game.update(0, 1);
+					textArea.setText(game.getMapStr());
+				}
+			}
+		});
+		btnRight.setBounds(491, 225, 68, 30);
+		frame.getContentPane().add(btnRight);
 		
 		JButton btnNewGame = new JButton("New Game");
 		btnNewGame.addActionListener(new ActionListener() {
@@ -99,13 +174,22 @@ public class GameGUI {
 				}
 				
 				int numOgres = Integer.parseInt(textField.getText());
-				if (numOgres >= 0 && numOgres <= 4 && gp != null)
+				if (numOgres >= 0 && numOgres <= 4 && gp != null) {
 					game = new GameHandler(gp, numOgres);
+					
+					//Enable Move Buttons
+					btnUp.setEnabled(true);
+					btnRight.setEnabled(true);
+					btnLeft.setEnabled(true);
+					btnDown.setEnabled(true);
+					
+					textArea.setText(game.getMapStr());
+				}
 				else
-					textField.setText("Invalid Game Parameters");
+					textArea.setText("Invalid Game Parameters");
 			}
 		});
-		btnNewGame.setBounds(428, 82, 131, 29);
+		btnNewGame.setBounds(428, 82, 130, 30);
 		frame.getContentPane().add(btnNewGame);
 		
 		JButton btnExit = new JButton("Exit");
@@ -114,77 +198,7 @@ public class GameGUI {
 				System.exit(0);
 			}
 		});
-		btnExit.setBounds(428, 389, 131, 29);
+		btnExit.setBounds(428, 389, 130, 30);
 		frame.getContentPane().add(btnExit);
-		
-		JTextArea textArea = new JTextArea();
-		textArea.setFont(new Font("Courier New", Font.PLAIN, 25));
-		textArea.setBounds(22, 105, 390, 300);
-		frame.getContentPane().add(textArea);
-		
-		JLabel lblNewLabel = new JLabel("Game Status Placeholder");
-		lblNewLabel.setFont(new Font("Malayalam MN", Font.PLAIN, 13));
-		lblNewLabel.setBounds(22, 417, 390, 19);
-		frame.getContentPane().add(lblNewLabel);
-		
-		JButton btnUp = new JButton("Up");
-		btnUp.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (game == null) {
-					textArea.setText("Game not yet initialized");
-				} else {
-					game.update(-1, 0);
-				}
-
-				textArea.setText(game.getMapStr());
-			}
-		});
-		btnUp.setBounds(463, 185, 62, 30);
-		frame.getContentPane().add(btnUp);
-		
-		JButton btnLeft = new JButton("Left");
-		btnLeft.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (game == null) {
-					textArea.setText("Game not yet initialized");
-				} else {
-					game.update(0, -1);
-				}
-
-				textArea.setText(game.getMapStr());
-			}
-		});
-		btnLeft.setBounds(428, 223, 62, 30);
-		frame.getContentPane().add(btnLeft);
-		
-		JButton btnDown = new JButton("Down");
-		btnDown.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (game == null) {
-					textArea.setText("Game not yet initialized");
-				} else {
-					game.update(1, 0);
-				}
-
-				textArea.setText(game.getMapStr());
-			}
-		});
-		btnDown.setBounds(463, 258, 62, 30);
-		frame.getContentPane().add(btnDown);
-		
-		JButton btnRight = new JButton("Right");
-		btnRight.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (game == null) {
-					textArea.setText("Game not yet initialized");
-				} else {
-					game.update(0, 1);
-				}
-
-				textArea.setText(game.getMapStr());
-			}
-		});
-		btnRight.setBounds(497, 223, 62, 30);
-		frame.getContentPane().add(btnRight);
 	}
 }
