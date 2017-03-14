@@ -52,11 +52,11 @@ public class LevelTwo extends Level {
 		
 		for (Character e : enemies) {
 			
-			if (hero.attack(e))
-				System.out.println("Hero stunned an Ogre at " + e.pos[0] + ", " + e.pos[1]);
-			
 			if (this.enemies_activity)
 				e.update(map);
+			
+			if (hero.attack(e))
+				System.out.println("Hero stunned an Ogre at " + e.pos[0] + ", " + e.pos[1]);
 			
 			if (e.attack(hero)) {
 				System.out.println("You lost...");

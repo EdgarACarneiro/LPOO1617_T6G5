@@ -24,6 +24,9 @@ public class GameGUI {
 	
 	private GameHandler game;
 	
+	private JLabel lblStatus;
+	private JTextArea textArea;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -79,34 +82,24 @@ public class GameGUI {
 		comboBox.setBounds(160, 59, 118, 26);
 		frame.getContentPane().add(comboBox);
 		
-		JTextArea textArea = new JTextArea();
+		textArea = new JTextArea();
 		textArea.setFont(new Font("Courier New", Font.PLAIN, 25));
 		textArea.setBounds(22, 105, 354, 300);
 		textArea.setEditable(false);
 		frame.getContentPane().add(textArea);
 		
-		JLabel lblNewLabel = new JLabel("Game Status Placeholder");
-		lblNewLabel.setFont(new Font("Malayalam MN", Font.PLAIN, 13));
-		lblNewLabel.setBounds(22, 417, 390, 19);
-		frame.getContentPane().add(lblNewLabel);			
+		lblStatus = new JLabel("Game Status Placeholder");
+		lblStatus.setFont(new Font("Malayalam MN", Font.PLAIN, 13));
+		lblStatus.setBounds(22, 417, 390, 19);
+		frame.getContentPane().add(lblStatus);			
 		
-		//Setting this Game Status Text and Buttons
-		if (game == null)
-			lblNewLabel.setText("You can start a new game.");
-		else
-			lblNewLabel.setText(game.getStatusInfo());
 		
 		JButton btnUp = new JButton("Up");
 		if (game == null)
 			btnUp.setEnabled(false);
 		btnUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				if (game != null) {
-					game.update(-1, 0);
-					textArea.setText(game.getMapStr());
-				}
-				
+				updateGUI(-1, 0);
 			}
 		});
 		btnUp.setBounds(451, 186, 68, 30);
@@ -116,11 +109,7 @@ public class GameGUI {
 		btnLeft.setEnabled(false);
 		btnLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				if (game != null) {
-					game.update(0, -1);
-					textArea.setText(game.getMapStr());
-				}
+				updateGUI(0, -1);
 			}
 		});
 		btnLeft.setBounds(411, 225, 68, 30);
@@ -130,11 +119,7 @@ public class GameGUI {
 		btnDown.setEnabled(false);
 		btnDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				if (game != null) {
-					game.update(1, 0);
-					textArea.setText(game.getMapStr());
-				}
+				updateGUI(1, 0);
 			}
 		});
 		btnDown.setBounds(451, 264, 68, 30);
@@ -144,11 +129,7 @@ public class GameGUI {
 		btnRight.setEnabled(false);
 		btnRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				if (game != null) {
-					game.update(0, 1);
-					textArea.setText(game.getMapStr());
-				}
+				updateGUI(0, 1);
 			}
 		});
 		btnRight.setBounds(491, 225, 68, 30);
@@ -169,7 +150,7 @@ public class GameGUI {
 				case "Suspicious":
 					gp = Guard.Personality.SUSPICIOUS;
 					break;
-				default:		
+				default:
 					System.err.println("Invalid Personality");
 				}
 				
@@ -201,4 +182,23 @@ public class GameGUI {
 		btnExit.setBounds(428, 389, 130, 30);
 		frame.getContentPane().add(btnExit);
 	}
+	
+	/**
+	 * Updates the GUI text area and status label, with given Hero position delta
+	 */
+	private void updateGUI(int row, int col) {
+		if (game == null) {
+			lblStatus.setText("You can start a new game.");
+			return;
+		}
+		
+		boolean ret = game.update(row, col);
+		lblStatus.setText(game.getStatusInfo());
+		textArea.setText(game.getMapStr());
+		
+		if (! ret)
+			game = null;
+	}
 }
+
+

@@ -17,10 +17,10 @@ public class GameHandler {
 		level = new LevelOne(this.gp);
 	}
 	
-	private void updatingLevel() {
+	private void updateLevel() {
 		switch (current_lvl) {	
 		case 1:
-			statusInfo = "New Level achievied! You can play now.";
+			statusInfo = "New Level reached!";
 			++current_lvl;
 			level = new LevelTwo(numOgres);
 			break;
@@ -42,7 +42,7 @@ public class GameHandler {
 			break;
 
 		case WON:
-			updatingLevel();
+			updateLevel();
 			break;
 			
 		case LOST:
