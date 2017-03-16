@@ -61,7 +61,7 @@ public class LevelTwo extends Level {
 			if (e.attack(hero)) {
 				System.out.println("You lost...");
 				return State.LOST;
-			}			
+			}	
 		}
 		
 		if (map.update(hero)) {

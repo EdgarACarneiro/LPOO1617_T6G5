@@ -8,6 +8,8 @@ public class Map {
 	
 	protected char[] valid_symbs = {'B', 'S', 'k'};
 	
+	protected int[] key_pos = new int[2];
+	
 	private int[][] victory_pos;
 	
 	Map (char[][] map, int[][] pos_vic) {
@@ -49,5 +51,10 @@ public class Map {
 		}
 		
 		return false;
+	}
+	
+	// Worth a method ?
+	public int[] getKeyPos() {
+		return key_pos;
 	}
 }

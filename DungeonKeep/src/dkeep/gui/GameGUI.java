@@ -155,15 +155,21 @@ public class GameGUI {
 					System.err.println("Invalid Personality");
 				}
 				
-				int numOgres = Integer.parseInt(textField.getText());
-				if (numOgres >= 0 && numOgres <= 4 && gp != null) {
+				int numOgres;
+				try {
+					numOgres = Integer.parseInt(textField.getText());
+				} catch (NumberFormatException exc) {
+					lblStatus.setText("Invalid input as number of Ogres!");
+					return;
+				}
+				if (numOgres >= 0 && numOgres <= 5 && gp != null) {
 					game = new GameHandler(gp, numOgres);				
 					enableMoveBtns();
 					
 					textArea.setText(game.getMapStr());
 				}
 				else
-					textArea.setText("Invalid Game Parameters");
+					lblStatus.setText("Invalid number of Ogres.");
 			}
 		});
 		btnNewGame.setBounds(428, 82, 130, 30);

@@ -6,11 +6,12 @@ public class OgreMap extends Map {
 	public static final int[] ogre_pos = {1, 4};
 	public static final int[] hero_pos = {7, 1};	// initial hero position
 	
-	private int[] key_pos = {1, 8};
 	private boolean key_found = false;
 	
+	// Reduce code duplication in constructors!!
 	public OgreMap() {
 		super.setVictoryPos(new int[][] {{1, 0}});
+		key_pos[0] = 1; key_pos[1] = 8;
 		
 		this.map = new char[][] {
 			{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
@@ -28,6 +29,9 @@ public class OgreMap extends Map {
 	}
 	
 	public OgreMap(char[][] board, int[][] victory_pos) {
+		super.setVictoryPos(new int[][] {{1, 0}});
+		key_pos[0] = 1; key_pos[1] = 8;
+		
 		this.map = board;
 		
 		for (int i = 0 ; i < board.length; ++i) {
@@ -38,7 +42,6 @@ public class OgreMap extends Map {
 		}
 		
 		this.valid_symbs = new char[] {'B', 'S', 'k', 'O', '*'};
-		this.setVictoryPos(victory_pos);
 	}
 	
 	@Override
