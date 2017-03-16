@@ -121,7 +121,7 @@ public class TestDungeonLevelLogic {
 	}
 	
 	@Test
-	public void testDefaultCoonstrcutor() {
+	public void testDefaultConstructor() {
 		
 		LevelOne level = new LevelOne();
 		

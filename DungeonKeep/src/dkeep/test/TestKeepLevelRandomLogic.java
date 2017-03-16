@@ -105,7 +105,7 @@ public class TestKeepLevelRandomLogic {
 	}
 	
 	@Test
-	public void testDefaultCoonstrcutor() {
+	public void testDefaultConstructor() {
 		
 		LevelTwo level = new LevelTwo();
 		

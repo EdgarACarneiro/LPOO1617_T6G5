@@ -17,7 +17,7 @@ public class GameHandler {
 		level = new LevelOne(this.gp);
 	}
 	
-	private void updateLevel() {
+	private boolean updateLevel() {
 		switch (current_lvl) {	
 		case 1:
 			statusInfo = "New Level reached!";
@@ -29,8 +29,11 @@ public class GameHandler {
 			statusInfo = "You Won! Congratulations!";
 			current_lvl = 0;
 			level = null;
-			break;
+			return false;
+
 		}
+		
+		return true;
 	}
 	
 	public boolean update(int row, int col) {
@@ -42,8 +45,7 @@ public class GameHandler {
 			break;
 
 		case WON:
-			updateLevel();
-			break;
+			return(updateLevel());
 			
 		case LOST:
 			statusInfo = "Game Over.";

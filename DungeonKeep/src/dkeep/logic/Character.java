@@ -7,7 +7,7 @@ public abstract class Character {
 	
 	private final char[] symbols;
 	private int symb_idx;
-	protected int[] pos;
+	protected int[] pos = new int[2];
 	
 	public Character(int[] initial_pos, char...symb) {
 		if (initial_pos.length != 2)
@@ -15,7 +15,9 @@ public abstract class Character {
 		
 		active = true;
 		armed = false;
-		pos = initial_pos;
+		pos[0] = initial_pos[0];
+		pos[1] = initial_pos[1];
+		
 		if (symb.length == 0) {
 			System.err.println("No symbol provided for character constructor. Using placeholder 'P'.");
 			symbols = new char[] {'P'};

@@ -27,6 +27,12 @@ public class GameGUI {
 	private JLabel lblStatus;
 	private JTextArea textArea;
 	
+	//Move Buttons
+	private JButton btnLeft;
+	private JButton btnRight;
+	private JButton btnUp;
+	private JButton btnDown;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -94,9 +100,7 @@ public class GameGUI {
 		frame.getContentPane().add(lblStatus);			
 		
 		
-		JButton btnUp = new JButton("Up");
-		if (game == null)
-			btnUp.setEnabled(false);
+		btnUp = new JButton("Up");
 		btnUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updateGUI(-1, 0);
@@ -105,8 +109,7 @@ public class GameGUI {
 		btnUp.setBounds(451, 186, 68, 30);
 		frame.getContentPane().add(btnUp);
 		
-		JButton btnLeft = new JButton("Left");
-		btnLeft.setEnabled(false);
+		btnLeft = new JButton("Left");
 		btnLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updateGUI(0, -1);
@@ -115,8 +118,7 @@ public class GameGUI {
 		btnLeft.setBounds(411, 225, 68, 30);
 		frame.getContentPane().add(btnLeft);
 		
-		JButton btnDown = new JButton("Down");
-		btnDown.setEnabled(false);
+		btnDown = new JButton("Down");
 		btnDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updateGUI(1, 0);
@@ -125,8 +127,7 @@ public class GameGUI {
 		btnDown.setBounds(451, 264, 68, 30);
 		frame.getContentPane().add(btnDown);
 		
-		JButton btnRight = new JButton("Right");
-		btnRight.setEnabled(false);
+		btnRight = new JButton("Right");
 		btnRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updateGUI(0, 1);
@@ -156,13 +157,8 @@ public class GameGUI {
 				
 				int numOgres = Integer.parseInt(textField.getText());
 				if (numOgres >= 0 && numOgres <= 4 && gp != null) {
-					game = new GameHandler(gp, numOgres);
-					
-					//Enable Move Buttons
-					btnUp.setEnabled(true);
-					btnRight.setEnabled(true);
-					btnLeft.setEnabled(true);
-					btnDown.setEnabled(true);
+					game = new GameHandler(gp, numOgres);				
+					enableMoveBtns();
 					
 					textArea.setText(game.getMapStr());
 				}
@@ -181,6 +177,9 @@ public class GameGUI {
 		});
 		btnExit.setBounds(428, 389, 130, 30);
 		frame.getContentPane().add(btnExit);
+		
+		if (game == null)
+			disableMoveBtns();
 	}
 	
 	/**
@@ -196,9 +195,25 @@ public class GameGUI {
 		lblStatus.setText(game.getStatusInfo());
 		textArea.setText(game.getMapStr());
 		
-		if (! ret)
+		if (! ret) {
+			disableMoveBtns();
 			game = null;
+		}
+	}
+	
+	//Enables all the 4 Move Buttons
+	private void enableMoveBtns() {
+		btnUp.setEnabled(true);
+		btnRight.setEnabled(true);
+		btnLeft.setEnabled(true);
+		btnDown.setEnabled(true);
+	}
+	
+	//Disables all the 4 Move Buttons
+	private void disableMoveBtns() {
+		btnUp.setEnabled(false);
+		btnRight.setEnabled(false);
+		btnLeft.setEnabled(false);
+		btnDown.setEnabled(false);
 	}
 }
-
-
