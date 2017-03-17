@@ -6,9 +6,7 @@ public class Ogre extends Character {
 	
 	private static Random rand = new Random();
 	private int TURN_WAKE_UP = 2;
-	
-	private boolean covers_key = false;
-	
+		
 	private static final int[][] moves = {
 			{ 1, 0},
 			{-1, 0},
@@ -39,10 +37,7 @@ public class Ogre extends Character {
 	private void checkSelfSymb(Map map) {
 		if ( Arrays.equals(map.getKeyPos(), pos) ) {
 			this.setSymbIdx(2);
-			this.covers_key = true;
-		} else {
-			this.covers_key = false;
-			
+		} else {			
 			if (this.active)
 				this.setActive();
 			else

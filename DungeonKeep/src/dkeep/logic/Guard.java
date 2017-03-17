@@ -1,8 +1,6 @@
 package dkeep.logic;
 import java.util.Random;
 
-import dkeep.logic.Guard.Personality;
-
 public class Guard extends Character {
 	
 	public enum Personality {
