@@ -10,6 +10,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import dkeep.logic.GameHandler;
+import dkeep.logic.Character;
+
 
 public class GamePanel extends JPanel implements KeyListener {
 
@@ -18,22 +20,27 @@ public class GamePanel extends JPanel implements KeyListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private static final String BASE_NAME = "img";
+	private static final String BASE_NAME = "images/img";
 	private static final String IMG_FORMAT = ".png";
 	
-	private static final char[] characters = {'B', 'X', 'H', 'G', 'O'};
+	private static final char[] characters = {'B', 'X', 'H', 'G', 'O', '*', 'k'};
+	
+	private final int IMG_WIDTH = 32;
+	private final int IMG_HEIGHT = 32;
 
 	private GameHandler gh;
 	
 	/**
 	 * Characters to Images HashMap 
 	 */
-	private HashMap<Character, BufferedImage> images;
+	private HashMap<Character, BufferedImage> images = new HashMap<Character, BufferedImage>();
 
 	/**
 	 * Create the panel.
 	 */
 	public GamePanel(GameHandler gh) {
+		super();
+				
 		this.gh = gh;
 		
 		for (int i = 0; i < characters.length; i++) {
@@ -47,6 +54,7 @@ public class GamePanel extends JPanel implements KeyListener {
 				System.err.println("Invalid image path.");
 			}
 		}
+		
 	}
 	
 	public void setGameHandler(GameHandler gh) {
@@ -56,32 +64,44 @@ public class GamePanel extends JPanel implements KeyListener {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);	// clear background
+
+		if (gh == null)
+			return;
 		
-		String map = gh.getMapStr();
+		char[][] map = gh.getMap();
 		
-		for (int idx = 0, x = 0, y = 0; idx < map.length(); idx++) {
-			char c = map.charAt(idx);
-			
-			if (c == '\n') {
-				x = 0;
-				y++;
-				continue;
+		// Draw background map
+		for (int row = 0, y = 0; row < map.length; row++, y += IMG_HEIGHT) {
+			for (int col = 0, x = 0; col < map[row].length; col++, x += IMG_WIDTH) {
+				
+				g.setColor(Color.BLUE);
+				g.drawRect(x, y, IMG_WIDTH, IMG_HEIGHT);
+				
+				char c = map[row][col];
+				BufferedImage img = images.get(c);
+				
+				if (img == null)
+					System.err.println("Invalid Character in map. Was " + c);
+				else {
+					g.drawImage(img, x, y, IMG_WIDTH, IMG_HEIGHT, this); // Run-Time scale, bad?
+				}
+				
 			}
-			
-			BufferedImage img = images.get(c);
-			
-			if (img == null)
-				System.err.println("Invalid Character in map !!!");
-			
-			g.drawImage(img, x, y, this);
-			
-			x += img.getWidth();
-			y += img.getHeight();
+		}
+		
+		// Draw Characters
+		for (Character c : gh.getCharacters()) {
+			switch (c.getSymb()) {
+			// TODO
+			}
 		}
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
+		if (gh == null)
+			return;
+		
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_UP:
 			gh.update(0, -1);

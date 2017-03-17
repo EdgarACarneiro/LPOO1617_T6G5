@@ -123,4 +123,13 @@ public abstract class Level {
 		return enemies;
 	}
 	
+	public ArrayList<Character> getCharacters() {
+		ArrayList<Character> ret = new ArrayList<Character>();
+		
+		ret.addAll(enemies);
+		ret.add(hero);
+		
+		return ret;
+	}
+		
 }

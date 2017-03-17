@@ -1,5 +1,7 @@
 package dkeep.logic;
 
+import java.util.ArrayList;
+
 public class GameHandler {
 	
 	private Level level;
@@ -65,5 +67,14 @@ public class GameHandler {
 	public String getStatusInfo() {
 		return statusInfo;
 	}
+	
+	public ArrayList<Character> getCharacters() {
+		return level.getCharacters();
+	}
+	
+	public char[][] getMap() {
+		return level.getMap();
+	}
+	
 }
 	

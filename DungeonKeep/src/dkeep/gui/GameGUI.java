@@ -10,11 +10,11 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JPanel;
 
 
 public class GameGUI {
@@ -25,7 +25,7 @@ public class GameGUI {
 	private GameHandler game;
 	
 	private JLabel lblStatus;
-	private JTextArea textArea;
+	private JPanel panel;
 	
 	//Move Buttons
 	private JButton btnLeft;
@@ -61,7 +61,7 @@ public class GameGUI {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 600, 480);
+		frame.setBounds(100, 100, 716, 616);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -88,15 +88,13 @@ public class GameGUI {
 		comboBox.setBounds(160, 59, 118, 26);
 		frame.getContentPane().add(comboBox);
 		
-		textArea = new JTextArea();
-		textArea.setFont(new Font("Courier New", Font.PLAIN, 25));
-		textArea.setBounds(22, 105, 354, 300);
-		textArea.setEditable(false);
-		frame.getContentPane().add(textArea);
+		panel = new GamePanel(game);
+		panel.setBounds(22, 101, 474, 430);
+		frame.getContentPane().add(panel);
 		
 		lblStatus = new JLabel("Game Status Placeholder");
 		lblStatus.setFont(new Font("Malayalam MN", Font.PLAIN, 13));
-		lblStatus.setBounds(22, 417, 390, 19);
+		lblStatus.setBounds(22, 554, 390, 19);
 		frame.getContentPane().add(lblStatus);			
 		
 		
@@ -106,7 +104,7 @@ public class GameGUI {
 				updateGUI(-1, 0);
 			}
 		});
-		btnUp.setBounds(451, 186, 68, 30);
+		btnUp.setBounds(548, 187, 68, 30);
 		frame.getContentPane().add(btnUp);
 		
 		btnLeft = new JButton("Left");
@@ -115,7 +113,7 @@ public class GameGUI {
 				updateGUI(0, -1);
 			}
 		});
-		btnLeft.setBounds(411, 225, 68, 30);
+		btnLeft.setBounds(508, 226, 68, 30);
 		frame.getContentPane().add(btnLeft);
 		
 		btnDown = new JButton("Down");
@@ -124,7 +122,7 @@ public class GameGUI {
 				updateGUI(1, 0);
 			}
 		});
-		btnDown.setBounds(451, 264, 68, 30);
+		btnDown.setBounds(548, 265, 68, 30);
 		frame.getContentPane().add(btnDown);
 		
 		btnRight = new JButton("Right");
@@ -133,7 +131,7 @@ public class GameGUI {
 				updateGUI(0, 1);
 			}
 		});
-		btnRight.setBounds(491, 225, 68, 30);
+		btnRight.setBounds(588, 226, 68, 30);
 		frame.getContentPane().add(btnRight);
 		
 		JButton btnNewGame = new JButton("New Game");
@@ -165,14 +163,15 @@ public class GameGUI {
 				if (numOgres >= 0 && numOgres <= 5 && gp != null) {
 					game = new GameHandler(gp, numOgres);				
 					enableMoveBtns();
-					
-					textArea.setText(game.getMapStr());
 				}
 				else
 					lblStatus.setText("Invalid number of Ogres.");
+				
+				((GamePanel) panel).setGameHandler(game);
+				panel.requestFocus();
 			}
 		});
-		btnNewGame.setBounds(428, 82, 130, 30);
+		btnNewGame.setBounds(526, 82, 130, 30);
 		frame.getContentPane().add(btnNewGame);
 		
 		JButton btnExit = new JButton("Exit");
@@ -181,11 +180,14 @@ public class GameGUI {
 				System.exit(0);
 			}
 		});
-		btnExit.setBounds(428, 389, 130, 30);
+		btnExit.setBounds(526, 380, 130, 30);
 		frame.getContentPane().add(btnExit);
+		
 		
 		if (game == null)
 			disableMoveBtns();
+		
+		panel.requestFocus();
 	}
 	
 	/**
@@ -199,7 +201,7 @@ public class GameGUI {
 		
 		boolean ret = game.update(row, col);
 		lblStatus.setText(game.getStatusInfo());
-		textArea.setText(game.getMapStr());
+		panel.repaint();
 		
 		if (! ret) {
 			disableMoveBtns();
