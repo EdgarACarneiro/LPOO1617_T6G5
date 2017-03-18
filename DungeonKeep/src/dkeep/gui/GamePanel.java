@@ -26,7 +26,7 @@ public class GamePanel extends JPanel implements KeyListener {
 	private static final String IMG_FORMAT = ".png";
 	
 	// TODO load images in GameCharacter class, make logic as invisible as possible outside its package 
-	private static final char[] characters = {'B', 'X', 'H', 'G', 'O', '*', 'k', 'I', 'S', 'A', 'K', '8', '$'};
+	private static final char[] characters = {'B', 'X', 'H', 'G', 'O', '*', 'k', 'I', 'S', 'A', 'K', '8', '$', 'g'};
 	
 	private final int IMG_WIDTH = 48;
 	private final int IMG_HEIGHT = 48;
