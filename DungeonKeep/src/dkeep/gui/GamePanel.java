@@ -10,7 +10,9 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import dkeep.logic.GameHandler;
-import dkeep.logic.Character;
+import dkeep.logic.GameCharacter;
+import dkeep.logic.Ogre;
+
 
 
 public class GamePanel extends JPanel implements KeyListener {
@@ -23,7 +25,8 @@ public class GamePanel extends JPanel implements KeyListener {
 	private static final String BASE_NAME = "images/img";
 	private static final String IMG_FORMAT = ".png";
 	
-	private static final char[] characters = {'B', 'X', 'H', 'G', 'O', '*', 'k'};
+	// TODO load images in GameCharacter class, make logic as invisible as possible outside its package 
+	private static final char[] characters = {'B', 'X', 'H', 'G', 'O', '*', 'k', 'I', 'S', 'A', 'K', '8', '$'};
 	
 	private final int IMG_WIDTH = 32;
 	private final int IMG_HEIGHT = 32;
@@ -33,7 +36,7 @@ public class GamePanel extends JPanel implements KeyListener {
 	/**
 	 * Characters to Images HashMap 
 	 */
-	private HashMap<Character, BufferedImage> images = new HashMap<Character, BufferedImage>();
+	private HashMap<Character, Image> images = new HashMap<Character, Image>();
 
 	/**
 	 * Create the panel.
@@ -45,7 +48,7 @@ public class GamePanel extends JPanel implements KeyListener {
 		
 		for (int i = 0; i < characters.length; i++) {
 			try {
-				BufferedImage img = ImageIO.read(new File(BASE_NAME + Integer.toString(i) + IMG_FORMAT));
+				Image img = ImageIO.read(new File(BASE_NAME + Integer.toString(i) + IMG_FORMAT)).getScaledInstance(IMG_WIDTH, IMG_HEIGHT, BufferedImage.SCALE_DEFAULT);
 				
 				if (images.put(characters[i], img) != null)
 					System.err.println("Image character was already mapped.");
@@ -55,10 +58,13 @@ public class GamePanel extends JPanel implements KeyListener {
 			}
 		}
 		
+		this.repaint();
+		
 	}
 	
 	public void setGameHandler(GameHandler gh) {
 		this.gh = gh;
+		this.repaint();
 	}
 
 	@Override
@@ -74,26 +80,33 @@ public class GamePanel extends JPanel implements KeyListener {
 		for (int row = 0, y = 0; row < map.length; row++, y += IMG_HEIGHT) {
 			for (int col = 0, x = 0; col < map[row].length; col++, x += IMG_WIDTH) {
 				
-				g.setColor(Color.BLUE);
-				g.drawRect(x, y, IMG_WIDTH, IMG_HEIGHT);
-				
 				char c = map[row][col];
-				BufferedImage img = images.get(c);
+				Image img = images.get(c);
 				
 				if (img == null)
 					System.err.println("Invalid Character in map. Was " + c);
 				else {
-					g.drawImage(img, x, y, IMG_WIDTH, IMG_HEIGHT, this); // Run-Time scale, bad?
+					g.drawImage(img, x, y, this);
 				}
 				
 			}
 		}
 		
 		// Draw Characters
-		for (Character c : gh.getCharacters()) {
-			switch (c.getSymb()) {
-			// TODO
+		for (GameCharacter gc : gh.getCharacters()) {
+			Image img = images.get(gc.getSymb());
+			
+			if (img == null)
+				continue;
+			
+			// row,col tuple in matrix -> y,x in referential
+			g.drawImage(img, gc.getPos()[1] * IMG_WIDTH, gc.getPos()[0] * IMG_HEIGHT, this);
+			
+			// in case of Ogre, draw club
+			if (gc instanceof Ogre) {	// TODO draw method and images in characters
+				g.drawImage(images.get('*'), ((Ogre) gc).getClubPos()[1] * IMG_WIDTH, ((Ogre) gc).getClubPos()[0] * IMG_HEIGHT, this);
 			}
+				
 		}
 	}
 

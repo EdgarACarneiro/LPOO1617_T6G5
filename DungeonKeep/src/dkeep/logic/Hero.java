@@ -1,6 +1,6 @@
 package dkeep.logic;
 
-public class Hero extends Character {
+public class Hero extends GameCharacter {
 	
 	private boolean hasKey = false;	// future: update with array of items - Inventory (?)
 	

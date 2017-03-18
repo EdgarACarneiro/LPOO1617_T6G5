@@ -1,6 +1,6 @@
 package dkeep.logic;
 
-public abstract class Character {
+public abstract class GameCharacter {
 	
 	protected boolean active;
 	protected boolean armed;
@@ -9,7 +9,7 @@ public abstract class Character {
 	private int symb_idx;
 	protected int[] pos = new int[2];
 	
-	public Character(int[] initial_pos, char...symb) {
+	public GameCharacter(int[] initial_pos, char...symb) {
 		if (initial_pos.length != 2)
 			throw new IllegalArgumentException("Invalid Position");
 		
@@ -41,7 +41,7 @@ public abstract class Character {
 	// For NPC Movement
 	public abstract void update(Map map);
 	
-	public boolean attack(Character c) {
+	public boolean attack(GameCharacter c) {
 		if (! armed || ! this.isAdjacent(c) || ! active)
 			return false;
 		
@@ -49,7 +49,7 @@ public abstract class Character {
 		return true;
 	}
 	
-	protected boolean isAdjacent(Character c) {
+	protected boolean isAdjacent(GameCharacter c) {
 		if (! c.active)
 			return false;
 		

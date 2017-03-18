@@ -68,7 +68,7 @@ public class GameHandler {
 		return statusInfo;
 	}
 	
-	public ArrayList<Character> getCharacters() {
+	public ArrayList<GameCharacter> getCharacters() {
 		return level.getCharacters();
 	}
 	

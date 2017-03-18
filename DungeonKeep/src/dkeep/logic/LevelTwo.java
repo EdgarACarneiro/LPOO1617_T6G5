@@ -50,7 +50,7 @@ public class LevelTwo extends Level {
 		
 		hero.update(map, row, col);
 		
-		for (Character e : enemies) {
+		for (GameCharacter e : enemies) {
 			
 			if (this.enemies_activity)
 				e.update(map);

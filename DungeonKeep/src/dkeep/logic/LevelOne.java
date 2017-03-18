@@ -35,11 +35,11 @@ public class LevelOne extends Level {
 		hero.update(map, row, col);
 		
 		if (enemies_activity) {
-			for (Character e : enemies)
+			for (GameCharacter e : enemies)
 				e.update(map);
 		}
 		
-		for (Character e : enemies) {
+		for (GameCharacter e : enemies) {
 			if (e.attack(hero)) {
 				System.out.println("You lost...");
 				return State.LOST;

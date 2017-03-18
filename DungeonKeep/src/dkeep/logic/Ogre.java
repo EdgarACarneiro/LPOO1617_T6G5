@@ -2,7 +2,7 @@ package dkeep.logic;
 import java.util.Arrays;
 import java.util.Random;
 
-public class Ogre extends Character {
+public class Ogre extends GameCharacter {
 	
 	private static Random rand = new Random();
 	private int TURN_WAKE_UP = 2;
@@ -95,12 +95,12 @@ public class Ogre extends Character {
 	}
 	
 	@Override
-	public boolean isAdjacent(Character c) {
+	public boolean isAdjacent(GameCharacter c) {
 		return (c.isAdjacent(this) || c.isAdjacent(club));
 	}
 	
 	@Override
-	public boolean attack(Character c) {
+	public boolean attack(GameCharacter c) {
 		if (! armed || ! this.isAdjacent(c) )
 			return false;
 		
