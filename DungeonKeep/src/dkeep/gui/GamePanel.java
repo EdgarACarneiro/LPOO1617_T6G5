@@ -28,8 +28,8 @@ public class GamePanel extends JPanel implements KeyListener {
 	// TODO load images in GameCharacter class, make logic as invisible as possible outside its package 
 	private static final char[] characters = {'B', 'X', 'H', 'G', 'O', '*', 'k', 'I', 'S', 'A', 'K', '8', '$'};
 	
-	private final int IMG_WIDTH = 40;
-	private final int IMG_HEIGHT = 40;
+	private final int IMG_WIDTH = 48;
+	private final int IMG_HEIGHT = 48;
 
 	private GameHandler gh;
 	
@@ -58,18 +58,22 @@ public class GamePanel extends JPanel implements KeyListener {
 			}
 		}
 		
-		this.addKeyListener(this);
-
 		this.repaint();
-		this.requestFocusInWindow();		
+		this.requestFocusInWindow();
 		
 	}
 	
 	public void setGameHandler(GameHandler gh) {
 		this.gh = gh;
+		
+		if (gh == null)
+			this.removeKeyListener(this);
+		else
+			this.addKeyListener(this);
+		
 		this.repaint();
 	}
-
+	
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);	// clear background
@@ -118,22 +122,30 @@ public class GamePanel extends JPanel implements KeyListener {
 		if (gh == null)
 			return;
 		
+		Boolean ret = null;
+		
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_UP:
-			gh.update(0, -1);
+			ret = gh.update(-1, 0);
 			break;
 		case KeyEvent.VK_LEFT:
-			gh.update(-1, 0);
+			ret = gh.update(0, -1);
 			break;
 		case KeyEvent.VK_DOWN:
-			gh.update(0, 1);
+			ret = gh.update(1, 0);
 			break;
 		case KeyEvent.VK_RIGHT:
-			gh.update(1, 0);
+			ret = gh.update(0, 1);
 			break;
 		default:
 			System.err.println("Invalid Key Pressed.");
-		}		
+		}
+		
+		if (!ret)
+			this.removeKeyListener(this);
+		
+		this.repaint();
+
 	}
 
 	@Override
@@ -145,7 +157,7 @@ public class GamePanel extends JPanel implements KeyListener {
 	public void keyReleased(KeyEvent e) {
 		switch (e.getKeyCode()) {
 		default:
-			System.err.println("Key released: " + e.getKeyCode());
+			System.out.println("Key released: " + e.getKeyCode());
 		}
 	}
 }

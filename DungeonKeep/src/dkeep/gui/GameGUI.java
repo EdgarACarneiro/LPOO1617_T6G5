@@ -27,12 +27,6 @@ public class GameGUI {
 	private JLabel lblStatus;
 	private JPanel panel;
 	
-	//Move Buttons
-	private JButton btnLeft;
-	private JButton btnRight;
-	private JButton btnUp;
-	private JButton btnDown;
-	
 	/**
 	 * Launch the application.
 	 */
@@ -61,78 +55,43 @@ public class GameGUI {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 716, 616);
+		frame.setBounds(100, 100, 710, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblNumberOfOgres = new JLabel("Number of Ogres");
+		lblNumberOfOgres.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNumberOfOgres.setFont(new Font("Malayalam MN", Font.PLAIN, 13));
-		lblNumberOfOgres.setBounds(22, 32, 137, 19);
+		lblNumberOfOgres.setBounds(560, 364, 120, 19);
 		frame.getContentPane().add(lblNumberOfOgres);
 		
 		textField = new JTextField();
 		textField.setHorizontalAlignment(SwingConstants.CENTER);
 		textField.setText("2");
-		textField.setBounds(160, 27, 118, 26);
+		textField.setBounds(560, 395, 118, 26);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblGuardPersonality = new JLabel("Guard Personality");
+		lblGuardPersonality.setHorizontalAlignment(SwingConstants.CENTER);
 		lblGuardPersonality.setFont(new Font("Malayalam MN", Font.PLAIN, 13));
-		lblGuardPersonality.setBounds(22, 63, 118, 16);
+		lblGuardPersonality.setBounds(560, 462, 120, 16);
 		frame.getContentPane().add(lblGuardPersonality);
 		
 		JComboBox<String> comboBox = new JComboBox<String>();
 		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Rookie", "Drunken", "Suspicious"}));
 		comboBox.setToolTipText("Persona");
-		comboBox.setBounds(160, 59, 118, 26);
+		comboBox.setBounds(560, 490, 118, 26);
 		frame.getContentPane().add(comboBox);
 		
 		panel = new GamePanel(game);
-		panel.setBounds(22, 101, 474, 430);
+		panel.setBounds(27, 19, 500, 500);
 		frame.getContentPane().add(panel);
 		
 		lblStatus = new JLabel("Game Status Placeholder");
-		lblStatus.setFont(new Font("Malayalam MN", Font.PLAIN, 13));
-		lblStatus.setBounds(22, 554, 390, 19);
-		frame.getContentPane().add(lblStatus);			
-		
-		
-		btnUp = new JButton("Up");
-		btnUp.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				updateGUI(-1, 0);
-			}
-		});
-		btnUp.setBounds(548, 187, 68, 30);
-		frame.getContentPane().add(btnUp);
-		
-		btnLeft = new JButton("Left");
-		btnLeft.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				updateGUI(0, -1);
-			}
-		});
-		btnLeft.setBounds(508, 226, 68, 30);
-		frame.getContentPane().add(btnLeft);
-		
-		btnDown = new JButton("Down");
-		btnDown.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				updateGUI(1, 0);
-			}
-		});
-		btnDown.setBounds(548, 265, 68, 30);
-		frame.getContentPane().add(btnDown);
-		
-		btnRight = new JButton("Right");
-		btnRight.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				updateGUI(0, 1);
-			}
-		});
-		btnRight.setBounds(588, 226, 68, 30);
-		frame.getContentPane().add(btnRight);
+		lblStatus.setFont(new Font("Malayalam MN", Font.PLAIN, 20));
+		lblStatus.setBounds(47, 531, 390, 28);
+		frame.getContentPane().add(lblStatus);
 		
 		JButton btnNewGame = new JButton("New Game");
 		btnNewGame.addActionListener(new ActionListener() {
@@ -161,16 +120,19 @@ public class GameGUI {
 					return;
 				}
 				if (numOgres >= 0 && numOgres <= 5 && gp != null) {
-					game = new GameHandler(gp, numOgres);				
-					enableMoveBtns();
-				}
-				else
+					game = new GameHandler(gp, numOgres);
+					lblStatus.setText("Game in progress!");
+				} else {
 					lblStatus.setText("Invalid number of Ogres.");
+					return;
+				}
 				
 				((GamePanel) panel).setGameHandler(game);
+				
+				panel.requestFocusInWindow();
 			}
 		});
-		btnNewGame.setBounds(526, 82, 130, 30);
+		btnNewGame.setBounds(560, 19, 120, 30);
 		frame.getContentPane().add(btnNewGame);
 		
 		JButton btnExit = new JButton("Exit");
@@ -179,50 +141,10 @@ public class GameGUI {
 				System.exit(0);
 			}
 		});
-		btnExit.setBounds(526, 380, 130, 30);
+		btnExit.setBounds(560, 63, 120, 30);
 		frame.getContentPane().add(btnExit);
-		
-		
-		if (game == null)
-			disableMoveBtns();
 		
 		panel.requestFocusInWindow();
 	}
 	
-	/**
-	 * Updates the GUI text area and status label, with given Hero position delta
-	 */
-	private void updateGUI(int row, int col) {
-		if (game == null) {
-			lblStatus.setText("You can start a new game.");
-			return;
-		}
-		
-		boolean ret = game.update(row, col);
-		lblStatus.setText(game.getStatusInfo());
-		panel.repaint();
-
-		if (! ret) {
-			disableMoveBtns();
-			game = null;
-			//((GamePanel) panel).setGameHandler(null);
-		}
-
-	}
-	
-	//Enables all the 4 Move Buttons
-	private void enableMoveBtns() {
-		btnUp.setEnabled(true);
-		btnRight.setEnabled(true);
-		btnLeft.setEnabled(true);
-		btnDown.setEnabled(true);
-	}
-	
-	//Disables all the 4 Move Buttons
-	private void disableMoveBtns() {
-		btnUp.setEnabled(false);
-		btnRight.setEnabled(false);
-		btnLeft.setEnabled(false);
-		btnDown.setEnabled(false);
-	}
 }
