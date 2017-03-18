@@ -30,9 +30,7 @@ public class GameHandler {
 		case 2:
 			statusInfo = "You Won! Congratulations!";
 			current_lvl = 0;
-			level = null;
 			return false;
-
 		}
 		
 		return true;
@@ -69,11 +67,17 @@ public class GameHandler {
 	}
 	
 	public ArrayList<GameCharacter> getCharacters() {
-		return level.getCharacters();
+		if (level != null)
+			return level.getCharacters();
+		else
+			return null;
 	}
 	
 	public char[][] getMap() {
-		return level.getMap();
+		if (level != null)
+			return level.getMap();
+		else
+			return null;
 	}
 	
 }

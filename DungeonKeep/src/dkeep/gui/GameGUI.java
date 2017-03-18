@@ -168,7 +168,6 @@ public class GameGUI {
 					lblStatus.setText("Invalid number of Ogres.");
 				
 				((GamePanel) panel).setGameHandler(game);
-				panel.requestFocus();
 			}
 		});
 		btnNewGame.setBounds(526, 82, 130, 30);
@@ -187,7 +186,7 @@ public class GameGUI {
 		if (game == null)
 			disableMoveBtns();
 		
-		panel.requestFocus();
+		panel.requestFocusInWindow();
 	}
 	
 	/**
@@ -202,11 +201,13 @@ public class GameGUI {
 		boolean ret = game.update(row, col);
 		lblStatus.setText(game.getStatusInfo());
 		panel.repaint();
-		
+
 		if (! ret) {
 			disableMoveBtns();
 			game = null;
+			//((GamePanel) panel).setGameHandler(null);
 		}
+
 	}
 	
 	//Enables all the 4 Move Buttons

@@ -28,8 +28,8 @@ public class GamePanel extends JPanel implements KeyListener {
 	// TODO load images in GameCharacter class, make logic as invisible as possible outside its package 
 	private static final char[] characters = {'B', 'X', 'H', 'G', 'O', '*', 'k', 'I', 'S', 'A', 'K', '8', '$'};
 	
-	private final int IMG_WIDTH = 32;
-	private final int IMG_HEIGHT = 32;
+	private final int IMG_WIDTH = 40;
+	private final int IMG_HEIGHT = 40;
 
 	private GameHandler gh;
 	
@@ -58,7 +58,10 @@ public class GamePanel extends JPanel implements KeyListener {
 			}
 		}
 		
+		this.addKeyListener(this);
+
 		this.repaint();
+		this.requestFocusInWindow();		
 		
 	}
 	
