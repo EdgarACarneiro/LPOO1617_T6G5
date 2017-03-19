@@ -64,11 +64,11 @@ public class GamePanel extends JPanel implements KeyListener {
 	}
 	
 	public void setGameHandler(GameHandler gh) {
+		this.removeKeyListener(this);
+		
 		this.gh = gh;
 		
-		if (gh == null)
-			this.removeKeyListener(this);
-		else
+		if (gh != null)
 			this.addKeyListener(this);
 		
 		this.repaint();
