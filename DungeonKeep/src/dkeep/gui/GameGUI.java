@@ -27,6 +27,12 @@ import java.awt.event.MouseEvent;
 
 
 public class GameGUI {
+	
+	private static enum State {
+		INITIAL, GAME, EDIT
+	};
+	
+	private State state = State.INITIAL;
 
 	private JFrame frame;
 	private JTextField textField;
@@ -252,5 +258,23 @@ public class GameGUI {
 		Edit.setVisible(false);
 		Initial.setVisible(true);
 		
+	}
+	
+	// State-Machine - used to control possible transitions and their associated actions (e.g. visible panels)
+	private void switchState(State st) {
+		
+		state = st;
+		
+//		switch (state) {
+//		case INITIAL:
+//			
+//			break;
+//		case GAME:
+//			
+//			break;
+//		case EDIT:
+//			
+//			break;
+//		}
 	}
 }
