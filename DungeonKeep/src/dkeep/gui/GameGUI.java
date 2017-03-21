@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -15,6 +16,14 @@ import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import javax.swing.BoxLayout;
+import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 
 public class GameGUI {
@@ -59,41 +68,147 @@ public class GameGUI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
+		JPanel Initial = new JPanel();
+		Initial.setBounds(0, 0, 10, 10);
+		frame.getContentPane().add(Initial);
+		Initial.setLayout(null);
+		
+		JButton btnStdGame = new JButton("Standard Game");
+		btnStdGame.setBounds(280, 60, 138, 60);
+		Initial.add(btnStdGame);
+		
+		JButton btnCustomGame = new JButton("Custom Game");
+		btnCustomGame.setBounds(280, 140, 132, 60);
+		Initial.add(btnCustomGame);
+		
+		JPanel Game = new JPanel();
+		Game.setBounds(0, 0, 946, 39);
+		frame.getContentPane().add(Game);
+		
 		JLabel lblNumberOfOgres = new JLabel("Number of Ogres");
+		Game.add(lblNumberOfOgres);
 		lblNumberOfOgres.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNumberOfOgres.setFont(new Font("Malayalam MN", Font.PLAIN, 13));
-		lblNumberOfOgres.setBounds(560, 364, 120, 19);
-		frame.getContentPane().add(lblNumberOfOgres);
 		
 		textField = new JTextField();
+		Game.add(textField);
 		textField.setHorizontalAlignment(SwingConstants.CENTER);
 		textField.setText("2");
-		textField.setBounds(560, 395, 118, 26);
-		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblGuardPersonality = new JLabel("Guard Personality");
+		Game.add(lblGuardPersonality);
 		lblGuardPersonality.setHorizontalAlignment(SwingConstants.CENTER);
 		lblGuardPersonality.setFont(new Font("Malayalam MN", Font.PLAIN, 13));
-		lblGuardPersonality.setBounds(560, 462, 120, 16);
-		frame.getContentPane().add(lblGuardPersonality);
 		
 		JComboBox<String> comboBox = new JComboBox<String>();
+		Game.add(comboBox);
 		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Rookie", "Drunken", "Suspicious"}));
 		comboBox.setToolTipText("Persona");
-		comboBox.setBounds(560, 490, 118, 26);
-		frame.getContentPane().add(comboBox);
 		
 		panel = new GamePanel(game);
-		panel.setBounds(27, 19, 500, 500);
-		frame.getContentPane().add(panel);
+		Game.add(panel);
 		
 		lblStatus = new JLabel("Game Status Placeholder");
+		Game.add(lblStatus);
 		lblStatus.setFont(new Font("Malayalam MN", Font.PLAIN, 20));
-		lblStatus.setBounds(47, 531, 390, 28);
-		frame.getContentPane().add(lblStatus);
 		
 		JButton btnNewGame = new JButton("New Game");
+		Game.add(btnNewGame);
+		
+		JButton btnExit = new JButton("Exit");
+		Game.add(btnExit);
+		
+		JPanel Edit = new JPanel();
+		Edit.setBounds(6, 6, 698, 566);
+		frame.getContentPane().add(Edit);
+		Edit.setLayout(null);
+		
+		JLabel lblRows = new JLabel("Rows:");
+		lblRows.setBounds(38, 6, 61, 16);
+		Edit.add(lblRows);
+		
+		JLabel lblColumns = new JLabel("Columns:");
+		lblColumns.setBounds(38, 34, 61, 16);
+		Edit.add(lblColumns);
+		
+		JSpinner spinnerRows = new JSpinner();
+		spinnerRows.setBounds(111, 1, 48, 26);
+		spinnerRows.setValue(10);
+		Edit.add(spinnerRows);
+		
+		JSpinner spinnerCols = new JSpinner();
+		spinnerCols.setBounds(111, 29, 48, 26);
+		spinnerCols.setValue(10);
+		Edit.add(spinnerCols);
+		
+		JLabel lblFloor = new JLabel(new ImageIcon("images/img0.png"));
+		lblFloor.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
+		lblFloor.setBounds(588, 104, 55, 55);
+		Edit.add(lblFloor);
+		
+		JLabel lblWall = new JLabel(new ImageIcon("images/img1.png"));
+		lblWall.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
+		lblWall.setBounds(588, 171, 55, 55);
+		Edit.add(lblWall);
+		
+		JLabel lblOgre = new JLabel(new ImageIcon("images/img4.png"));
+		lblOgre.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
+		lblOgre.setBounds(588, 238, 55, 55);
+		Edit.add(lblOgre);
+		
+		JLabel lblDoor = new JLabel("Door", new ImageIcon("images/img8.png"), JLabel.CENTER);
+		lblDoor.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
+		lblDoor.setBounds(588, 305, 55, 55);
+		Edit.add(lblDoor);
+		
+		JLabel lblKey = new JLabel("Key", new ImageIcon("images/img6.png"), JLabel.CENTER);
+		lblKey.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
+		lblKey.setBounds(588, 372, 55, 55);
+		Edit.add(lblKey);
+		
+		JLabel lblHero = new JLabel("Hero", new ImageIcon("images/img9.png"), JLabel.CENTER);
+		lblHero.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
+		lblHero.setBounds(588, 439, 55, 55);
+		Edit.add(lblHero);
+		
+		JPanel EditPanel = new MapEditPanel();
+		EditPanel.setBounds(6, 80, 480, 480);
+		Edit.add(EditPanel);
+		
+		JButton btnDone = new JButton("Done!");
+		btnDone.setBounds(554, 34, 117, 58);
+		Edit.add(btnDone);
+		Edit.setVisible(false);
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Guard.Personality gp = null;
@@ -132,19 +247,10 @@ public class GameGUI {
 				panel.requestFocusInWindow();
 			}
 		});
-		btnNewGame.setBounds(560, 19, 120, 30);
-		frame.getContentPane().add(btnNewGame);
 		
-		JButton btnExit = new JButton("Exit");
-		btnExit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
-		btnExit.setBounds(560, 63, 120, 30);
-		frame.getContentPane().add(btnExit);
+		Game.setVisible(false);
+		Edit.setVisible(false);
+		Initial.setVisible(true);
 		
-		panel.requestFocusInWindow();
 	}
-	
 }
