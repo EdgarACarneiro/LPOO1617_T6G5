@@ -39,6 +39,8 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 	
 	private char[][] map;
 	
+	Point mousePos = new Point();
+	
 	/**
 	 * Create the panel.
 	 */
@@ -59,6 +61,7 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 		
 		this.repaint();
 		this.requestFocusInWindow();
+		this.addMouseListener(this);
 	}
 	
 	private void initializeMap() {
@@ -97,49 +100,53 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 				
 			}
 		}
+		
+		if (selection != null)
+			g.drawImage(images.get(selection), mousePos.x, mousePos.y, this);
 				
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+		Point p = e.getPoint();
+
+		if (e.getButton() == MouseEvent.BUTTON3) {
+			map[p.y / this.getHeight()][p.x / this.getWidth()] = 'B';
+		}
 		
+		if (selection == null)
+			return;
+		
+		map[p.y / this.getHeight()][p.x / this.getWidth()] = selection;
+		repaint();
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
+		if (selection == null)
+			return;
 		
+		Point p = e.getPoint();
+		map[p.y / this.getHeight()][p.x / this.getWidth()] = selection;
+		repaint();
 	}
 
 	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseReleased(MouseEvent e) {}
 
 	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseEntered(MouseEvent e) {}
 
 	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseExited(MouseEvent e) {}
 
 	@Override
-	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseDragged(MouseEvent e) {}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		mousePos.setLocation(e.getPoint());
+		repaint();
 	}
 
 }
