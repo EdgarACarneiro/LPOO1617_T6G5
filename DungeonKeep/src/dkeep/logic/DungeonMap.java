@@ -4,6 +4,8 @@ import java.util.Arrays;
 
 public class DungeonMap extends Map {
 	
+	private static final long serialVersionUID = 11L;
+	
 	private boolean doors_open = false;
 	
 	private static int[] lever_pos = {8, 7};

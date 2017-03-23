@@ -1,8 +1,17 @@
 package dkeep.logic;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-public class GameHandler {
+public class GameHandler implements java.io.Serializable {
+	
+	private static final long serialVersionUID = 2L;
+	
+	private static final String gameFile = "savedGames/Game01.ser";
 	
 	private Level level;
 	private int current_lvl;
@@ -17,6 +26,33 @@ public class GameHandler {
 		
 		current_lvl = 1;
 		level = new LevelOne(this.gp);
+	}
+	
+	public GameHandler() {
+		GameHandler game = null;
+	     
+      try {
+         FileInputStream fileIn = new FileInputStream(gameFile);
+         ObjectInputStream in = new ObjectInputStream(fileIn);
+         game = (GameHandler) in.readObject();
+         in.close();
+         fileIn.close();
+         
+         //Creating current game
+         this.level = game.level;
+         this.gp = game.gp;
+         this.current_lvl = game.current_lvl;
+         this.numOgres = game.numOgres;
+         this.statusInfo = game.statusInfo;
+
+	  }catch(IOException i) {
+         i.printStackTrace();
+         return;
+      }catch(ClassNotFoundException c) {
+         System.out.println("GameHandler class not found");
+         c.printStackTrace();
+         return;
+      }
 	}
 	
 	private boolean updateLevel() {
@@ -54,6 +90,21 @@ public class GameHandler {
 		
 		return true;
 	}
+		
+	//Saving the current Game session
+	public void saveGame() {
+		try {
+	        FileOutputStream fileOut = new FileOutputStream(gameFile);
+	        ObjectOutputStream out = new ObjectOutputStream(fileOut);
+	        out.writeObject(this);
+	        out.close();
+	        fileOut.close();
+	        System.out.printf("Saved game in " + gameFile + ".\n" );
+	        
+	      }catch(IOException i) {
+	         i.printStackTrace();
+	      }
+	}	
 	
 	public String getMapStr() {
 		if (level != null)

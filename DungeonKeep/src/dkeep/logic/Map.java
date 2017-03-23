@@ -2,7 +2,9 @@ package dkeep.logic;
 
 import java.util.Arrays;
 
-public class Map {
+public class Map implements java.io.Serializable {
+	
+	private static final long serialVersionUID = 6L;
 	
 	protected char[][] map;
 	

@@ -3,6 +3,8 @@ import java.util.Arrays;
 
 public class OgreMap extends Map {
 	
+	private static final long serialVersionUID = 9L;
+	
 	public static final int[] ogre_pos = {1, 4};
 	public static final int[] hero_pos = {7, 1};	// initial hero position
 	

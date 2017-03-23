@@ -1,6 +1,6 @@
 package dkeep.logic;
 
-public abstract class GameCharacter {
+public abstract class GameCharacter implements java.io.Serializable {
 	
 	protected boolean active;
 	protected boolean armed;

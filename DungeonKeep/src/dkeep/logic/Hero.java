@@ -2,6 +2,8 @@ package dkeep.logic;
 
 public class Hero extends GameCharacter {
 	
+	private static final long serialVersionUID = 12L;
+	
 	private boolean hasKey = false;	// future: update with array of items - Inventory (?)
 	
 	public Hero(int[] initial_pos, char... symbs) {

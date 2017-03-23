@@ -2,7 +2,9 @@ package dkeep.logic;
 import java.util.Random;
 
 // HANDLED!!
-public class Suspicious implements Behaviour {
+public class Suspicious implements Behaviour, java.io.Serializable {
+	
+	private static final long serialVersionUID = 17L;
 	
 	private final static double CONST_PROB = 0.1;
 	

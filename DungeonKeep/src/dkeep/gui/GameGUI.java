@@ -93,6 +93,31 @@ public class GameGUI {
 		lblStatus.setBounds(47, 531, 390, 28);
 		frame.getContentPane().add(lblStatus);
 		
+		JButton btnSaveGame = new JButton("Save Game");
+		btnSaveGame.setEnabled(false);
+		btnSaveGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				game.saveGame();
+			}
+		});
+		btnSaveGame.setBounds(560, 100, 120, 30);
+		frame.getContentPane().add(btnSaveGame);
+		
+		JButton btnLoadGame = new JButton("Load Game");
+		btnLoadGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				game = new GameHandler();
+				
+				btnSaveGame.setEnabled(true);
+				((GamePanel) panel).setGameHandler(game);
+				
+				panel.requestFocusInWindow();
+			}
+		});
+		btnLoadGame.setBounds(560, 60, 120, 30);
+		frame.getContentPane().add(btnLoadGame);
+		
 		JButton btnNewGame = new JButton("New Game");
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -126,25 +151,25 @@ public class GameGUI {
 					lblStatus.setText("Invalid number of Ogres.");
 					return;
 				}
-				
+
+				btnSaveGame.setEnabled(true);
 				((GamePanel) panel).setGameHandler(game);
 				
 				panel.requestFocusInWindow();
 			}
 		});
-		btnNewGame.setBounds(560, 19, 120, 30);
+		btnNewGame.setBounds(560, 20, 120, 30);
 		frame.getContentPane().add(btnNewGame);
 		
 		JButton btnExit = new JButton("Exit");
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
-			}
+				}
 		});
-		btnExit.setBounds(560, 63, 120, 30);
+		btnExit.setBounds(560, 140, 120, 30);
 		frame.getContentPane().add(btnExit);
 		
 		panel.requestFocusInWindow();
 	}
-	
 }

@@ -2,7 +2,10 @@ package dkeep.logic;
 
 import java.util.ArrayList;
 
-public abstract class Level {
+public abstract class Level implements java.io.Serializable{
+	
+	private static final long serialVersionUID = 3L;
+	
 	public enum State {RUNNING, WON, LOST};
 	
 	protected Hero hero;
