@@ -20,6 +20,8 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 	private static final String BASE_NAME = "images/img";
 	private static final String IMG_FORMAT = ".png";
 	
+	private static final int MAX_LINES = 12;
+	
 	// TODO load images in GameCharacter class, make logic as invisible as possible outside its package -- tried it, it's tough not to duplicate
 	// Static Singleton with all images ? how to correctly access them? logic sees that singleton?
 	private static final char[] characters = {'B', 'X', 'H', 'G', 'O', '*', 'k', 'I', 'S', 'A', 'K', '8', '$', 'g'};
@@ -62,6 +64,7 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 		this.repaint();
 		this.requestFocusInWindow();
 		this.addMouseListener(this);
+		this.addMouseMotionListener(this);
 	}
 	
 	private void initializeMap() {
@@ -74,12 +77,47 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 		}
 	}
 	
+	private void rescaleImages() {
+		Integer max = Math.max(rows, cols);
+		
+		IMG_EDGE = Math.min(this.getWidth(), this.getHeight()) / max;
+			
+		repaint();
+	}
+	
 	public char[][] getMap() {
 		return map;
 	}
 	
 	public void setSelection(char c) {
 		selection = c;
+		this.requestFocusInWindow();
+	}
+	
+	public boolean setRows(Object n) {
+		Integer i = (Integer) n;
+		if (i == null || i < 1 || i > MAX_LINES)
+			return false;
+		rows = i;
+		rescaleImages();
+		initializeMap();
+		
+		System.out.println("" + n);
+		
+		return true;
+	}
+	
+	public boolean setCols(Object n) {
+		Integer i = (Integer) n;
+		if (i == null || i < 1 || i > MAX_LINES)
+			return false;
+		cols = i;
+		rescaleImages();
+		initializeMap();
+		
+		System.out.println("" + n);
+		
+		return true;
 	}
 	
 	@Override
@@ -89,6 +127,7 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 		for (int row = 0, y = 0; row < map.length; row++, y += IMG_EDGE) {
 			for (int col = 0, x = 0; col < map[row].length; col++, x += IMG_EDGE) {
 				
+				g.drawImage(images.get('B'), x, y, this);
 				char c = map[row][col];
 				Image img = images.get(c);
 				
@@ -102,7 +141,7 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 		}
 		
 		if (selection != null)
-			g.drawImage(images.get(selection), mousePos.x, mousePos.y, this);
+			g.drawImage(images.get(selection), mousePos.x - IMG_EDGE / 2, mousePos.y - IMG_EDGE / 2, this);
 				
 	}
 
@@ -117,19 +156,14 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 		if (selection == null)
 			return;
 		
-		map[p.y / this.getHeight()][p.x / this.getWidth()] = selection;
+		System.out.println("" + e.getX() + ", " + e.getY());
+		
+		map[p.y / IMG_EDGE][p.x / IMG_EDGE] = selection;
 		repaint();
 	}
 
 	@Override
-	public void mousePressed(MouseEvent e) {
-		if (selection == null)
-			return;
-		
-		Point p = e.getPoint();
-		map[p.y / this.getHeight()][p.x / this.getWidth()] = selection;
-		repaint();
-	}
+	public void mousePressed(MouseEvent e) {}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {}

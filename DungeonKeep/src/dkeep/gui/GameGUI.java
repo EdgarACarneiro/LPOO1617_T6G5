@@ -25,6 +25,8 @@ import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.Icon;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 
 public class GameGUI {
@@ -81,43 +83,23 @@ public class GameGUI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		Initial = new JPanel();
-		Initial.setBounds(0, 0, 710, 578);
-		frame.getContentPane().add(Initial);
-		Initial.setLayout(null);
-		
-		JButton btnStdGame = new JButton("Standard Game");
-		btnStdGame.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				switchState(State.GAME);
-			}
-		});
-		
-				btnStdGame.setBounds(280, 68, 138, 60);
-				Initial.add(btnStdGame);
-				
-				JButton btnCustomGame = new JButton("Custom Game");
-				btnCustomGame.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						switchState(State.EDIT);
-					}
-				});
-				btnCustomGame.setBounds(280, 181, 138, 60);
-				Initial.add(btnCustomGame);
-				
-				JButton btnExit = new JButton("Exit");
-				btnExit.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						System.exit(0);
-					}
-				});
-				btnExit.setBounds(280, 302, 138, 60);
-				Initial.add(btnExit);
-		
 		Edit = new JPanel();
 		Edit.setBounds(0, 0, 710, 578);
 		frame.getContentPane().add(Edit);
 		Edit.setLayout(null);
+		
+		editPanel = new MapEditPanel();
+		editPanel.setBounds(17, 62, 500, 500);
+		Edit.add(editPanel);
+		
+		Game = new JPanel();
+		Game.setBounds(0, 0, 710, 578);
+		frame.getContentPane().add(Game);
+		Game.setLayout(null);
+		
+		gamePanel = new GamePanel(game);
+		gamePanel.setBounds(16, 78, 485, 479);
+		Game.add(gamePanel);
 		
 		JLabel lblRows = new JLabel("Rows:");
 		lblRows.setBounds(38, 6, 61, 16);
@@ -128,11 +110,21 @@ public class GameGUI {
 		Edit.add(lblColumns);
 		
 		JSpinner spinnerRows = new JSpinner();
+		spinnerRows.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				((MapEditPanel) editPanel).setRows(spinnerRows.getValue());
+			}
+		});
 		spinnerRows.setBounds(111, 1, 48, 26);
 		spinnerRows.setValue(10);
 		Edit.add(spinnerRows);
 		
 		JSpinner spinnerCols = new JSpinner();
+		spinnerCols.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				((MapEditPanel) editPanel).setCols(spinnerCols.getValue());
+			}
+		});
 		spinnerCols.setBounds(111, 29, 48, 26);
 		spinnerCols.setValue(10);
 		Edit.add(spinnerCols);
@@ -200,19 +192,43 @@ public class GameGUI {
 		lblHero.setBounds(588, 450, 60, 60);
 		Edit.add(lblHero);
 		
-		editPanel = new MapEditPanel();
-		editPanel.setBounds(17, 62, 505, 494);
-		Edit.add(editPanel);
-		
 		JButton btnDone = new JButton("Done!");
 		btnDone.setBounds(554, 34, 117, 58);
 		Edit.add(btnDone);
 		Edit.setVisible(false);
 		
-		Game = new JPanel();
-		Game.setBounds(0, 0, 710, 578);
-		frame.getContentPane().add(Game);
-		Game.setLayout(null);
+		Initial = new JPanel();
+		Initial.setBounds(0, 0, 710, 578);
+		frame.getContentPane().add(Initial);
+		Initial.setLayout(null);
+		
+		JButton btnStdGame = new JButton("Standard Game");
+		btnStdGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switchState(State.GAME);
+			}
+		});
+		
+				btnStdGame.setBounds(280, 68, 138, 60);
+				Initial.add(btnStdGame);
+				
+				JButton btnCustomGame = new JButton("Custom Game");
+				btnCustomGame.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						switchState(State.EDIT);
+					}
+				});
+				btnCustomGame.setBounds(280, 181, 138, 60);
+				Initial.add(btnCustomGame);
+				
+				JButton btnExit = new JButton("Exit");
+				btnExit.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						System.exit(0);
+					}
+				});
+				btnExit.setBounds(280, 302, 138, 60);
+				Initial.add(btnExit);
 		
 		JLabel lblNumberOfOgres = new JLabel("Number of Ogres");
 		lblNumberOfOgres.setBounds(547, 231, 109, 19);
@@ -253,9 +269,6 @@ public class GameGUI {
 		btnExitGame.setBounds(567, 514, 75, 29);
 		Game.add(btnExitGame);
 		
-		gamePanel = new GamePanel(game);
-		gamePanel.setBounds(16, 78, 485, 479);
-		Game.add(gamePanel);
 		btnExitGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchState(State.INITIAL);
