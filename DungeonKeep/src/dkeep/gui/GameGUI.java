@@ -42,6 +42,10 @@ public class GameGUI {
 	private JLabel lblStatus;
 	private JPanel panel;
 	
+	private JPanel Initial;
+	private JPanel Game;
+	private JPanel Edit;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -74,21 +78,21 @@ public class GameGUI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JPanel Initial = new JPanel();
-		Initial.setBounds(0, 0, 10, 10);
+		Initial = new JPanel();
+		Initial.setBounds(0, 0, 710, 578);
 		frame.getContentPane().add(Initial);
 		Initial.setLayout(null);
 		
 		JButton btnStdGame = new JButton("Standard Game");
-		btnStdGame.setBounds(280, 60, 138, 60);
+		btnStdGame.setBounds(280, 68, 138, 60);
 		Initial.add(btnStdGame);
 		
 		JButton btnCustomGame = new JButton("Custom Game");
-		btnCustomGame.setBounds(280, 140, 132, 60);
+		btnCustomGame.setBounds(280, 181, 138, 60);
 		Initial.add(btnCustomGame);
 		
-		JPanel Game = new JPanel();
-		Game.setBounds(0, 0, 946, 39);
+		Game = new JPanel();
+		Game.setBounds(0, 0, 710, 578);
 		frame.getContentPane().add(Game);
 		
 		JLabel lblNumberOfOgres = new JLabel("Number of Ogres");
@@ -125,8 +129,8 @@ public class GameGUI {
 		JButton btnExit = new JButton("Exit");
 		Game.add(btnExit);
 		
-		JPanel Edit = new JPanel();
-		Edit.setBounds(6, 6, 698, 566);
+		Edit = new JPanel();
+		Edit.setBounds(0, 0, 710, 578);
 		frame.getContentPane().add(Edit);
 		Edit.setLayout(null);
 		
@@ -254,27 +258,34 @@ public class GameGUI {
 			}
 		});
 		
-		Game.setVisible(false);
-		Edit.setVisible(false);
-		Initial.setVisible(true);
+		
+		switchState(State.INITIAL);
 		
 	}
 	
 	// State-Machine - used to control possible transitions and their associated actions (e.g. visible panels)
 	private void switchState(State st) {
+				
+		switch (state) {
+		case INITIAL:
+			state = State.INITIAL;
+			Initial.setVisible(true);
+			Game.setVisible(false);
+			Edit.setVisible(false);
+			break;
+		case GAME:
+			state = State.GAME;
+			Initial.setVisible(false);
+			Game.setVisible(true);
+			Edit.setVisible(false);
+			break;
+		case EDIT:
+			state = State.EDIT;
+			Initial.setVisible(false);
+			Game.setVisible(false);
+			Edit.setVisible(true);
+			break;
+		}
 		
-		state = st;
-		
-//		switch (state) {
-//		case INITIAL:
-//			
-//			break;
-//		case GAME:
-//			
-//			break;
-//		case EDIT:
-//			
-//			break;
-//		}
 	}
 }
