@@ -29,8 +29,10 @@ public class GameHandler implements java.io.Serializable {
 	}
 	
 	public GameHandler(Level l) {
-		if (l == null)
+		if (l == null) {
+			System.err.println("GH constructor called with null Level");
 			return;
+		}
 		
 		level = l;
 		
@@ -121,14 +123,6 @@ public class GameHandler implements java.io.Serializable {
 	      }
 	}	
 	
-	/*
-	public String getMapStr() {
-		if (level != null)
-			return level.getMapStr();
-		else
-			return "";
-	}*/
-	
 	public String getStatusInfo() {
 		return statusInfo;
 	}
@@ -144,7 +138,7 @@ public class GameHandler implements java.io.Serializable {
 		if (level != null)
 			return level.getMap();
 		
-		System.err.println("NULL map (char[][]) requested!");
+		System.err.println("GH NULL LEVEL - map (char[][]) requested!");
 		return null;
 	}
 	

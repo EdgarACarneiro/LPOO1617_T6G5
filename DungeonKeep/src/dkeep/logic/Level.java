@@ -89,34 +89,6 @@ public abstract class Level implements java.io.Serializable{
 		}
 	}
 	
-	public String getMapStr() {
-		String string = "";
-		
-		// Creating a modifiable version of the map
-		char[][] map_copy = new char[gameMap.getMap().length][gameMap.getMap()[0].length];
-		
-		for (int i = 0; i < gameMap.getMap().length; ++i)
-			for (int j = 0; j < gameMap.getMap()[i].length; ++j)
-				map_copy[i][j] = gameMap.getMap()[i][j];
-		
-		hero.draw(map_copy);
-		for (GameCharacter e : enemies)
-			e.draw(map_copy);
-		
-		//Saving the content of the map to the return string
-		for (char[] s : map_copy) {
-			for (char c : s) {
-				if (c == 'B')
-					string += "  ";
-				else
-					string += c + " ";
-			}
-			string += "\n";
-		}
-		
-		return string;
-	}
-	
 	public abstract Hero getHero();
 	
 	public char[][] getMap() {

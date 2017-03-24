@@ -346,8 +346,12 @@ public class GameGUI {
 		btnDone.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Level new_level = ((MapEditPanel) editPanel).getLevel();
-				game = new GameHandler(new_level);
-				
+				if (new_level == null) {
+					System.err.println("Invalid map characteristics");
+					return;
+				}
+			
+				game = new GameHandler(new_level);	
 				((GamePanel) gamePanel).setGameHandler(game);
 				
 				switchState(State.GAME);
