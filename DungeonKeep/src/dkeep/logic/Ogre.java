@@ -34,8 +34,8 @@ public class Ogre extends GameCharacter {
 		club[1] = pos[1] + club_dir[1];
 	}
 	
-	private void checkSelfSymb(Map map) {
-		if ( Arrays.equals(map.getKeyPos(), pos) ) {
+	private void checkSelfSymb(GameMap gameMap) {
+		if ( Arrays.equals(gameMap.getKeyPos(), pos) ) {
 			this.setSymbIdx(2);
 		} else {			
 			if (this.active)
@@ -50,15 +50,15 @@ public class Ogre extends GameCharacter {
 	}
 	
 	@Override
-	public void update(Map map, int row, int col) {
-		super.update(map, row, col);
+	public void update(GameMap gameMap, int row, int col) {
+		super.update(gameMap, row, col);
 		swingClub();
 		
-		checkSelfSymb(map);
+		checkSelfSymb(gameMap);
 	}
 	
 	@Override
-	public void update(Map map) {
+	public void update(GameMap gameMap) {
 		
 		if (! active) {
 			if (sleep_turn == TURN_WAKE_UP) {
@@ -76,16 +76,16 @@ public class Ogre extends GameCharacter {
 			tmp = randomMove();
 			new_pos[0] = pos[0] + tmp[0];
 			new_pos[1] = pos[1] + tmp[1];
-		} while (! map.isValid(new_pos[0], new_pos[1]) && this.active);
+		} while (! gameMap.isValid(new_pos[0], new_pos[1]) && this.active);
 		if (this.active)
 			pos = new_pos;
 		
 		// Swing Club, whether active or not
 		do {
 			swingClub();
-		} while(! map.isValid(club[0], club[1]));
+		} while(! gameMap.isValid(club[0], club[1]));
 		
-		checkSelfSymb(map);
+		checkSelfSymb(gameMap);
 	}
 	
 	@Override

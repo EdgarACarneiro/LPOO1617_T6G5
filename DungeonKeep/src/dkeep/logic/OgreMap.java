@@ -1,7 +1,7 @@
 package dkeep.logic;
 import java.util.Arrays;
 
-public class OgreMap extends Map {
+public class OgreMap extends GameMap {
 	
 	public static final int[] ogre_pos = {1, 4};
 	public static final int[] hero_pos = {7, 1};	// initial hero position

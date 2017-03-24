@@ -11,20 +11,20 @@ public class Hero extends GameCharacter {
 			armed = true;
 	}
 	
-	public void update(Map map) {
+	public void update(GameMap gameMap) {
 		//Stays in the same Position
 	}
 	
 	@Override
-	public void update(Map map, int row, int col) {
+	public void update(GameMap gameMap, int row, int col) {
 		if (! this.active)
 			return;
 		
 		int[] new_pos = new int[] {pos[0] + row, pos[1] + col};
 		
-		if (hasKey() && map.openDoorAt(new_pos[0], new_pos[1]))
+		if (hasKey() && gameMap.openDoorAt(new_pos[0], new_pos[1]))
 			return;
-		else if (map.isValid(new_pos[0], new_pos[1]))
+		else if (gameMap.isValid(new_pos[0], new_pos[1]))
 			this.pos = new_pos;
 	}
 	

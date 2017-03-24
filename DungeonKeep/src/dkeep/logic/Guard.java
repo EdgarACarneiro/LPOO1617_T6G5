@@ -34,7 +34,7 @@ public class Guard extends GameCharacter {
 
 
 	@Override
-	public void update(Map map) {
+	public void update(GameMap gameMap) {
 		int[] tmp = strategy.getMovement();
 		
 		if (tmp == null) {
@@ -42,7 +42,7 @@ public class Guard extends GameCharacter {
 		} else {
 			this.setActive();
 			
-			if (map.isValid(tmp[0] + pos[0], tmp[1] + pos[1])) {
+			if (gameMap.isValid(tmp[0] + pos[0], tmp[1] + pos[1])) {
 				pos[0] += tmp[0];
 				pos[1] += tmp[1];
 			}

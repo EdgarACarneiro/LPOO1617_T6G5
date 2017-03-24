@@ -166,7 +166,7 @@ public class GameGUI {
 		lblDoor.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				((MapEditPanel) editPanel).setSelection('S');
+				((MapEditPanel) editPanel).setSelection('I');
 			}
 		});
 		lblDoor.setBounds(588, 310, 60, 60);

@@ -2,7 +2,7 @@ package dkeep.logic;
 
 import java.util.Arrays;
 
-public class Map {
+public class GameMap {
 	
 	protected char[][] map;
 	
@@ -12,12 +12,12 @@ public class Map {
 	
 	private int[][] victory_pos;
 	
-	Map (char[][] map, int[][] pos_vic) {
+	GameMap (char[][] map, int[][] pos_vic) {
 		this.map = map;
 		this.victory_pos = pos_vic;
 	}
 	
-	Map() {};
+	GameMap() {};
 		
 	protected void setVictoryPos(int[][] positions) {
 		victory_pos = positions;

@@ -2,7 +2,7 @@ package dkeep.logic;
 
 import java.util.Arrays;
 
-public class DungeonMap extends Map {
+public class DungeonMap extends GameMap {
 	
 	private boolean doors_open = false;
 	
