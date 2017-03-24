@@ -8,21 +8,21 @@ public class LevelOne extends Level {
 
 	public LevelOne() {
 		enemies_activity = true;
-		map = new DungeonMap();
+		gameMap = new DungeonMap();
 		hero = new Hero(DungeonMap.hero_pos);
 		enemies.add(new Guard(DungeonMap.guard_pos));
 	}
 	
 	public LevelOne(char[][] charArray, boolean activity, int[][] victory_pos) {
-		super(charArray, activity, victory_pos);
+		super(charArray, victory_pos, activity);
 		
-		this.map = new DungeonMap(map.getMap(), victory_pos);
+		this.gameMap = new DungeonMap(gameMap.getMap(), victory_pos);
 		
 	}
 
 	public LevelOne(Personality gp) {
 		enemies_activity = true;
-		map = new DungeonMap();
+		gameMap = new DungeonMap();
 		hero = new Hero(DungeonMap.hero_pos);
 		enemies.add(new Guard(DungeonMap.guard_pos, gp));
 	}
@@ -34,11 +34,11 @@ public class LevelOne extends Level {
 
 	@Override
 	public State update(int row, int col) {
-		hero.update(map, row, col);
+		hero.update(gameMap, row, col);
 		
 		if (enemies_activity) {
 			for (GameCharacter e : enemies)
-				e.update(map);
+				e.update(gameMap);
 		}
 		
 		for (GameCharacter e : enemies) {
@@ -48,7 +48,7 @@ public class LevelOne extends Level {
 			}
 		}
 		
-		if (map.update(hero))
+		if (gameMap.update(hero))
 			return State.RUNNING;
 		else {
 			System.out.println("You Won!!");

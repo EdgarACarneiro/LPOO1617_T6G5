@@ -22,7 +22,7 @@ public class TestKeepLevelLogic {
 	@Test
 	public void testMoveHeroToOgre() {
 	
-		LevelTwo level = new LevelTwo (board, enemy_activity, hero_armed, victory_pos);
+		LevelTwo level = new LevelTwo (board, victory_pos, enemy_activity, hero_armed);
 		
 		//One step to the right
 		assertEquals(State.LOST, level.update(0, 1));
@@ -31,7 +31,7 @@ public class TestKeepLevelLogic {
 	@Test
 	public void testMoveHeroToKey() {
 	
-		LevelTwo level = new LevelTwo (board, enemy_activity, hero_armed, victory_pos);
+		LevelTwo level = new LevelTwo (board, victory_pos, enemy_activity, hero_armed);
 		
 		//One step down
 		assertEquals(State.RUNNING, level.update(1,  0));
@@ -45,7 +45,7 @@ public class TestKeepLevelLogic {
 	@Test
 	public void testMoveHeroToClosedDoor() {
 	
-		LevelTwo level = new LevelTwo (board, enemy_activity, hero_armed, victory_pos);
+		LevelTwo level = new LevelTwo (board, victory_pos, enemy_activity, hero_armed);
 		
 		//One step down
 		assertEquals(State.RUNNING, level.update(1,  0));
@@ -58,7 +58,7 @@ public class TestKeepLevelLogic {
 	@Test
 	public void testHeroOpenedDoor() {
 
-		LevelTwo level = new LevelTwo (board, enemy_activity, hero_armed, victory_pos);
+		LevelTwo level = new LevelTwo (board, victory_pos, enemy_activity, hero_armed);
 		
 		//One step down
 		assertEquals(State.RUNNING, level.update(1, 0));
@@ -77,7 +77,7 @@ public class TestKeepLevelLogic {
 	@Test
 	public void testHeroWon() {
 		
-		LevelTwo level = new LevelTwo (board, enemy_activity, hero_armed, victory_pos);
+		LevelTwo level = new LevelTwo (board, victory_pos, enemy_activity, hero_armed);
 		
 		//One step down
 		assertEquals(State.RUNNING, level.update(1, 0));
@@ -97,7 +97,7 @@ public class TestKeepLevelLogic {
 	public void testHeroStunOgre() {
 		
 		hero_armed = true;
-		LevelTwo level = new LevelTwo (board, enemy_activity, hero_armed, victory_pos);
+		LevelTwo level = new LevelTwo (board, victory_pos, enemy_activity, hero_armed);
 		
 		//One step to the right -> Stun Ogre
 		assertEquals(State.RUNNING, level.update(0, 1));
@@ -106,7 +106,7 @@ public class TestKeepLevelLogic {
 	@Test
 	public void testClubKillsHero() {
 		
-		LevelTwo level = new LevelTwo (board, enemy_activity, hero_armed, victory_pos);
+		LevelTwo level = new LevelTwo (board, victory_pos, enemy_activity, hero_armed);
 		
 		//One step Down
 		assertEquals(State.RUNNING, level.update(1, 0));

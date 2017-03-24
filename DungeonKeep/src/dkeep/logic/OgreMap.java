@@ -1,7 +1,7 @@
 package dkeep.logic;
 import java.util.Arrays;
 
-public class OgreMap extends Map {
+public class OgreMap extends GameMap {
 	
 	private static final long serialVersionUID = 9L;
 	

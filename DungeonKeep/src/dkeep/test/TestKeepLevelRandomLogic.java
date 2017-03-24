@@ -36,7 +36,7 @@ public class TestKeepLevelRandomLogic {
 	@Test(timeout=1000)
 	public void testOgreRandomBehaviour() {
 		
-		LevelTwo level = new LevelTwo (board, enemy_activity, hero_armed, victory_pos);
+		LevelTwo level = new LevelTwo (board, victory_pos, enemy_activity, hero_armed);
 		
 		boolean movedLeft = false, movedRight = false, movedUp = false, movedDown = false;
 		
@@ -65,7 +65,7 @@ public class TestKeepLevelRandomLogic {
 	@Test(timeout=1000)
 	public void testClubRandomBehaviour() {
 		
-		LevelTwo level = new LevelTwo (board1, enemy_activity, hero_armed, victory_pos);
+		LevelTwo level = new LevelTwo (board1, victory_pos, enemy_activity, hero_armed);
 		
 		boolean swingedLeft = false, swingedRight = false, swingedUp = false, swingedDown = false;
 		
@@ -94,7 +94,7 @@ public class TestKeepLevelRandomLogic {
 	@Test
 	public void testDraw() {
 		
-		LevelTwo level = new LevelTwo (board, enemy_activity, hero_armed, victory_pos);
+		LevelTwo level = new LevelTwo (board, victory_pos, enemy_activity, hero_armed);
 		
 		//Draw does not crash even with ogre moving -> No other way to test draw.
 		

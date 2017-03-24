@@ -11,7 +11,7 @@ public class LevelTwo extends Level {
 		
 		enemies_activity = true;
 		//enemies.add(new Ogre(OgreMap.ogre_pos));
-		map = new OgreMap();  
+		gameMap = new OgreMap();  
 		hero = new Hero(OgreMap.hero_pos, 'A', 'K');
 		
 		//Initializing all the ogres in the same place
@@ -22,18 +22,18 @@ public class LevelTwo extends Level {
 		System.out.println(enemies.size() + " wild Ogres appear !!");
 	}
 	
-	public LevelTwo(char[][] charArr, boolean activity, boolean hero_armed, int[][] victory_pos) {
-		super(charArr, activity, victory_pos);
+	public LevelTwo(char[][] charArr, int[][] victory_pos, boolean activity, boolean hero_armed) {
+		super(charArr, victory_pos, activity);
 		
 		hero.armed = hero_armed;
 		
-		this.map = new OgreMap(map.getMap(), victory_pos);
+		this.gameMap = new OgreMap(gameMap.getMap(), victory_pos);
 	}
 	
 	public LevelTwo(int numOgres) {
 		
 		enemies_activity = true;
-		map = new OgreMap();  
+		gameMap = new OgreMap();  
 		hero = new Hero(OgreMap.hero_pos, 'A', 'K');
 		
 		//Initializing all the ogres in the same place
@@ -50,12 +50,12 @@ public class LevelTwo extends Level {
 	@Override
 	public State update(int row, int col) {
 		
-		hero.update(map, row, col);
+		hero.update(gameMap, row, col);
 		
 		for (GameCharacter e : enemies) {
 			
 			if (this.enemies_activity)
-				e.update(map);
+				e.update(gameMap);
 			
 			if (hero.attack(e))
 				System.out.println("Hero stunned an Ogre at " + e.pos[0] + ", " + e.pos[1]);
@@ -66,7 +66,7 @@ public class LevelTwo extends Level {
 			}	
 		}
 		
-		if (map.update(hero)) {
+		if (gameMap.update(hero)) {
 			return State.RUNNING;
 		} else {
 			System.out.println("You Won!!");

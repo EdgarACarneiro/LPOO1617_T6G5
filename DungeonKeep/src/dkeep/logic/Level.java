@@ -11,9 +11,9 @@ public abstract class Level implements java.io.Serializable{
 	protected Hero hero;
 	protected boolean enemies_activity;
 	protected ArrayList<GameCharacter> enemies = new ArrayList<GameCharacter>();
-	protected Map map;
+	protected GameMap gameMap;
 	
-	public Level(char[][] map, boolean activity, int[][] victory_pos) {
+	public Level(char[][] map, int[][] victory_pos, boolean activity) {
 		
 		char[][] own_map = new char[map.length][map[0].length];
 		
@@ -35,6 +35,7 @@ public abstract class Level implements java.io.Serializable{
 				case 'k':
 					own_map[i][j] = 'k';
 					break;
+				case 'A':
 				case 'H':
 					own_map[i][j] = 'B';
 					hero = new Hero(new int[] {i, j}, 'H', 'K', 'A');
@@ -51,7 +52,7 @@ public abstract class Level implements java.io.Serializable{
 			}
 		}
 		
-		this.map = new Map (own_map, victory_pos);
+		this.gameMap = new GameMap (own_map, victory_pos);
 	}
 	
 	public Level() {};
@@ -66,11 +67,11 @@ public abstract class Level implements java.io.Serializable{
 	public void draw() {
 		
 		// Creating a modifiable version of the map
-		char[][] map_copy = new char[map.getMap().length][map.getMap()[0].length];
+		char[][] map_copy = new char[gameMap.getMap().length][gameMap.getMap()[0].length];
 		
-		for (int i = 0; i < map.getMap().length; ++i)
-			for (int j = 0; j < map.getMap()[i].length; ++j)
-				map_copy[i][j] = map.getMap()[i][j];
+		for (int i = 0; i < gameMap.getMap().length; ++i)
+			for (int j = 0; j < gameMap.getMap()[i].length; ++j)
+				map_copy[i][j] = gameMap.getMap()[i][j];
 		
 		hero.draw(map_copy);
 		for (GameCharacter e : enemies)
@@ -92,11 +93,11 @@ public abstract class Level implements java.io.Serializable{
 		String string = "";
 		
 		// Creating a modifiable version of the map
-		char[][] map_copy = new char[map.getMap().length][map.getMap()[0].length];
+		char[][] map_copy = new char[gameMap.getMap().length][gameMap.getMap()[0].length];
 		
-		for (int i = 0; i < map.getMap().length; ++i)
-			for (int j = 0; j < map.getMap()[i].length; ++j)
-				map_copy[i][j] = map.getMap()[i][j];
+		for (int i = 0; i < gameMap.getMap().length; ++i)
+			for (int j = 0; j < gameMap.getMap()[i].length; ++j)
+				map_copy[i][j] = gameMap.getMap()[i][j];
 		
 		hero.draw(map_copy);
 		for (GameCharacter e : enemies)
@@ -119,7 +120,7 @@ public abstract class Level implements java.io.Serializable{
 	public abstract Hero getHero();
 	
 	public char[][] getMap() {
-		return this.map.getMap();
+		return this.gameMap.getMap();
 	}
 	
 	public ArrayList<GameCharacter> getEnemies() {

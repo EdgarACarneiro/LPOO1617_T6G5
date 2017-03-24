@@ -29,17 +29,17 @@ public abstract class GameCharacter implements java.io.Serializable {
 	}
 
 	// For Player Controlled Movement
-	public void update(Map map, int row, int col) {
+	public void update(GameMap gameMap, int row, int col) {
 		if (! this.active)
 			return;
 		
 		int[] new_pos = new int[] {pos[0] + row, pos[1] + col};
-		if (map.isValid(new_pos[0], new_pos[1]))
+		if (gameMap.isValid(new_pos[0], new_pos[1]))
 			this.pos = new_pos;
 	}
 	
 	// For NPC Movement
-	public abstract void update(Map map);
+	public abstract void update(GameMap gameMap);
 	
 	public boolean attack(GameCharacter c) {
 		if (! armed || ! this.isAdjacent(c) || ! active)
