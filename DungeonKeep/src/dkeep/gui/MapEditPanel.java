@@ -79,6 +79,7 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 	
 	private void initializeMap() {
 		map = new char[rows][cols];
+		hero_pos = null;
 		
 		for (int r = 0; r < rows; r++) {
 			for (int c = 0; c < cols; c++) {
@@ -103,6 +104,9 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 	}
 	
 	public Level getLevel() {
+		if (hero_pos == null)
+			return null;
+		
 		map[hero_pos[0]][hero_pos[1]] = 'A';
 		Level l = new LevelTwo(map, (int[][]) victory_pos.toArray(), true, true);
 		

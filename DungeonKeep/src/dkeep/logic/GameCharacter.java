@@ -105,15 +105,6 @@ public abstract class GameCharacter implements java.io.Serializable {
 		this.setSymbIdx(0);
 	}
 	
-	/*public final int[][] adjacentCells() {
-		return new int[][] {
-			{pos[0] + 1, pos[1]},
-			{pos[0] - 1, pos[1]},
-			{pos[0], pos[1] + 1},
-			{pos[0], pos[1] - 1}
-		};
-	}*/
-	
 	public int[] getPos() {
 		return pos;
 	}

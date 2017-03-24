@@ -2,13 +2,10 @@ package dkeep.logic;
 
 import java.util.Arrays;
 
-<<<<<<< HEAD:DungeonKeep/src/dkeep/logic/Map.java
-public class Map implements java.io.Serializable {
+
+public class GameMap implements java.io.Serializable {
 	
 	private static final long serialVersionUID = 6L;
-=======
-public class GameMap {
->>>>>>> map_edit:DungeonKeep/src/dkeep/logic/GameMap.java
 	
 	protected char[][] map;
 	
