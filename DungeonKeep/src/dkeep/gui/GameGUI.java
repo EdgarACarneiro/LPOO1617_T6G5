@@ -27,6 +27,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.Icon;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
+import javax.swing.SpinnerNumberModel;
 
 
 public class GameGUI {
@@ -101,6 +102,7 @@ public class GameGUI {
 		Edit.add(lblColumns);
 		
 		JSpinner spinnerRows = new JSpinner();
+		spinnerRows.setModel(new SpinnerNumberModel(10, 3, 15, 1));
 		spinnerRows.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				((MapEditPanel) editPanel).setRows(spinnerRows.getValue());
@@ -111,6 +113,7 @@ public class GameGUI {
 		Edit.add(spinnerRows);
 		
 		JSpinner spinnerCols = new JSpinner();
+		spinnerCols.setModel(new SpinnerNumberModel(10, 3, 15, 1));
 		spinnerCols.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				((MapEditPanel) editPanel).setCols(spinnerCols.getValue());
