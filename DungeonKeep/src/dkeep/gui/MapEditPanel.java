@@ -142,6 +142,7 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 	
 	@Override
 	public void paintComponent(Graphics g) {
+		g.clearRect(0, 0, this.getWidth(), this.getHeight());
 		
 		// Draw background map
 		for (int row = 0, y = 0; row < map.length; row++, y += IMG_EDGE) {

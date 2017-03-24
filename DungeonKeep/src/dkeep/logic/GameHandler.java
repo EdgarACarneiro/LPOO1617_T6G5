@@ -28,6 +28,21 @@ public class GameHandler implements java.io.Serializable {
 		level = new LevelOne(this.gp);
 	}
 	
+	public GameHandler(Level l) {
+		if (l == null)
+			return;
+		
+		level = l;
+		
+		if (level instanceof LevelOne) {
+			current_lvl = 1;
+			numOgres = 3;
+		} else if (level instanceof LevelTwo) {
+			current_lvl = 2;
+		} else
+			System.err.println("INVALID LEVEL");
+	}
+	
 	public GameHandler() {
 		GameHandler game = null;
 	     
