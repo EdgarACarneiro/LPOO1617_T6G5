@@ -27,6 +27,8 @@ public class GameMap implements java.io.Serializable {
 	}
 			
 	public char[][] getMap() {
+		if (map == null)
+			System.err.println("NULL map requested!");
 		return map;
 	}
 	

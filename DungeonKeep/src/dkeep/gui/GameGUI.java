@@ -232,8 +232,7 @@ public class GameGUI {
 						
 						((GamePanel) gamePanel).setGameHandler(game);
 						switchState(State.GAME);
-						
-						gamePanel.requestFocusInWindow();
+
 					}
 				});
 		
@@ -374,10 +373,10 @@ public class GameGUI {
 			break;
 		case GAME:
 			state = State.GAME;
-			gamePanel.requestFocusInWindow();
 			Initial.setVisible(false);
 			Game.setVisible(true);
 			Edit.setVisible(false);
+			gamePanel.requestFocusInWindow();
 			break;
 		case EDIT:
 			state = State.EDIT;

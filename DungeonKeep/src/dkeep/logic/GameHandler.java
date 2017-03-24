@@ -121,12 +121,13 @@ public class GameHandler implements java.io.Serializable {
 	      }
 	}	
 	
+	/*
 	public String getMapStr() {
 		if (level != null)
 			return level.getMapStr();
 		else
 			return "";
-	}
+	}*/
 	
 	public String getStatusInfo() {
 		return statusInfo;
@@ -142,8 +143,9 @@ public class GameHandler implements java.io.Serializable {
 	public char[][] getMap() {
 		if (level != null)
 			return level.getMap();
-		else
-			return null;
+		
+		System.err.println("NULL map (char[][]) requested!");
+		return null;
 	}
 	
 }
