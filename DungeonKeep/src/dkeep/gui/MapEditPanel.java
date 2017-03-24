@@ -24,8 +24,9 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 	private static final String BASE_NAME = "images/img";
 	private static final String IMG_FORMAT = ".png";
 	
-	private static final int MIN_LINES = 3;
-	private static final int MAX_LINES = 15;
+	public static final int MIN_LINES = 3;
+	public static final int MAX_LINES = 15;
+	public static final int MAX_IMG_EDGE = 50;
 	
 	// TODO load images in GameCharacter class, make logic as invisible as possible outside its package -- tried it, it's tough not to duplicate
 	// Static Singleton with all images ? how to correctly access them? logic sees that singleton?
@@ -35,14 +36,14 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 	/**
 	 * Characters to Images HashMap 
 	 */
-	private HashMap<Character, Image> images = new HashMap<Character, Image>();	// same as GamePanel's -- how to solve duplication ? singleton ?
+	private HashMap<Character, Image> images = new HashMap<Character, Image>();
 	
 	private Character selection = null;
 	
 	private int rows = 10;
 	private int cols = 10;
 	
-	private int IMG_EDGE = Math.min(getWidth(), getHeight()) / (cols > rows ? cols : rows);
+	private Integer IMG_EDGE = null;
 	
 	private char[][] map;
 	private ArrayList<int[]> victory_pos = new ArrayList<int[]>();
@@ -61,6 +62,21 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 		this.requestFocusInWindow();
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
+		
+		setImgEdge();
+	}
+	
+	private boolean setImgEdge() {
+		int n = Math.min(getWidth(), getHeight()) / (cols > rows ? cols : rows);
+		if (n > 0 && n < MAX_IMG_EDGE) {
+			IMG_EDGE = n;
+			return true;
+		} else if (IMG_EDGE == null) {
+			IMG_EDGE = MAX_IMG_EDGE;
+			return true;
+		}
+		
+		return false;
 	}
 	
 	private void loadImages() {
@@ -91,10 +107,8 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 		}
 	}
 	
-	private void rescaleImages() {
-		Integer max = Math.max(rows, cols);
-		
-		IMG_EDGE = Math.min(this.getWidth(), this.getHeight()) / max;
+	private void rescaleImages() {		
+		setImgEdge();
 		
 		for (Map.Entry<Character, Image> entry : images.entrySet()) {
 			entry.setValue(entry.getValue().getScaledInstance(IMG_EDGE, IMG_EDGE, Image.SCALE_DEFAULT));
@@ -108,7 +122,9 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 			return null;
 		
 		map[hero_pos[0]][hero_pos[1]] = 'A';
-		Level l = new LevelTwo(map, (int[][]) victory_pos.toArray(), true, true);
+		int[][] temp_array = new  int[victory_pos.size()][];
+		 victory_pos.toArray(temp_array);
+		Level l = new LevelTwo(map, temp_array, true, true);
 		
 		return l;
 	}
@@ -142,7 +158,7 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 	
 	@Override
 	public void paintComponent(Graphics g) {
-		g.clearRect(0, 0, this.getWidth(), this.getHeight());
+		super.paintComponent(g);
 		
 		// Draw background map
 		for (int row = 0, y = 0; row < map.length; row++, y += IMG_EDGE) {
