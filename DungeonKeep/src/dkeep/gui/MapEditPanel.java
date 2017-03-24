@@ -24,7 +24,7 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 	private static final String BASE_NAME = "images/img";
 	private static final String IMG_FORMAT = ".png";
 	
-	public static final int MIN_LINES = 3;
+	public static final int MIN_LINES = 5;
 	public static final int MAX_LINES = 15;
 	public static final int MAX_IMG_EDGE = 50;
 	
@@ -56,18 +56,17 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 	 */
 	public MapEditPanel() {
 		initializeMap();
-		loadImages();
+		setImgEdge();
+		rescaleImages();
 		
 		this.repaint();
 		this.requestFocusInWindow();
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
-		
-		setImgEdge();
 	}
 	
 	private boolean setImgEdge() {
-		int n = Math.min(getWidth(), getHeight()) / (cols > rows ? cols : rows);
+		int n = Math.min(getWidth(), getHeight()) / Math.max(cols, rows);
 		if (n > 0 && n < MAX_IMG_EDGE) {
 			IMG_EDGE = n;
 			return true;
@@ -80,6 +79,9 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 	}
 	
 	private void loadImages() {
+		if ( ! images.isEmpty() )
+			images.clear();
+			
 		for (int i = 0; i < characters.length; i++) {
 			try {
 				Image img = ImageIO.read(new File(BASE_NAME + Integer.toString(i) + IMG_FORMAT));
@@ -108,11 +110,12 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 	}
 	
 	private void rescaleImages() {		
-		setImgEdge();
-		
+		loadImages();
+
 		for (Map.Entry<Character, Image> entry : images.entrySet()) {
 			entry.setValue(entry.getValue().getScaledInstance(IMG_EDGE, IMG_EDGE, Image.SCALE_DEFAULT));
 		}
+		
 		
 		repaint();
 	}
@@ -139,6 +142,7 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 		if (i == null || i < MIN_LINES || i > MAX_LINES)
 			return false;
 		rows = i;
+		setImgEdge();
 		rescaleImages();
 		initializeMap();
 				
@@ -150,6 +154,7 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 		if (i == null || i < MIN_LINES || i > MAX_LINES)
 			return false;
 		cols = i;
+		setImgEdge();
 		rescaleImages();
 		initializeMap();
 				

@@ -87,6 +87,108 @@ public class GameGUI {
 		/**
 		 * Game JPanel
 		 */
+		Game = new JPanel();
+		Game.setBounds(0, 0, 710, 578);
+		frame.getContentPane().add(Game);
+		Game.setLayout(null);
+		
+		gamePanel = new GamePanel(game);
+		gamePanel.setBounds(16, 61, 500, 500);
+		Game.add(gamePanel);
+		
+		JLabel lblNumberOfOgres = new JLabel("Number of Ogres");
+		lblNumberOfOgres.setBounds(547, 231, 109, 19);
+		Game.add(lblNumberOfOgres);
+		lblNumberOfOgres.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNumberOfOgres.setFont(new Font("Malayalam MN", Font.PLAIN, 13));
+		
+		textField = new JTextField();
+		textField.setBounds(536, 262, 130, 26);
+		Game.add(textField);
+		textField.setHorizontalAlignment(SwingConstants.CENTER);
+		textField.setText("2");
+		textField.setColumns(10);
+		
+		JLabel lblGuardPersonality = new JLabel("Guard Personality");
+		lblGuardPersonality.setBounds(549, 380, 107, 19);
+		Game.add(lblGuardPersonality);
+		lblGuardPersonality.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGuardPersonality.setFont(new Font("Malayalam MN", Font.PLAIN, 13));
+		
+		JComboBox<String> comboBox = new JComboBox<String>();
+		comboBox.setBounds(542, 411, 124, 27);
+		Game.add(comboBox);
+		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Rookie", "Drunken", "Suspicious"}));
+		comboBox.setToolTipText("Persona");
+		
+		lblStatus = new JLabel("Game Status Placeholder");
+		lblStatus.setHorizontalAlignment(SwingConstants.CENTER);
+		lblStatus.setBounds(16, 20, 485, 29);
+		Game.add(lblStatus);
+		lblStatus.setFont(new Font("Malayalam MN", Font.PLAIN, 20));	
+		
+				
+				JButton btnSaveGame = new JButton("Save Game");
+				btnSaveGame.setBounds(547, 78, 109, 30);
+				Game.add(btnSaveGame);
+				btnSaveGame.setEnabled(true);
+				btnSaveGame.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						game.saveGame();
+						gamePanel.requestFocusInWindow();
+					}
+				});
+				
+				JButton btnExitGame = new JButton("Exit");
+				btnExitGame.setBounds(567, 514, 75, 29);
+				Game.add(btnExitGame);
+				btnExitGame.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						switchState(State.INITIAL);
+					}
+				});
+				
+				JButton btnNewGame = new JButton("New Game");
+				btnNewGame.setBounds(547, 37, 110, 29);
+				Game.add(btnNewGame);
+				btnNewGame.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						Guard.Personality gp = null;
+						
+						switch ((String) comboBox.getSelectedItem()) {
+						case "Rookie":
+							gp = Guard.Personality.ROOKIE;
+							break;
+						case "Drunken":
+							gp = Guard.Personality.DRUNKEN;
+							break;
+						case "Suspicious":
+							gp = Guard.Personality.SUSPICIOUS;
+							break;
+						default:
+							System.err.println("Invalid Personality");
+						}
+						
+						int numOgres;
+						try {
+							numOgres = Integer.parseInt(textField.getText());
+						} catch (NumberFormatException exc) {
+							lblStatus.setText("Invalid input as number of Ogres!");
+							return;
+						}
+						if (numOgres >= 0 && numOgres <= 5 && gp != null) {
+							game = new GameHandler(gp, numOgres);
+							lblStatus.setText("Game in progress!");
+						} else {
+							lblStatus.setText("Invalid number of Ogres.");
+							return;
+						}
+						
+						((GamePanel) gamePanel).setGameHandler(game);
+						
+						gamePanel.requestFocusInWindow();
+					}
+				});
 		Initial = new JPanel();
 		Initial.setBounds(0, 0, 710, 578);
 		frame.getContentPane().add(Initial);
@@ -134,109 +236,6 @@ public class GameGUI {
 						gamePanel.requestFocusInWindow();
 					}
 				});
-		Game = new JPanel();
-		Game.setBounds(0, 0, 710, 578);
-		frame.getContentPane().add(Game);
-		Game.setLayout(null);
-		
-		gamePanel = new GamePanel(game);
-		gamePanel.setBounds(16, 78, 500, 500);
-		Game.add(gamePanel);
-		
-		JLabel lblNumberOfOgres = new JLabel("Number of Ogres");
-		lblNumberOfOgres.setBounds(547, 231, 109, 19);
-		Game.add(lblNumberOfOgres);
-		lblNumberOfOgres.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNumberOfOgres.setFont(new Font("Malayalam MN", Font.PLAIN, 13));
-		
-		textField = new JTextField();
-		textField.setBounds(536, 262, 130, 26);
-		Game.add(textField);
-		textField.setHorizontalAlignment(SwingConstants.CENTER);
-		textField.setText("2");
-		textField.setColumns(10);
-		
-		JLabel lblGuardPersonality = new JLabel("Guard Personality");
-		lblGuardPersonality.setBounds(549, 380, 107, 19);
-		Game.add(lblGuardPersonality);
-		lblGuardPersonality.setHorizontalAlignment(SwingConstants.CENTER);
-		lblGuardPersonality.setFont(new Font("Malayalam MN", Font.PLAIN, 13));
-		
-		JComboBox<String> comboBox = new JComboBox<String>();
-		comboBox.setBounds(542, 411, 124, 27);
-		Game.add(comboBox);
-		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Rookie", "Drunken", "Suspicious"}));
-		comboBox.setToolTipText("Persona");
-		
-		lblStatus = new JLabel("Game Status Placeholder");
-		lblStatus.setHorizontalAlignment(SwingConstants.CENTER);
-		lblStatus.setBounds(16, 35, 485, 29);
-		Game.add(lblStatus);
-		lblStatus.setFont(new Font("Malayalam MN", Font.PLAIN, 20));	
-
-		
-		JButton btnSaveGame = new JButton("Save Game");
-		btnSaveGame.setBounds(547, 78, 109, 30);
-		Game.add(btnSaveGame);
-		btnSaveGame.setEnabled(false);
-		btnSaveGame.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				game.saveGame();
-				gamePanel.requestFocusInWindow();
-			}
-		});
-		
-		JButton btnExitGame = new JButton("Exit");
-		btnExitGame.setBounds(567, 514, 75, 29);
-		Game.add(btnExitGame);
-		btnExitGame.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				switchState(State.INITIAL);
-			}
-		});
-		
-		JButton btnNewGame = new JButton("New Game");
-		btnNewGame.setBounds(547, 37, 110, 29);
-		Game.add(btnNewGame);
-		btnNewGame.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Guard.Personality gp = null;
-				
-				switch ((String) comboBox.getSelectedItem()) {
-				case "Rookie":
-					gp = Guard.Personality.ROOKIE;
-					break;
-				case "Drunken":
-					gp = Guard.Personality.DRUNKEN;
-					break;
-				case "Suspicious":
-					gp = Guard.Personality.SUSPICIOUS;
-					break;
-				default:
-					System.err.println("Invalid Personality");
-				}
-				
-				int numOgres;
-				try {
-					numOgres = Integer.parseInt(textField.getText());
-				} catch (NumberFormatException exc) {
-					lblStatus.setText("Invalid input as number of Ogres!");
-					return;
-				}
-				if (numOgres >= 0 && numOgres <= 5 && gp != null) {
-					game = new GameHandler(gp, numOgres);
-					lblStatus.setText("Game in progress!");
-				} else {
-					lblStatus.setText("Invalid number of Ogres.");
-					return;
-				}
-				
-				btnSaveGame.setEnabled(true);
-				((GamePanel) gamePanel).setGameHandler(game);
-				
-				gamePanel.requestFocusInWindow();
-			}
-		});
 		
 		
 		/**
@@ -350,7 +349,6 @@ public class GameGUI {
 				Level new_level = ((MapEditPanel) editPanel).getLevel();
 				game = new GameHandler(new_level);
 				
-				btnSaveGame.setEnabled(true);
 				((GamePanel) gamePanel).setGameHandler(game);
 				
 				switchState(State.GAME);
@@ -360,13 +358,7 @@ public class GameGUI {
 		Edit.add(btnDone);
 		Edit.setVisible(false);
 		
-		/**
-		 * Initial JPanel
-		 */
-
-		
 		switchState(State.INITIAL);
-		
 	}
 
 	

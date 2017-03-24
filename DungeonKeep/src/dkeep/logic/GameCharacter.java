@@ -2,6 +2,10 @@ package dkeep.logic;
 
 public abstract class GameCharacter implements java.io.Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 17L;
 	protected boolean active;
 	protected boolean armed;
 	
