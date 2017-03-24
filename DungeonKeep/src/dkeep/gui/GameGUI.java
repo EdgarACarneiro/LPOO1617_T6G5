@@ -193,6 +193,11 @@ public class GameGUI {
 		Edit.add(lblHero);
 		
 		JButton btnDone = new JButton("Done!");
+		btnDone.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Level new_level = ((MapEditPanel) editPanel).getLevel();//TODO
+			}
+		});
 		btnDone.setBounds(554, 34, 117, 58);
 		Edit.add(btnDone);
 		Edit.setVisible(false);
