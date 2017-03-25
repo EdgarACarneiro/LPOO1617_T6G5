@@ -197,6 +197,7 @@ public class GameGUI {
 		JButton btnStdGame = new JButton("Standard Game");
 		btnStdGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				((GamePanel) gamePanel).setGameHandler(null);
 				switchState(State.GAME);
 			}
 		});
@@ -387,6 +388,7 @@ public class GameGUI {
 			Initial.setVisible(false);
 			Game.setVisible(false);
 			Edit.setVisible(true);
+			((MapEditPanel) editPanel).reset();
 			break;
 		}
 		

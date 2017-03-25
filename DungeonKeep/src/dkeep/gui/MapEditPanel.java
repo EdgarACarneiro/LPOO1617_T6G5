@@ -32,6 +32,7 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 	private char[][] map;
 	private ArrayList<int[]> victory_pos = new ArrayList<int[]>();
 	private int[] hero_pos = new int[] {1, 1};
+	private int[] key_pos = null;
 	
 	Point mousePos = new Point();
 	
@@ -41,16 +42,19 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 	 * Create the panel.
 	 */
 	public MapEditPanel() {
-		resetConf();
+		reset();
 		
 		this.requestFocusInWindow();
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
 	}
 	
-
-	
-
+	public void reset() {
+		images.setImgEdge(this, Math.max(rows, cols));
+		images.rescaleImages();
+		initializeMap();
+		repaint();
+	}
 	
 	private void initializeMap() {
 		map = new char[rows][cols];
@@ -72,7 +76,7 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 		
 		map[hero_pos[0]][hero_pos[1]] = 'A';
 		int[][] temp_array = new  int[victory_pos.size()][];
-		 victory_pos.toArray(temp_array);
+		victory_pos.toArray(temp_array);
 		Level l = new LevelTwo(map, temp_array, true, true);
 		
 		return l;
@@ -89,7 +93,7 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 			return false;
 		rows = i;
 		
-		resetConf();
+		reset();
 				
 		return true;
 	}
@@ -100,16 +104,9 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 			return false;
 		cols = i;
 
-		resetConf();
+		reset();
 				
 		return true;
-	}
-	
-	private void resetConf() {
-		images.setImgEdge(this, Math.max(rows, cols));
-		images.rescaleImages();
-		initializeMap();
-		repaint();
 	}
 	
 	@Override

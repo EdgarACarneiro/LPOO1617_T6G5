@@ -40,6 +40,8 @@ public class GamePanel extends JPanel implements KeyListener {
 		
 		if (gh != null)
 			this.addKeyListener(this);
+		else
+			images.reset();
 		
 		this.repaint();
 		this.requestFocusInWindow();
