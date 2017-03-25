@@ -257,8 +257,11 @@ public class GameGUI {
 		lblColumns.setBounds(38, 34, 61, 16);
 		Edit.add(lblColumns);
 		
+		int min_lines = MapEditPanel.MIN_LINES;
+		int max_lines = MapEditPanel.MAX_LINES;
+		
 		JSpinner spinnerRows = new JSpinner();
-		spinnerRows.setModel(new SpinnerNumberModel(10, MapEditPanel.MIN_LINES, MapEditPanel.MAX_LINES, 1));
+		spinnerRows.setModel(new SpinnerNumberModel(10, min_lines, max_lines, 1));
 		spinnerRows.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				((MapEditPanel) editPanel).setRows(spinnerRows.getValue());
@@ -269,7 +272,7 @@ public class GameGUI {
 		Edit.add(spinnerRows);
 		
 		JSpinner spinnerCols = new JSpinner();
-		spinnerCols.setModel(new SpinnerNumberModel(10, MapEditPanel.MIN_LINES, MapEditPanel.MAX_LINES, 1));
+		spinnerCols.setModel(new SpinnerNumberModel(10, min_lines, max_lines, 1));
 		spinnerCols.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				((MapEditPanel) editPanel).setCols(spinnerCols.getValue());
