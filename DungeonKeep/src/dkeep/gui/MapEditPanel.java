@@ -21,29 +21,13 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private static final String BASE_NAME = "images/img";
-	private static final String IMG_FORMAT = ".png";
-	
 	public static final int MIN_LINES = 5;
 	public static final int MAX_LINES = 15;
-	public static final int MAX_IMG_EDGE = 50;
-	
-	// TODO load images in GameCharacter class, make logic as invisible as possible outside its package -- tried it, it's tough not to duplicate
-	// Static Singleton with all images ? how to correctly access them? logic sees that singleton?
-	private static final char[] characters = {'B', 'X', 'H', 'G', 'O', '*', 'k', 'I', 'S', 'A', 'K', '8', '$', 'g'};
-	// only some characters are necessary - clumsy programming :/
-	
-	/**
-	 * Characters to Images HashMap 
-	 */
-	private HashMap<Character, Image> images = new HashMap<Character, Image>();
-	
+
 	private Character selection = null;
 	
 	private int rows = 10;
 	private int cols = 10;
-	
-	private Integer IMG_EDGE = null;
 	
 	private char[][] map;
 	private ArrayList<int[]> victory_pos = new ArrayList<int[]>();
@@ -51,49 +35,22 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 	
 	Point mousePos = new Point();
 	
+	private ImageLoader images = ImageLoader.getInstance();
+	
 	/**
 	 * Create the panel.
 	 */
 	public MapEditPanel() {
-		initializeMap();
-		setImgEdge();
-		rescaleImages();
+		resetConf();
 		
-		this.repaint();
 		this.requestFocusInWindow();
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
 	}
 	
-	private boolean setImgEdge() {
-		int n = Math.min(getWidth(), getHeight()) / Math.max(cols, rows);
-		if (n > 0 && n < MAX_IMG_EDGE) {
-			IMG_EDGE = n;
-			return true;
-		} else if (IMG_EDGE == null) {
-			IMG_EDGE = MAX_IMG_EDGE;
-			return true;
-		}
-		
-		return false;
-	}
+
 	
-	private void loadImages() {
-		if ( ! images.isEmpty() )
-			images.clear();
-			
-		for (int i = 0; i < characters.length; i++) {
-			try {
-				Image img = ImageIO.read(new File(BASE_NAME + Integer.toString(i) + IMG_FORMAT));
-				
-				if (images.put(characters[i], img) != null)
-					System.err.println("Image character was already mapped.");
-				
-			} catch (IOException e) {
-				System.err.println("Invalid image path.");
-			}
-		}
-	}
+
 	
 	private void initializeMap() {
 		map = new char[rows][cols];
@@ -107,17 +64,6 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 					map[r][c] = 'B';
 			}
 		}
-	}
-	
-	private void rescaleImages() {		
-		loadImages();
-
-		for (Map.Entry<Character, Image> entry : images.entrySet()) {
-			entry.setValue(entry.getValue().getScaledInstance(IMG_EDGE, IMG_EDGE, Image.SCALE_DEFAULT));
-		}
-		
-		
-		repaint();
 	}
 	
 	public Level getLevel() {
@@ -142,9 +88,8 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 		if (i == null || i < MIN_LINES || i > MAX_LINES)
 			return false;
 		rows = i;
-		setImgEdge();
-		rescaleImages();
-		initializeMap();
+		
+		resetConf();
 				
 		return true;
 	}
@@ -154,11 +99,17 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 		if (i == null || i < MIN_LINES || i > MAX_LINES)
 			return false;
 		cols = i;
-		setImgEdge();
-		rescaleImages();
-		initializeMap();
+
+		resetConf();
 				
 		return true;
+	}
+	
+	private void resetConf() {
+		images.setImgEdge(this, Math.max(rows, cols));
+		images.rescaleImages();
+		initializeMap();
+		repaint();
 	}
 	
 	@Override
@@ -166,8 +117,8 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 		super.paintComponent(g);
 		
 		// Draw background map
-		for (int row = 0, y = 0; row < map.length; row++, y += IMG_EDGE) {
-			for (int col = 0, x = 0; col < map[row].length; col++, x += IMG_EDGE) {
+		for (int row = 0, y = 0; row < map.length; row++, y += images.getImgEdge()) {
+			for (int col = 0, x = 0; col < map[row].length; col++, x += images.getImgEdge()) {
 				
 				char c = map[row][col];
 				
@@ -187,11 +138,11 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 		
 		// Draw hero
 		if (hero_pos != null)
-			g.drawImage(images.get('A'), hero_pos[1] * IMG_EDGE, hero_pos[0] * IMG_EDGE, this);
+			g.drawImage(images.get('A'), hero_pos[1] * images.getImgEdge(), hero_pos[0] * images.getImgEdge(), this);
 		
 		// Draw selection image
 		if (selection != null)
-			g.drawImage(images.get(selection), mousePos.x - IMG_EDGE / 2, mousePos.y - IMG_EDGE / 2, this);
+			g.drawImage(images.get(selection), mousePos.x - images.getImgEdge() / 2, mousePos.y - images.getImgEdge() / 2, this);
 				
 	}
 	
@@ -227,7 +178,7 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 		if (selection == null)
 			return;
 		
-		int[] pos = { e.getY() / IMG_EDGE, e.getX() / IMG_EDGE };
+		int[] pos = { e.getY() / images.getImgEdge(), e.getX() / images.getImgEdge() };
 		
 		// Restore Floor on LMB (left mouse button)
 		if (e.getButton() == MouseEvent.BUTTON3) {
