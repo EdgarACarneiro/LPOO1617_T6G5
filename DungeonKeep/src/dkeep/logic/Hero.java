@@ -26,8 +26,8 @@ public class Hero extends GameCharacter {
 		
 		if (hasKey() && gameMap.openDoorAt(new_pos[0], new_pos[1]))
 			return;
-		else if (gameMap.isValid(new_pos[0], new_pos[1]))
-			this.pos = new_pos;
+		else 
+			super.update(gameMap, row, col);
 	}
 	
 	public void keyFoundStatus(boolean status) {	// future: picks key item

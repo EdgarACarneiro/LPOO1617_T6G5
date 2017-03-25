@@ -17,10 +17,12 @@ public class TestDungeonLevelLogic {
 	
 	int[][] victory_pos = {{ 2, 0}, { 3, 0}};
 	
+	boolean enemy_activity = false;
+	
 	@Test
 	public void testMoveHeroIntoFreeCell() {
 		
-		LevelOne level = new LevelOne (board, false, victory_pos);
+		LevelOne level = new LevelOne (board, enemy_activity, victory_pos);
 			
 		assertEquals(1, level.getHero().getPos()[0]);
 		assertEquals(1, level.getHero().getPos()[1]);
@@ -33,7 +35,7 @@ public class TestDungeonLevelLogic {
 	@Test
 	public void testMoveHeroIntoWall() {
 		
-		LevelOne level = new LevelOne (board, false, victory_pos);
+		LevelOne level = new LevelOne (board, enemy_activity, victory_pos);
 		
 		assertEquals(1, level.getHero().getPos()[0]);
 		assertEquals(1, level.getHero().getPos()[1]);
@@ -59,16 +61,16 @@ public class TestDungeonLevelLogic {
 	@Test
 	public void testMoveHeroToGuard() {
 		
-		LevelOne level = new LevelOne (board, false, victory_pos);
+		LevelOne level = new LevelOne (board, enemy_activity, victory_pos);
 		
-		//One step to the right
+		//One step to the right -> Hero next to Guard
 		assertEquals(State.LOST, level.update(0, 1));
 	}
 	
 	@Test
 	public void testMoveHeroToClosedDoor() {
 		
-		LevelOne level = new LevelOne (board, false, victory_pos);
+		LevelOne level = new LevelOne (board, enemy_activity, victory_pos);
 		
 		//One step down
 		assertEquals(State.RUNNING, level.update(1,  0));
@@ -77,12 +79,13 @@ public class TestDungeonLevelLogic {
 		assertEquals(State.RUNNING, level.update(0, -1));
 		assertEquals(2, level.getHero().getPos()[0]);
 		assertEquals(1, level.getHero().getPos()[1]);
+		assertEquals(level.getMap()[2][0], 'I');
 	}
 	
 	@Test
 	public void testMoveHeroToLever() {
 		
-		LevelOne level = new LevelOne (board, false, victory_pos);
+		LevelOne level = new LevelOne (board, enemy_activity, victory_pos);
 		
 		//One step down
 		assertEquals(State.RUNNING, level.update(1,  0));
@@ -91,63 +94,22 @@ public class TestDungeonLevelLogic {
 		
 		//Check if doors open
 		assertEquals(level.getMap()[2][0], 'S');
+		assertEquals(level.getMap()[3][0], 'S');
 	}
 	
 	@Test
 	public void testMoveHeroToOpenDoor() {
 		
-		LevelOne level = new LevelOne (board, false, victory_pos);
+		LevelOne level = new LevelOne (board, enemy_activity, victory_pos);
 		
 		//One step down
 		assertEquals(State.RUNNING, level.update(1, 0));
-		//One step down
+		//One step down -> Open Door
 		assertEquals(State.RUNNING, level.update(1, 0));
 		
 		//One step to the left -> Over Open Door
 		assertEquals(State.WON, level.update(0, -1));
-	}
-	
-	@Test
-	public void testGuardCatchHero() {
-		
-		LevelOne level = new LevelOne (board, true, victory_pos);
-		
-		//One step down
-		assertEquals(State.RUNNING, level.update(1, 0));
-		//One step down
-		assertEquals(State.RUNNING, level.update(1, 0));
-		//One step down -> Does not Move -> Hero Catches
-		assertEquals(State.LOST, level.update(1, 0));
-	}
-	
-	@Test
-	public void testDefaultConstructor() {
-		
-		LevelOne level = new LevelOne();
-		
-		/*
-		  		{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
-				{'X', 'H', 'B', 'B', 'I', 'B', 'X', 'B', 'B', 'X'}
-				{'X', 'X', 'X', 'B', 'X', 'X', 'X', 'B', 'G', 'X'}
-				{'X', 'B', 'I', 'B', 'I', 'B', 'X', 'B', 'B', 'X'}
-				{'X', 'X', 'X', 'B', 'X', 'X', 'X', 'B', 'B', 'X'}
-				{'I', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'X'}
-				{'I', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'X'}
-				{'X', 'X', 'X', 'B', 'X', 'X', 'X', 'X', 'B', 'X'}
-				{'X', 'B', 'I', 'B', 'I', 'B', 'X', 'k', 'B', 'X'}
-				{'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}
-		 */
-		
-		assertEquals(1, level.getHero().getPos()[0]);
-		assertEquals(1, level.getHero().getPos()[1]);
-		
-		level.update(0, 1);
-		assertEquals(1, level.getHero().getPos()[0]);
-		assertEquals(2, level.getHero().getPos()[1]);
-		
-		level.update(-1, 0);
-		assertEquals(1, level.getHero().getPos()[0]);
-		assertEquals(2, level.getHero().getPos()[1]);
-		
+		assertEquals(3, level.getHero().getPos()[0]);
+		assertEquals(0, level.getHero().getPos()[1]);
 	}
 }

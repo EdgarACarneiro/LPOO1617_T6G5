@@ -31,8 +31,8 @@ public class OgreMap extends GameMap {
 	}
 	
 	public OgreMap(char[][] board, int[][] victory_pos) {
-		super.setVictoryPos(new int[][] {{1, 0}});
-		key_pos[0] = 1; key_pos[1] = 8;
+		
+		super.setVictoryPos(victory_pos);
 		
 		this.map = board;
 		
