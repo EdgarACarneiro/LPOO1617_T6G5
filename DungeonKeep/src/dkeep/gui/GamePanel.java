@@ -1,13 +1,7 @@
 package dkeep.gui;
 
-import java.util.HashMap;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.*;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import dkeep.logic.GameHandler;
 import dkeep.logic.GameCharacter;
@@ -26,6 +20,8 @@ public class GamePanel extends JPanel implements KeyListener {
 	
 	private ImageLoader images = ImageLoader.getInstance();
 	
+	private int IMG_EDGE;
+	
 	/**
 	 * Create the panel.
 	 */
@@ -42,7 +38,8 @@ public class GamePanel extends JPanel implements KeyListener {
 			this.addKeyListener(this);
 		else
 			images.reset();
-		
+
+		IMG_EDGE = images.getImgEdge();		
 		this.repaint();
 		this.requestFocusInWindow();
 	}
@@ -58,8 +55,8 @@ public class GamePanel extends JPanel implements KeyListener {
 		
 		Image floor = images.get('B');
 		// Draw background map
-		for (int row = 0, y = 0; row < map.length; row++, y += images.getImgEdge()) {
-			for (int col = 0, x = 0; col < map[row].length; col++, x += images.getImgEdge()) {
+		for (int row = 0, y = 0; row < map.length; row++, y += IMG_EDGE) {
+			for (int col = 0, x = 0; col < map[row].length; col++, x += IMG_EDGE) {
 				g.drawImage(floor, x, y, this);
 				char c = map[row][col];
 				
@@ -85,11 +82,11 @@ public class GamePanel extends JPanel implements KeyListener {
 				continue;
 			
 			// row,col tuple in matrix -> y,x in referential
-			g.drawImage(img, gc.getPos()[1] * images.getImgEdge(), gc.getPos()[0] * images.getImgEdge(), this);
+			g.drawImage(img, gc.getPos()[1] * IMG_EDGE, gc.getPos()[0] * IMG_EDGE, this);
 			
 			// in case of Ogre, draw club
 			if (gc instanceof Ogre) {
-				g.drawImage(images.get('*'), ((Ogre) gc).getClubPos()[1] * images.getImgEdge(), ((Ogre) gc).getClubPos()[0] * images.getImgEdge(), this);
+				g.drawImage(images.get('*'), ((Ogre) gc).getClubPos()[1] * IMG_EDGE, ((Ogre) gc).getClubPos()[0] * IMG_EDGE, this);
 			}
 				
 		}

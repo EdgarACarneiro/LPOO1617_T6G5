@@ -2,14 +2,8 @@ package dkeep.gui;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Map;
-import java.util.HashMap;
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import dkeep.logic.Level;
 import dkeep.logic.LevelTwo;
@@ -38,6 +32,8 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 	
 	private ImageLoader images = ImageLoader.getInstance();
 	
+	private int IMG_EDGE;
+	
 	/**
 	 * Create the panel.
 	 */
@@ -55,6 +51,7 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 		initializeMap();
 		key_pos = null;
 		selection = null;
+		IMG_EDGE = images.getImgEdge();
 		repaint();
 	}
 	
@@ -117,8 +114,8 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 		super.paintComponent(g);
 		
 		// Draw background map
-		for (int row = 0, y = 0; row < map.length; row++, y += images.getImgEdge()) {
-			for (int col = 0, x = 0; col < map[row].length; col++, x += images.getImgEdge()) {
+		for (int row = 0, y = 0; row < map.length; row++, y += IMG_EDGE) {
+			for (int col = 0, x = 0; col < map[row].length; col++, x += IMG_EDGE) {
 				
 				char c = map[row][col];
 				
@@ -138,15 +135,15 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 		
 		// Draw hero
 		if (hero_pos != null)
-			g.drawImage(images.get('A'), hero_pos[1] * images.getImgEdge(), hero_pos[0] * images.getImgEdge(), this);
+			g.drawImage(images.get('A'), hero_pos[1] * IMG_EDGE, hero_pos[0] * IMG_EDGE, this);
 		
 		// Draw key
 		if (key_pos != null)
-			g.drawImage(images.get('k'), key_pos[1] * images.getImgEdge(), key_pos[0] * images.getImgEdge(), this);
+			g.drawImage(images.get('k'), key_pos[1] * IMG_EDGE, key_pos[0] * IMG_EDGE, this);
 		
 		// Draw selection image
 		if (selection != null)
-			g.drawImage(images.get(selection), mousePos.x - images.getImgEdge() / 2, mousePos.y - images.getImgEdge() / 2, this);
+			g.drawImage(images.get(selection), mousePos.x - IMG_EDGE / 2, mousePos.y - IMG_EDGE / 2, this);
 				
 	}
 	
@@ -190,7 +187,7 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 		if (selection == null)
 			return;
 		
-		int[] pos = { e.getY() / images.getImgEdge(), e.getX() / images.getImgEdge() };
+		int[] pos = { e.getY() / IMG_EDGE, e.getX() / IMG_EDGE };
 		
 		// Restore Floor on LMB (left mouse button)
 		if (e.getButton() == MouseEvent.BUTTON3) {
