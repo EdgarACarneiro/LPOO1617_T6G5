@@ -279,68 +279,68 @@ public class GameGUI {
 		spinnerCols.setValue(10);
 		Edit.add(spinnerCols);
 		
-		JLabel lblFloor = new JLabel(new ImageIcon("images/img0.png"));
-		lblFloor.setText("Floor");
-		lblFloor.addMouseListener(new MouseAdapter() {
+		JButton btnFloor = new JButton(new ImageIcon("images/img0.png"));
+		btnFloor.setText("Floor");
+		btnFloor.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				((MapEditPanel) editPanel).setSelection('B');
 			}
 		});
-		lblFloor.setBounds(588, 100, 60, 60);
-		Edit.add(lblFloor);
+		btnFloor.setBounds(588, 100, 60, 60);
+		Edit.add(btnFloor);
 		
-		JLabel lblWall = new JLabel(new ImageIcon("images/img1.png"));
-		lblWall.setText("Wall");
-		lblWall.addMouseListener(new MouseAdapter() {
+		JButton btnWall = new JButton(new ImageIcon("images/img1.png"));
+		btnWall.setText("Wall");
+		btnWall.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				((MapEditPanel) editPanel).setSelection('X');
 			}
 		});
-		lblWall.setBounds(588, 170, 60, 60);
-		Edit.add(lblWall);
+		btnWall.setBounds(588, 170, 60, 60);
+		Edit.add(btnWall);
 		
-		JLabel lblOgre = new JLabel(new ImageIcon("images/img4.png"));
-		lblOgre.setText("Ogre");
-		lblOgre.addMouseListener(new MouseAdapter() {
+		JButton btnOgre = new JButton(new ImageIcon("images/img4.png"));
+		btnOgre.setText("Ogre");
+		btnOgre.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				((MapEditPanel) editPanel).setSelection('O');
 			}
 		});
-		lblOgre.setBounds(588, 240, 60, 60);
-		Edit.add(lblOgre);
+		btnOgre.setBounds(588, 240, 60, 60);
+		Edit.add(btnOgre);
 		
-		JLabel lblDoor = new JLabel("Door", new ImageIcon("images/img8.png"), JLabel.CENTER);
-		lblDoor.addMouseListener(new MouseAdapter() {
+		JButton btnDoor = new JButton("Door", new ImageIcon("images/img8.png"));
+		btnDoor.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				((MapEditPanel) editPanel).setSelection('I');
 			}
 		});
-		lblDoor.setBounds(588, 310, 60, 60);
-		Edit.add(lblDoor);
+		btnDoor.setBounds(588, 310, 60, 60);
+		Edit.add(btnDoor);
 		
-		JLabel lblKey = new JLabel("Key", new ImageIcon("images/img6.png"), JLabel.CENTER);
-		lblKey.addMouseListener(new MouseAdapter() {
+		JButton btnKey = new JButton("Key", new ImageIcon("images/img6.png"));
+		btnKey.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				((MapEditPanel) editPanel).setSelection('k');
 			}
 		});
-		lblKey.setBounds(588, 380, 60, 60);
-		Edit.add(lblKey);
+		btnKey.setBounds(588, 380, 60, 60);
+		Edit.add(btnKey);
 		
-		JLabel lblHero = new JLabel("Hero", new ImageIcon("images/img9.png"), JLabel.CENTER);
-		lblHero.addMouseListener(new MouseAdapter() {
+		JButton btnHero = new JButton("Hero", new ImageIcon("images/img9.png"));
+		btnHero.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				((MapEditPanel) editPanel).setSelection('A');
 			}
 		});
-		lblHero.setBounds(588, 450, 60, 60);
-		Edit.add(lblHero);
+		btnHero.setBounds(588, 450, 60, 60);
+		Edit.add(btnHero);
 		
 		JButton btnDone = new JButton("Done!");
 		btnDone.addActionListener(new ActionListener() {
