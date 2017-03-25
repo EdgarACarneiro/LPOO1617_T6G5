@@ -2,7 +2,9 @@ package dkeep.logic;
 
 import java.util.Random;
 
-public class Drunken implements Behaviour {
+public class Drunken implements Behaviour, java.io.Serializable {
+	
+	private static final long serialVersionUID = 16L;
 	
 	private final static double CONST_PROB_SLEEP = 0.2;
 	private final static double CONST_PROB_WAKE = 0.5;

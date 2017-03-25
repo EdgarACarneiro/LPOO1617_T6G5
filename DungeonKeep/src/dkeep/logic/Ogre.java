@@ -4,6 +4,8 @@ import java.util.Random;
 
 public class Ogre extends GameCharacter {
 	
+	private static final long serialVersionUID = 8L;
+	
 	private static Random rand = new Random();
 	private int TURN_WAKE_UP = 2;
 		

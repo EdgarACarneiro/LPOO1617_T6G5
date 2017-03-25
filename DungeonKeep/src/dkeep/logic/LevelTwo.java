@@ -3,6 +3,8 @@ package dkeep.logic;
 import java.util.Random;
 
 public class LevelTwo extends Level {
+	
+	private static final long serialVersionUID = 5L;
 		
 	public LevelTwo() {
 		Random rand = new Random();

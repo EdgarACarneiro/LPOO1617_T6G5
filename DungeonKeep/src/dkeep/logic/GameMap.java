@@ -2,7 +2,10 @@ package dkeep.logic;
 
 import java.util.Arrays;
 
-public class GameMap {
+
+public class GameMap implements java.io.Serializable {
+	
+	private static final long serialVersionUID = 6L;
 	
 	protected char[][] map;
 	
@@ -24,6 +27,8 @@ public class GameMap {
 	}
 			
 	public char[][] getMap() {
+		if (map == null)
+			System.err.println("NULL map requested!");
 		return map;
 	}
 	

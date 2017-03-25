@@ -21,44 +21,16 @@ public class GamePanel extends JPanel implements KeyListener {
 	 * Auto-generated
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	private static final String BASE_NAME = "images/img";
-	private static final String IMG_FORMAT = ".png";
-	
-	// TODO load images in GameCharacter class, make logic as invisible as possible outside its package -- tried it, it's tough not to duplicate
-	// Static Singleton with all images ? how to correctly access them? logic sees that singleton?
-	private static final char[] characters = {'B', 'X', 'H', 'G', 'O', '*', 'k', 'I', 'S', 'A', 'K', '8', '$', 'g'};
-	
-	private int IMG_EDGE = 48;
 
 	private GameHandler gh;
 	
-	/**
-	 * Characters to Images HashMap 
-	 */
-	private HashMap<Character, Image> images = new HashMap<Character, Image>();
-
+	private ImageLoader images = ImageLoader.getInstance();
+	
 	/**
 	 * Create the panel.
 	 */
 	public GamePanel(GameHandler gh) {
-		this.gh = gh;
-		
-		for (int i = 0; i < characters.length; i++) {
-			try {
-				Image img = ImageIO.read(new File(BASE_NAME + Integer.toString(i) + IMG_FORMAT)).getScaledInstance(IMG_EDGE, IMG_EDGE, BufferedImage.SCALE_DEFAULT);
-				
-				if (images.put(characters[i], img) != null)
-					System.err.println("Image character was already mapped.");
-				
-			} catch (IOException e) {
-				System.err.println("Invalid image path.");
-			}
-		}
-		
-		this.repaint();
-		this.requestFocusInWindow();
-		
+		setGameHandler(gh);
 	}
 	
 	public void setGameHandler(GameHandler gh) {
@@ -70,6 +42,7 @@ public class GamePanel extends JPanel implements KeyListener {
 			this.addKeyListener(this);
 		
 		this.repaint();
+		this.requestFocusInWindow();
 	}
 	
 	@Override
@@ -83,8 +56,8 @@ public class GamePanel extends JPanel implements KeyListener {
 		
 		Image floor = images.get('B');
 		// Draw background map
-		for (int row = 0, y = 0; row < map.length; row++, y += IMG_EDGE) {
-			for (int col = 0, x = 0; col < map[row].length; col++, x += IMG_EDGE) {
+		for (int row = 0, y = 0; row < map.length; row++, y += images.getImgEdge()) {
+			for (int col = 0, x = 0; col < map[row].length; col++, x += images.getImgEdge()) {
 				g.drawImage(floor, x, y, this);
 				char c = map[row][col];
 				
@@ -110,11 +83,11 @@ public class GamePanel extends JPanel implements KeyListener {
 				continue;
 			
 			// row,col tuple in matrix -> y,x in referential
-			g.drawImage(img, gc.getPos()[1] * IMG_EDGE, gc.getPos()[0] * IMG_EDGE, this);
+			g.drawImage(img, gc.getPos()[1] * images.getImgEdge(), gc.getPos()[0] * images.getImgEdge(), this);
 			
 			// in case of Ogre, draw club
-			if (gc instanceof Ogre) {	// TODO draw method and images in characters ?
-				g.drawImage(images.get('*'), ((Ogre) gc).getClubPos()[1] * IMG_EDGE, ((Ogre) gc).getClubPos()[0] * IMG_EDGE, this);
+			if (gc instanceof Ogre) {
+				g.drawImage(images.get('*'), ((Ogre) gc).getClubPos()[1] * images.getImgEdge(), ((Ogre) gc).getClubPos()[0] * images.getImgEdge(), this);
 			}
 				
 		}

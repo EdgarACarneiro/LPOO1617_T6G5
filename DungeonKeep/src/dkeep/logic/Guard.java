@@ -3,6 +3,8 @@ import java.util.Random;
 
 public class Guard extends GameCharacter {
 	
+	private static final long serialVersionUID = 7L;
+	
 	public enum Personality {
 		ROOKIE, DRUNKEN, SUSPICIOUS
 	};
@@ -48,5 +50,18 @@ public class Guard extends GameCharacter {
 			}
 		}
 	}
-
+	
+	public Personality getPersonality() {
+		if (strategy instanceof Rookie)
+			return Personality.ROOKIE;
+		
+		else if (strategy instanceof Suspicious)
+			return Personality.SUSPICIOUS;
+		
+		else if (strategy instanceof Drunken)
+			return Personality.DRUNKEN;
+		
+		else
+			return null;
+	}
 }

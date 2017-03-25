@@ -2,6 +2,8 @@ package dkeep.logic;
 
 public class Hero extends GameCharacter {
 	
+	private static final long serialVersionUID = 12L;
+	
 	private boolean hasKey = false;	// future: update with array of items - Inventory (?)
 	
 	public Hero(int[] initial_pos, char... symbs) {
@@ -24,8 +26,8 @@ public class Hero extends GameCharacter {
 		
 		if (hasKey() && gameMap.openDoorAt(new_pos[0], new_pos[1]))
 			return;
-		else if (gameMap.isValid(new_pos[0], new_pos[1]))
-			this.pos = new_pos;
+		else 
+			super.update(gameMap, row, col);
 	}
 	
 	public void keyFoundStatus(boolean status) {	// future: picks key item

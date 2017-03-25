@@ -21,64 +21,40 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private static final String BASE_NAME = "images/img";
-	private static final String IMG_FORMAT = ".png";
-	
-	private static final int MIN_LINES = 3;
-	private static final int MAX_LINES = 15;
-	
-	// TODO load images in GameCharacter class, make logic as invisible as possible outside its package -- tried it, it's tough not to duplicate
-	// Static Singleton with all images ? how to correctly access them? logic sees that singleton?
-	private static final char[] characters = {'B', 'X', 'H', 'G', 'O', '*', 'k', 'I', 'S', 'A', 'K', '8', '$', 'g'};
-	// only some characters are necessary - clumsy programming :/
-	
-	/**
-	 * Characters to Images HashMap 
-	 */
-	private HashMap<Character, Image> images = new HashMap<Character, Image>();	// same as GamePanel's -- how to solve duplication ? singleton ?
-	
+	public static final int MIN_LINES = 5;
+	public static final int MAX_LINES = 15;
+
 	private Character selection = null;
 	
 	private int rows = 10;
 	private int cols = 10;
 	
-	private int IMG_EDGE = Math.min(getWidth(), getHeight()) / (cols > rows ? cols : rows);
-	
 	private char[][] map;
 	private ArrayList<int[]> victory_pos = new ArrayList<int[]>();
-	private int[] hero_pos = null;
+	private int[] hero_pos = new int[] {1, 1};
 	
 	Point mousePos = new Point();
+	
+	private ImageLoader images = ImageLoader.getInstance();
 	
 	/**
 	 * Create the panel.
 	 */
 	public MapEditPanel() {
-		initializeMap();
-		loadImages();
+		resetConf();
 		
-		this.repaint();
 		this.requestFocusInWindow();
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
 	}
 	
-	private void loadImages() {
-		for (int i = 0; i < characters.length; i++) {
-			try {
-				Image img = ImageIO.read(new File(BASE_NAME + Integer.toString(i) + IMG_FORMAT));
-				
-				if (images.put(characters[i], img) != null)
-					System.err.println("Image character was already mapped.");
-				
-			} catch (IOException e) {
-				System.err.println("Invalid image path.");
-			}
-		}
-	}
+
+	
+
 	
 	private void initializeMap() {
 		map = new char[rows][cols];
+		hero_pos = new int[] {1, 1};
 		
 		for (int r = 0; r < rows; r++) {
 			for (int c = 0; c < cols; c++) {
@@ -90,21 +66,14 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 		}
 	}
 	
-	private void rescaleImages() {
-		Integer max = Math.max(rows, cols);
-		
-		IMG_EDGE = Math.min(this.getWidth(), this.getHeight()) / max;
-		
-		for (Map.Entry<Character, Image> entry : images.entrySet()) {
-			entry.setValue(entry.getValue().getScaledInstance(IMG_EDGE, IMG_EDGE, Image.SCALE_DEFAULT));
-		}
-		
-		repaint();
-	}
-	
 	public Level getLevel() {
+		if (hero_pos == null)
+			return null;
+		
 		map[hero_pos[0]][hero_pos[1]] = 'A';
-		Level l = new LevelTwo(map, (int[][]) victory_pos.toArray(), true, true);
+		int[][] temp_array = new  int[victory_pos.size()][];
+		 victory_pos.toArray(temp_array);
+		Level l = new LevelTwo(map, temp_array, true, true);
 		
 		return l;
 	}
@@ -119,8 +88,8 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 		if (i == null || i < MIN_LINES || i > MAX_LINES)
 			return false;
 		rows = i;
-		rescaleImages();
-		initializeMap();
+		
+		resetConf();
 				
 		return true;
 	}
@@ -130,18 +99,26 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 		if (i == null || i < MIN_LINES || i > MAX_LINES)
 			return false;
 		cols = i;
-		rescaleImages();
-		initializeMap();
+
+		resetConf();
 				
 		return true;
 	}
 	
+	private void resetConf() {
+		images.setImgEdge(this, Math.max(rows, cols));
+		images.rescaleImages();
+		initializeMap();
+		repaint();
+	}
+	
 	@Override
 	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
 		
 		// Draw background map
-		for (int row = 0, y = 0; row < map.length; row++, y += IMG_EDGE) {
-			for (int col = 0, x = 0; col < map[row].length; col++, x += IMG_EDGE) {
+		for (int row = 0, y = 0; row < map.length; row++, y += images.getImgEdge()) {
+			for (int col = 0, x = 0; col < map[row].length; col++, x += images.getImgEdge()) {
 				
 				char c = map[row][col];
 				
@@ -161,12 +138,39 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 		
 		// Draw hero
 		if (hero_pos != null)
-			g.drawImage(images.get('A'), hero_pos[1] * IMG_EDGE, hero_pos[0] * IMG_EDGE, this);
+			g.drawImage(images.get('A'), hero_pos[1] * images.getImgEdge(), hero_pos[0] * images.getImgEdge(), this);
 		
 		// Draw selection image
 		if (selection != null)
-			g.drawImage(images.get(selection), mousePos.x - IMG_EDGE / 2, mousePos.y - IMG_EDGE / 2, this);
+			g.drawImage(images.get(selection), mousePos.x - images.getImgEdge() / 2, mousePos.y - images.getImgEdge() / 2, this);
 				
+	}
+	
+	private boolean setInMap(int[] pos, char select) {
+		if (pos == null || pos.length != 2 || Arrays.equals(hero_pos, pos))
+			return false;
+		
+		if (pos[0] == 0 || pos[0] == rows - 1 || pos[1] == 0 || pos[1] == cols -1) {
+			if (select == 'S' || select == 'I') {
+				map[pos[0]][pos[1]] = 'I';
+				return true;
+			} else {
+				return false;
+			}
+		} else if (select == 'S' || select == 'I')
+			return false;
+		
+		map[pos[0]][pos[1]] = select;
+		
+		return true;
+	}
+	
+	private boolean setHeroPos(int[] pos) {
+		if (setInMap(pos, 'B')) {
+			hero_pos = pos;
+			return true;
+		} else
+			return false;
 	}
 
 	@Override
@@ -174,35 +178,24 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 		if (selection == null)
 			return;
 		
-		int[] pos = { e.getY() / IMG_EDGE, e.getX() / IMG_EDGE };
-
+		int[] pos = { e.getY() / images.getImgEdge(), e.getX() / images.getImgEdge() };
+		
 		// Restore Floor on LMB (left mouse button)
 		if (e.getButton() == MouseEvent.BUTTON3) {
-			map[pos[0]][pos[1]] = 'B';
+			setInMap(pos, 'B');
 			return;
 		}
-				
+						
 		switch (selection) {
-		case 'H':
-		case 'A':
-			if (hero_pos == null)
-				hero_pos = new int[2];
-			
-			if (map[pos[0]][pos[1]] == 'B') {
-				hero_pos[0] = pos[0];
-				hero_pos[1] = pos[1];
-			}
-
+		case 'H': case 'A':
+			setHeroPos(pos);
 			break;
-		case 'S':
-		case 'I':
-			if ( pos[0] == 0 || pos[0] == rows - 1 || pos[1] == 0 || pos[1] == cols -1 ) {
-				map[pos[0]][pos[1]] = 'I';
+		case 'S': case 'I':
+			if (setInMap(pos, 'I'))
 				victory_pos.add(pos);
-			}
 			break;
 		default:
-			map[pos[0]][pos[1]] = selection;
+			setInMap(pos, selection);
 		}
 		
 		repaint();

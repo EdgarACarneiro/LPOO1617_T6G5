@@ -1,7 +1,11 @@
 package dkeep.logic;
 
-public abstract class GameCharacter {
+public abstract class GameCharacter implements java.io.Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 17L;
 	protected boolean active;
 	protected boolean armed;
 	
@@ -104,15 +108,6 @@ public abstract class GameCharacter {
 		this.active = true;
 		this.setSymbIdx(0);
 	}
-	
-	/*public final int[][] adjacentCells() {
-		return new int[][] {
-			{pos[0] + 1, pos[1]},
-			{pos[0] - 1, pos[1]},
-			{pos[0], pos[1] + 1},
-			{pos[0], pos[1] - 1}
-		};
-	}*/
 	
 	public int[] getPos() {
 		return pos;

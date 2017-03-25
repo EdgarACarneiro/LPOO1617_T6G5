@@ -4,6 +4,8 @@ import dkeep.logic.Guard.Personality;
 
 public class LevelOne extends Level {
 		
+	private static final long serialVersionUID = 4L;
+
 	public LevelOne() {
 		enemies_activity = true;
 		gameMap = new DungeonMap();

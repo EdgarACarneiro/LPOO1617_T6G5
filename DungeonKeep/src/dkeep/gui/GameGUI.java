@@ -27,6 +27,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.Icon;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
+import javax.swing.SpinnerNumberModel;
 
 
 public class GameGUI {
@@ -83,125 +84,111 @@ public class GameGUI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		Edit = new JPanel();
-		Edit.setBounds(0, 0, 710, 578);
-		frame.getContentPane().add(Edit);
-		Edit.setLayout(null);
-		
-		editPanel = new MapEditPanel();
-		editPanel.setBounds(17, 62, 500, 500);
-		Edit.add(editPanel);
-		
+		/**
+		 * Game JPanel
+		 */
 		Game = new JPanel();
 		Game.setBounds(0, 0, 710, 578);
 		frame.getContentPane().add(Game);
 		Game.setLayout(null);
 		
 		gamePanel = new GamePanel(game);
-		gamePanel.setBounds(16, 78, 485, 479);
+		gamePanel.setBounds(16, 61, 500, 500);
 		Game.add(gamePanel);
 		
-		JLabel lblRows = new JLabel("Rows:");
-		lblRows.setBounds(38, 6, 61, 16);
-		Edit.add(lblRows);
+		JLabel lblNumberOfOgres = new JLabel("Number of Ogres");
+		lblNumberOfOgres.setBounds(547, 231, 109, 19);
+		Game.add(lblNumberOfOgres);
+		lblNumberOfOgres.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNumberOfOgres.setFont(new Font("Malayalam MN", Font.PLAIN, 13));
 		
-		JLabel lblColumns = new JLabel("Columns:");
-		lblColumns.setBounds(38, 34, 61, 16);
-		Edit.add(lblColumns);
+		textField = new JTextField();
+		textField.setBounds(536, 262, 130, 26);
+		Game.add(textField);
+		textField.setHorizontalAlignment(SwingConstants.CENTER);
+		textField.setText("2");
+		textField.setColumns(10);
 		
-		JSpinner spinnerRows = new JSpinner();
-		spinnerRows.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent e) {
-				((MapEditPanel) editPanel).setRows(spinnerRows.getValue());
-			}
-		});
-		spinnerRows.setBounds(111, 1, 48, 26);
-		spinnerRows.setValue(10);
-		Edit.add(spinnerRows);
+		JLabel lblGuardPersonality = new JLabel("Guard Personality");
+		lblGuardPersonality.setBounds(549, 380, 107, 19);
+		Game.add(lblGuardPersonality);
+		lblGuardPersonality.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGuardPersonality.setFont(new Font("Malayalam MN", Font.PLAIN, 13));
 		
-		JSpinner spinnerCols = new JSpinner();
-		spinnerCols.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent e) {
-				((MapEditPanel) editPanel).setCols(spinnerCols.getValue());
-			}
-		});
-		spinnerCols.setBounds(111, 29, 48, 26);
-		spinnerCols.setValue(10);
-		Edit.add(spinnerCols);
+		JComboBox<String> comboBox = new JComboBox<String>();
+		comboBox.setBounds(542, 411, 124, 27);
+		Game.add(comboBox);
+		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Rookie", "Drunken", "Suspicious"}));
+		comboBox.setToolTipText("Persona");
 		
-		JLabel lblFloor = new JLabel(new ImageIcon("images/img0.png"));
-		lblFloor.setText("Floor");
-		lblFloor.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				((MapEditPanel) editPanel).setSelection('B');
-			}
-		});
-		lblFloor.setBounds(588, 100, 60, 60);
-		Edit.add(lblFloor);
+		lblStatus = new JLabel("Game Status Placeholder");
+		lblStatus.setHorizontalAlignment(SwingConstants.CENTER);
+		lblStatus.setBounds(16, 20, 485, 29);
+		Game.add(lblStatus);
+		lblStatus.setFont(new Font("Malayalam MN", Font.PLAIN, 20));	
 		
-		JLabel lblWall = new JLabel(new ImageIcon("images/img1.png"));
-		lblWall.setText("Wall");
-		lblWall.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				((MapEditPanel) editPanel).setSelection('X');
-			}
-		});
-		lblWall.setBounds(588, 170, 60, 60);
-		Edit.add(lblWall);
-		
-		JLabel lblOgre = new JLabel(new ImageIcon("images/img4.png"));
-		lblOgre.setText("Ogre");
-		lblOgre.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				((MapEditPanel) editPanel).setSelection('O');
-			}
-		});
-		lblOgre.setBounds(588, 240, 60, 60);
-		Edit.add(lblOgre);
-		
-		JLabel lblDoor = new JLabel("Door", new ImageIcon("images/img8.png"), JLabel.CENTER);
-		lblDoor.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				((MapEditPanel) editPanel).setSelection('I');
-			}
-		});
-		lblDoor.setBounds(588, 310, 60, 60);
-		Edit.add(lblDoor);
-		
-		JLabel lblKey = new JLabel("Key", new ImageIcon("images/img6.png"), JLabel.CENTER);
-		lblKey.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				((MapEditPanel) editPanel).setSelection('k');
-			}
-		});
-		lblKey.setBounds(588, 380, 60, 60);
-		Edit.add(lblKey);
-		
-		JLabel lblHero = new JLabel("Hero", new ImageIcon("images/img9.png"), JLabel.CENTER);
-		lblHero.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				((MapEditPanel) editPanel).setSelection('A');
-			}
-		});
-		lblHero.setBounds(588, 450, 60, 60);
-		Edit.add(lblHero);
-		
-		JButton btnDone = new JButton("Done!");
-		btnDone.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Level new_level = ((MapEditPanel) editPanel).getLevel();//TODO
-			}
-		});
-		btnDone.setBounds(554, 34, 117, 58);
-		Edit.add(btnDone);
-		Edit.setVisible(false);
-		
+				
+				JButton btnSaveGame = new JButton("Save Game");
+				btnSaveGame.setBounds(547, 78, 109, 30);
+				Game.add(btnSaveGame);
+				btnSaveGame.setEnabled(true);
+				btnSaveGame.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						game.saveGame();
+						gamePanel.requestFocusInWindow();
+					}
+				});
+				
+				JButton btnExitGame = new JButton("Exit");
+				btnExitGame.setBounds(567, 514, 75, 29);
+				Game.add(btnExitGame);
+				btnExitGame.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						switchState(State.INITIAL);
+					}
+				});
+				
+				JButton btnNewGame = new JButton("New Game");
+				btnNewGame.setBounds(547, 37, 110, 29);
+				Game.add(btnNewGame);
+				btnNewGame.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						Guard.Personality gp = null;
+						
+						switch ((String) comboBox.getSelectedItem()) {
+						case "Rookie":
+							gp = Guard.Personality.ROOKIE;
+							break;
+						case "Drunken":
+							gp = Guard.Personality.DRUNKEN;
+							break;
+						case "Suspicious":
+							gp = Guard.Personality.SUSPICIOUS;
+							break;
+						default:
+							System.err.println("Invalid Personality");
+						}
+						
+						int numOgres;
+						try {
+							numOgres = Integer.parseInt(textField.getText());
+						} catch (NumberFormatException exc) {
+							lblStatus.setText("Invalid input as number of Ogres!");
+							return;
+						}
+						if (numOgres >= 0 && numOgres <= 5 && gp != null) {
+							game = new GameHandler(gp, numOgres);
+							lblStatus.setText("Game in progress!");
+						} else {
+							lblStatus.setText("Invalid number of Ogres.");
+							return;
+						}
+						
+						((GamePanel) gamePanel).setGameHandler(game);
+						
+						gamePanel.requestFocusInWindow();
+					}
+				});
 		Initial = new JPanel();
 		Initial.setBounds(0, 0, 710, 578);
 		frame.getContentPane().add(Initial);
@@ -234,94 +221,149 @@ public class GameGUI {
 				});
 				btnExit.setBounds(280, 302, 138, 60);
 				Initial.add(btnExit);
+				
+				JButton btnLoadGame = new JButton("Load Game");
+				btnLoadGame.setBounds(0, 0, 120, 30);
+				Initial.add(btnLoadGame);
+				btnLoadGame.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+
+						game = new GameHandler();
+						
+						((GamePanel) gamePanel).setGameHandler(game);
+						switchState(State.GAME);
+
+					}
+				});
 		
-		JLabel lblNumberOfOgres = new JLabel("Number of Ogres");
-		lblNumberOfOgres.setBounds(547, 231, 109, 19);
-		Game.add(lblNumberOfOgres);
-		lblNumberOfOgres.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNumberOfOgres.setFont(new Font("Malayalam MN", Font.PLAIN, 13));
 		
-		textField = new JTextField();
-		textField.setBounds(536, 262, 130, 26);
-		Game.add(textField);
-		textField.setHorizontalAlignment(SwingConstants.CENTER);
-		textField.setText("2");
-		textField.setColumns(10);
+		/**
+		 * Edit JPanel
+		 */
+		Edit = new JPanel();
+		Edit.setBounds(0, 0, 710, 578);
+		frame.getContentPane().add(Edit);
+		Edit.setLayout(null);
 		
-		JLabel lblGuardPersonality = new JLabel("Guard Personality");
-		lblGuardPersonality.setBounds(549, 380, 107, 19);
-		Game.add(lblGuardPersonality);
-		lblGuardPersonality.setHorizontalAlignment(SwingConstants.CENTER);
-		lblGuardPersonality.setFont(new Font("Malayalam MN", Font.PLAIN, 13));
+		editPanel = new MapEditPanel();
+		editPanel.setBounds(17, 62, 500, 500);
+		Edit.add(editPanel);
 		
-		JComboBox<String> comboBox = new JComboBox<String>();
-		comboBox.setBounds(542, 411, 124, 27);
-		Game.add(comboBox);
-		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Rookie", "Drunken", "Suspicious"}));
-		comboBox.setToolTipText("Persona");
+		JLabel lblRows = new JLabel("Rows:");
+		lblRows.setBounds(38, 6, 61, 16);
+		Edit.add(lblRows);
 		
-		lblStatus = new JLabel("Game Status Placeholder");
-		lblStatus.setHorizontalAlignment(SwingConstants.CENTER);
-		lblStatus.setBounds(16, 35, 485, 29);
-		Game.add(lblStatus);
-		lblStatus.setFont(new Font("Malayalam MN", Font.PLAIN, 20));
+		JLabel lblColumns = new JLabel("Columns:");
+		lblColumns.setBounds(38, 34, 61, 16);
+		Edit.add(lblColumns);
 		
-		JButton btnNewGame = new JButton("New Game");
-		btnNewGame.setBounds(547, 37, 110, 29);
-		Game.add(btnNewGame);
-		
-		JButton btnExitGame = new JButton("Exit");
-		btnExitGame.setBounds(567, 514, 75, 29);
-		Game.add(btnExitGame);
-		
-		btnExitGame.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				switchState(State.INITIAL);
+		JSpinner spinnerRows = new JSpinner();
+		spinnerRows.setModel(new SpinnerNumberModel(10, MapEditPanel.MIN_LINES, MapEditPanel.MAX_LINES, 1));
+		spinnerRows.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				((MapEditPanel) editPanel).setRows(spinnerRows.getValue());
 			}
 		});
-		btnNewGame.addActionListener(new ActionListener() {
+		spinnerRows.setBounds(111, 1, 48, 26);
+		spinnerRows.setValue(10);
+		Edit.add(spinnerRows);
+		
+		JSpinner spinnerCols = new JSpinner();
+		spinnerCols.setModel(new SpinnerNumberModel(10, MapEditPanel.MIN_LINES, MapEditPanel.MAX_LINES, 1));
+		spinnerCols.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				((MapEditPanel) editPanel).setCols(spinnerCols.getValue());
+			}
+		});
+		spinnerCols.setBounds(111, 29, 48, 26);
+		spinnerCols.setValue(10);
+		Edit.add(spinnerCols);
+		
+		JButton btnFloor = new JButton(new ImageIcon("images/img0.png"));
+		btnFloor.setText("Floor");
+		btnFloor.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				((MapEditPanel) editPanel).setSelection('B');
+			}
+		});
+		btnFloor.setBounds(588, 100, 60, 60);
+		Edit.add(btnFloor);
+		
+		JButton btnWall = new JButton(new ImageIcon("images/img1.png"));
+		btnWall.setText("Wall");
+		btnWall.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				((MapEditPanel) editPanel).setSelection('X');
+			}
+		});
+		btnWall.setBounds(588, 170, 60, 60);
+		Edit.add(btnWall);
+		
+		JButton btnOgre = new JButton(new ImageIcon("images/img4.png"));
+		btnOgre.setText("Ogre");
+		btnOgre.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				((MapEditPanel) editPanel).setSelection('O');
+			}
+		});
+		btnOgre.setBounds(588, 240, 60, 60);
+		Edit.add(btnOgre);
+		
+		JButton btnDoor = new JButton("Door", new ImageIcon("images/img8.png"));
+		btnDoor.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				((MapEditPanel) editPanel).setSelection('I');
+			}
+		});
+		btnDoor.setBounds(588, 310, 60, 60);
+		Edit.add(btnDoor);
+		
+		JButton btnKey = new JButton("Key", new ImageIcon("images/img6.png"));
+		btnKey.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				((MapEditPanel) editPanel).setSelection('k');
+			}
+		});
+		btnKey.setBounds(588, 380, 60, 60);
+		Edit.add(btnKey);
+		
+		JButton btnHero = new JButton("Hero", new ImageIcon("images/img9.png"));
+		btnHero.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				((MapEditPanel) editPanel).setSelection('A');
+			}
+		});
+		btnHero.setBounds(588, 450, 60, 60);
+		Edit.add(btnHero);
+		
+		JButton btnDone = new JButton("Done!");
+		btnDone.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Guard.Personality gp = null;
-				
-				switch ((String) comboBox.getSelectedItem()) {
-				case "Rookie":
-					gp = Guard.Personality.ROOKIE;
-					break;
-				case "Drunken":
-					gp = Guard.Personality.DRUNKEN;
-					break;
-				case "Suspicious":
-					gp = Guard.Personality.SUSPICIOUS;
-					break;
-				default:
-					System.err.println("Invalid Personality");
-				}
-				
-				int numOgres;
-				try {
-					numOgres = Integer.parseInt(textField.getText());
-				} catch (NumberFormatException exc) {
-					lblStatus.setText("Invalid input as number of Ogres!");
+				Level new_level = ((MapEditPanel) editPanel).getLevel();
+				if (new_level == null) {
+					System.err.println("Invalid map characteristics");
 					return;
 				}
-				if (numOgres >= 0 && numOgres <= 5 && gp != null) {
-					game = new GameHandler(gp, numOgres);
-					lblStatus.setText("Game in progress!");
-				} else {
-					lblStatus.setText("Invalid number of Ogres.");
-					return;
-				}
-				
+			
+				game = new GameHandler(new_level);	
 				((GamePanel) gamePanel).setGameHandler(game);
 				
-				gamePanel.requestFocusInWindow();
+				switchState(State.GAME);
 			}
 		});
-		
+		btnDone.setBounds(554, 34, 117, 58);
+		Edit.add(btnDone);
+		Edit.setVisible(false);
 		
 		switchState(State.INITIAL);
-		
 	}
+
 	
 	// State-Machine - used to control possible transitions and their associated actions (e.g. visible panels)
 	private void switchState(State st) {
@@ -338,6 +380,7 @@ public class GameGUI {
 			Initial.setVisible(false);
 			Game.setVisible(true);
 			Edit.setVisible(false);
+			gamePanel.requestFocusInWindow();
 			break;
 		case EDIT:
 			state = State.EDIT;
@@ -348,4 +391,5 @@ public class GameGUI {
 		}
 		
 	}
+
 }

@@ -3,6 +3,8 @@ import java.util.Arrays;
 
 public class OgreMap extends GameMap {
 	
+	private static final long serialVersionUID = 9L;
+	
 	public static final int[] ogre_pos = {1, 4};
 	public static final int[] hero_pos = {7, 1};	// initial hero position
 	
@@ -29,8 +31,8 @@ public class OgreMap extends GameMap {
 	}
 	
 	public OgreMap(char[][] board, int[][] victory_pos) {
-		super.setVictoryPos(new int[][] {{1, 0}});
-		key_pos[0] = 1; key_pos[1] = 8;
+		
+		super.setVictoryPos(victory_pos);
 		
 		this.map = board;
 		

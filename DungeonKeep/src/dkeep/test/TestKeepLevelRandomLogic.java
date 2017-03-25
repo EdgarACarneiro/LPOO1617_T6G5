@@ -7,6 +7,7 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
+import dkeep.logic.GameCharacter;
 import dkeep.logic.Level.State;
 import dkeep.logic.LevelTwo;
 import dkeep.logic.Ogre;
@@ -37,24 +38,25 @@ public class TestKeepLevelRandomLogic {
 	public void testOgreRandomBehaviour() {
 		
 		LevelTwo level = new LevelTwo (board, victory_pos, enemy_activity, hero_armed);
+		GameCharacter ogre = level.getEnemies().get(0);
 		
 		boolean movedLeft = false, movedRight = false, movedUp = false, movedDown = false;
 		
 		while( !movedLeft || !movedRight || !movedUp || !movedDown)  {
 			
-			int[] oPos = new int[] {level.getEnemies().get(0).getPos()[0], level.getEnemies().get(0).getPos()[1]};
+			int[] oPos = new int[] {ogre.getPos()[0], ogre.getPos()[1]};
 			level.update(0 , 0);
 
-			if(level.getEnemies().get(0).isAt(new int [] {oPos[0] - 1, oPos[1]}))
+			if(ogre.isAt(new int [] {oPos[0] - 1, oPos[1]}))
 				movedLeft = true;
 			
-			else if(level.getEnemies().get(0).isAt(new int [] {oPos[0] + 1, oPos[1]}))
+			else if(ogre.isAt(new int [] {oPos[0] + 1, oPos[1]}))
 				movedRight = true;
 			
-			else if(level.getEnemies().get(0).isAt(new int [] {oPos[0], oPos[1] - 1}))
+			else if(ogre.isAt(new int [] {oPos[0], oPos[1] - 1}))
 				movedUp = true;
 			
-			else if(level.getEnemies().get(0).isAt(new int [] {oPos[0], oPos[1] + 1}))
+			else if(ogre.isAt(new int [] {oPos[0], oPos[1] + 1}))
 				movedDown = true;
 			
 			else 
@@ -66,24 +68,25 @@ public class TestKeepLevelRandomLogic {
 	public void testClubRandomBehaviour() {
 		
 		LevelTwo level = new LevelTwo (board1, victory_pos, enemy_activity, hero_armed);
+		GameCharacter ogre = level.getEnemies().get(0);
 		
 		boolean swingedLeft = false, swingedRight = false, swingedUp = false, swingedDown = false;
 		
 		while( !swingedLeft || !swingedRight || !swingedUp || !swingedDown)  {
 			
 			level.update(0 , 0);
-			int[] oPos = new int[] {level.getEnemies().get(0).getPos()[0], level.getEnemies().get(0).getPos()[1]};
+			int[] oPos = new int[] {level.getEnemies().get(0).getPos()[0], ogre.getPos()[1]};
 				
-			if(Arrays.equals(((Ogre) level.getEnemies().get(0)).getClubPos(),(new int [] {oPos[0] - 1, oPos[1]})))
+			if(Arrays.equals(((Ogre) ogre).getClubPos(),(new int [] {oPos[0] - 1, oPos[1]})))
 				swingedLeft = true;
 			
-			else if(Arrays.equals(((Ogre) level.getEnemies().get(0)).getClubPos(),(new int [] {oPos[0] + 1, oPos[1]})))
+			else if(Arrays.equals(((Ogre) ogre).getClubPos(),(new int [] {oPos[0] + 1, oPos[1]})))
 				swingedRight = true;
 			
-			else if(Arrays.equals(((Ogre) level.getEnemies().get(0)).getClubPos(),(new int [] {oPos[0], oPos[1] - 1})))
+			else if(Arrays.equals(((Ogre) ogre).getClubPos(),(new int [] {oPos[0], oPos[1] - 1})))
 				swingedUp = true;
 			
-			else if(Arrays.equals(((Ogre) level.getEnemies().get(0)).getClubPos(),(new int [] {oPos[0], oPos[1] + 1})))
+			else if(Arrays.equals(((Ogre) ogre).getClubPos(),(new int [] {oPos[0], oPos[1] + 1})))
 				swingedDown = true;
 			
 			else
