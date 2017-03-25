@@ -45,7 +45,7 @@ public class TestKeepLevelRandomLogic {
 		while( !movedLeft || !movedRight || !movedUp || !movedDown)  {
 			
 			int[] oPos = new int[] {ogre.getPos()[0], ogre.getPos()[1]};
-			level.update(0 , 0);
+			level.update(0 , 1);
 
 			if(ogre.isAt(new int [] {oPos[0] - 1, oPos[1]}))
 				movedLeft = true;
@@ -74,8 +74,8 @@ public class TestKeepLevelRandomLogic {
 		
 		while( !swingedLeft || !swingedRight || !swingedUp || !swingedDown)  {
 			
-			level.update(0 , 0);
-			int[] oPos = new int[] {level.getEnemies().get(0).getPos()[0], ogre.getPos()[1]};
+			level.update(0 , 1);
+			int[] oPos = new int[] {ogre.getPos()[0], ogre.getPos()[1]};
 				
 			if(Arrays.equals(((Ogre) ogre).getClubPos(),(new int [] {oPos[0] - 1, oPos[1]})))
 				swingedLeft = true;
