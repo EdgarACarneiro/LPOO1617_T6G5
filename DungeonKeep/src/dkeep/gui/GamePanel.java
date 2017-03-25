@@ -47,19 +47,39 @@ public class GamePanel extends JPanel implements KeyListener {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);	// clear background
+		if (gh == null) return;
+		
+		
+		drawBackgroundMap(g);
+		drawCharacters(g);
+	}
+	
+	private void drawCharacters(Graphics g) {
+		for (GameCharacter gc : gh.getCharacters()) {
+			Image img = images.get(gc.getSymb());
+			if (img == null)
+				continue;
+			
+			int[] pos = gc.getPos();
+			// row,col tuple in matrix -> y,x in referential
+			g.drawImage(img, pos[1] * IMG_EDGE, pos[0] * IMG_EDGE, this);
+			
+			// in case of Ogre, draw club
+			if (gc instanceof Ogre) {
+				g.drawImage(images.get('*'), ((Ogre) gc).getClubPos()[1] * IMG_EDGE, ((Ogre) gc).getClubPos()[0] * IMG_EDGE, this);
+			}
+		}
+	}
 
-		if (gh == null)
-			return;
-		
-		char[][] map = gh.getMap();
-		
+	private void drawBackgroundMap(Graphics g) {
 		Image floor = images.get('B');
-		// Draw background map
+
+		char[][] map = gh.getMap();
 		for (int row = 0, y = 0; row < map.length; row++, y += IMG_EDGE) {
 			for (int col = 0, x = 0; col < map[row].length; col++, x += IMG_EDGE) {
 				g.drawImage(floor, x, y, this);
-				char c = map[row][col];
 				
+				char c = map[row][col];
 				if (c == 'B')
 					continue;
 				
@@ -70,25 +90,7 @@ public class GamePanel extends JPanel implements KeyListener {
 				else {
 					g.drawImage(img, x, y, this);
 				}
-				
 			}
-		}
-		
-		// Draw Characters
-		for (GameCharacter gc : gh.getCharacters()) {
-			Image img = images.get(gc.getSymb());
-			
-			if (img == null)
-				continue;
-			
-			// row,col tuple in matrix -> y,x in referential
-			g.drawImage(img, gc.getPos()[1] * IMG_EDGE, gc.getPos()[0] * IMG_EDGE, this);
-			
-			// in case of Ogre, draw club
-			if (gc instanceof Ogre) {
-				g.drawImage(images.get('*'), ((Ogre) gc).getClubPos()[1] * IMG_EDGE, ((Ogre) gc).getClubPos()[0] * IMG_EDGE, this);
-			}
-				
 		}
 	}
 
@@ -96,31 +98,19 @@ public class GamePanel extends JPanel implements KeyListener {
 	public void keyTyped(KeyEvent e) {
 		if (gh == null)
 			return;
-		
 		Boolean ret = null;
 		
 		switch (e.getKeyCode()) {
-		case KeyEvent.VK_UP:
-			ret = gh.update(-1, 0);
-			break;
-		case KeyEvent.VK_LEFT:
-			ret = gh.update(0, -1);
-			break;
-		case KeyEvent.VK_DOWN:
-			ret = gh.update(1, 0);
-			break;
-		case KeyEvent.VK_RIGHT:
-			ret = gh.update(0, 1);
-			break;
-		default:
-			System.err.println("Invalid Key Pressed.");
+		case KeyEvent.VK_UP:	ret = gh.update(-1, 0);	break;
+		case KeyEvent.VK_LEFT:	ret = gh.update(0, -1);	break;
+		case KeyEvent.VK_DOWN:	ret = gh.update(1, 0);	break;
+		case KeyEvent.VK_RIGHT:	ret = gh.update(0, 1);	break;
 		}
 		
 		if (ret != null && ret == false)
 			this.removeKeyListener(this);
 		
-		this.repaint();
-
+		repaint();
 	}
 
 	@Override

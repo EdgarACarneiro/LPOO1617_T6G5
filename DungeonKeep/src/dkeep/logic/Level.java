@@ -2,8 +2,6 @@ package dkeep.logic;
 
 import java.util.ArrayList;
 
-import dkeep.logic.Level.State;
-
 public abstract class Level implements java.io.Serializable{
 	
 	private static final long serialVersionUID = 3L;
@@ -91,6 +89,16 @@ public abstract class Level implements java.io.Serializable{
 	public abstract Level nextLevel();
 	
 	public void draw() {
+		char[][] map_copy = getMapCopy();
+		
+		hero.draw(map_copy);
+		for (GameCharacter e : enemies)
+			e.draw(map_copy);
+		
+		printMap(map_copy);
+	}
+	
+	private char[][] getMapCopy() {
 		char[][] map = gameMap.getMap();
 		
 		// Creating a modifiable version of the map
@@ -100,12 +108,11 @@ public abstract class Level implements java.io.Serializable{
 			for (int j = 0; j < map[i].length; ++j)
 				map_copy[i][j] = map[i][j];
 		
-		hero.draw(map_copy);
-		for (GameCharacter e : enemies)
-			e.draw(map_copy);
-		
-		// Printing the modified map
-		for (char[] s : map_copy) {
+		return map_copy;
+	}
+	
+	private void printMap(char[][] map) {
+		for (char[] s : map) {
 			for (char c : s) {
 				if (c == 'B')
 					System.out.print("  ");

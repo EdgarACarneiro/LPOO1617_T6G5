@@ -61,8 +61,8 @@ public abstract class GameCharacter implements java.io.Serializable {
 				(Math.abs(this.pos[1] - c.pos[1]) <= 1 && this.pos[0] == c.pos[0]) ) {
 			return true;
 		}
-		else
-			return false;
+
+		return false;
 	}
 	
 	protected boolean isAdjacent(int[] pos) {

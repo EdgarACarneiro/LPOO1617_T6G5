@@ -18,7 +18,6 @@ public final class Game {
 	}
 
 	private static boolean updateGame() {
-		
 		level.draw();
 		
 		String s = input.next();
@@ -37,21 +36,22 @@ public final class Game {
 		case "D":
 			hero_move[1] = 1;
 			break;
-		default:
-			System.out.println("Invalid input! Was: " + s);
 		}
 		
-		Level.State ret = level.update(hero_move[0], hero_move[1]);
+		Level.State st = level.update(hero_move[0], hero_move[1]);
 		
-		if ( ret == Level.State.WON ) {
+		return checkState(st);
+	}
+	
+	private static boolean checkState(Level.State st) {
+		if ( st == Level.State.WON ) {
 			Level new_level;
 			if ( (new_level = level.nextLevel()) == null )
 				return false;
 			else
 				level = new_level;
 		}
-
 		
-		return ret != Level.State.LOST;
+		return st != Level.State.LOST;
 	}
 }
