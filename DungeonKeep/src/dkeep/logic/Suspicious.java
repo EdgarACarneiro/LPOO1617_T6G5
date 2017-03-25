@@ -29,20 +29,6 @@ public class Suspicious extends GuardBehaviour implements Behaviour, java.io.Ser
 			
 		}
 		
-		count += direction;
-		
-		if (count < 0)
-			count = guard_mov.length-1;
-		else if (count >= guard_mov.length)
-			count = 0;
-		
-		
-		if (direction == -1) {
-			int[] reverse = new int[2];
-			reverse[0] = -guard_mov[count][0];
-			reverse[1] = -guard_mov[count][1];
-			return reverse;
-		}		
-		else return guard_mov[count];
+		return updateMovement();
 	}
 }

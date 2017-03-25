@@ -2,6 +2,8 @@ package dkeep.logic;
 
 import java.util.ArrayList;
 
+import dkeep.logic.Level.State;
+
 public abstract class Level implements java.io.Serializable{
 	
 	private static final long serialVersionUID = 3L;
@@ -60,7 +62,31 @@ public abstract class Level implements java.io.Serializable{
 	/*
 	 * Update game-state with hero movement
 	 */
-	public abstract State update(int row, int col);
+	public State update(int row, int col) {
+		
+		hero.update(gameMap, row, col);
+		
+		for (GameCharacter e : enemies) {
+			
+			if (this.enemies_activity)
+				e.update(gameMap);
+			
+			if (hero.armed)
+				hero.attack(e);
+			
+			if (e.attack(hero)) {
+				System.out.println("You lost...");
+				return State.LOST;
+			}	
+		}
+		
+		if (gameMap.update(hero)) {
+			return State.RUNNING;
+		} else {
+			System.out.println("You Won!!");
+			return State.WON;
+		}
+	}
 	
 	public abstract Level nextLevel();
 	

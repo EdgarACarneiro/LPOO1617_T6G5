@@ -31,30 +31,6 @@ public class LevelOne extends Level {
 	public Level nextLevel() {
 		return new LevelTwo();
 	}
-
-	@Override
-	public State update(int row, int col) {
-		hero.update(gameMap, row, col);
-		
-		if (enemies_activity) {
-			for (GameCharacter e : enemies)
-				e.update(gameMap);
-		}
-		
-		for (GameCharacter e : enemies) {
-			if (e.attack(hero)) {
-				System.out.println("You lost...");
-				return State.LOST;
-			}
-		}
-		
-		if (gameMap.update(hero))
-			return State.RUNNING;
-		else {
-			System.out.println("You Won!!");
-			return State.WON;
-		}
-	}
 	
 	@Override
 	public Hero getHero() {

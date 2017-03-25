@@ -47,33 +47,6 @@ public class LevelTwo extends Level {
 	}
 
 	@Override
-	public State update(int row, int col) {
-		
-		hero.update(gameMap, row, col);
-		
-		for (GameCharacter e : enemies) {
-			
-			if (this.enemies_activity)
-				e.update(gameMap);
-			
-			if (hero.attack(e))
-				System.out.println("Hero stunned an Ogre at " + e.pos[0] + ", " + e.pos[1]);
-			
-			if (e.attack(hero)) {
-				System.out.println("You lost...");
-				return State.LOST;
-			}	
-		}
-		
-		if (gameMap.update(hero)) {
-			return State.RUNNING;
-		} else {
-			System.out.println("You Won!!");
-			return State.WON;
-		}
-	}
-
-	@Override
 	public Hero getHero() {
 		return hero;
 	}
