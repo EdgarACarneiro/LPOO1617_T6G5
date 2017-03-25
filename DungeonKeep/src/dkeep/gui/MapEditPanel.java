@@ -47,7 +47,7 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 	
 	private char[][] map;
 	private ArrayList<int[]> victory_pos = new ArrayList<int[]>();
-	private int[] hero_pos = null;
+	private int[] hero_pos = new int[] {1, 1};
 	
 	Point mousePos = new Point();
 	
@@ -97,7 +97,7 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 	
 	private void initializeMap() {
 		map = new char[rows][cols];
-		hero_pos = null;
+		hero_pos = new int[] {1, 1};
 		
 		for (int r = 0; r < rows; r++) {
 			for (int c = 0; c < cols; c++) {
@@ -194,6 +194,33 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 			g.drawImage(images.get(selection), mousePos.x - IMG_EDGE / 2, mousePos.y - IMG_EDGE / 2, this);
 				
 	}
+	
+	private boolean setInMap(int[] pos, char select) {
+		if (pos == null || pos.length != 2 || Arrays.equals(hero_pos, pos))
+			return false;
+		
+		if (pos[0] == 0 || pos[0] == rows - 1 || pos[1] == 0 || pos[1] == cols -1) {
+			if (select == 'S' || select == 'I') {
+				map[pos[0]][pos[1]] = 'I';
+				return true;
+			} else {
+				return false;
+			}
+		} else if (select == 'S' || select == 'I')
+			return false;
+		
+		map[pos[0]][pos[1]] = select;
+		
+		return true;
+	}
+	
+	private boolean setHeroPos(int[] pos) {
+		if (setInMap(pos, 'B')) {
+			hero_pos = pos;
+			return true;
+		} else
+			return false;
+	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -201,34 +228,23 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 			return;
 		
 		int[] pos = { e.getY() / IMG_EDGE, e.getX() / IMG_EDGE };
-
+		
 		// Restore Floor on LMB (left mouse button)
 		if (e.getButton() == MouseEvent.BUTTON3) {
-			map[pos[0]][pos[1]] = 'B';
+			setInMap(pos, 'B');
 			return;
 		}
-				
+						
 		switch (selection) {
-		case 'H':
-		case 'A':
-			if (hero_pos == null)
-				hero_pos = new int[2];
-			
-			if (map[pos[0]][pos[1]] == 'B') {
-				hero_pos[0] = pos[0];
-				hero_pos[1] = pos[1];
-			}
-
+		case 'H': case 'A':
+			setHeroPos(pos);
 			break;
-		case 'S':
-		case 'I':
-			if ( pos[0] == 0 || pos[0] == rows - 1 || pos[1] == 0 || pos[1] == cols -1 ) {
-				map[pos[0]][pos[1]] = 'I';
+		case 'S': case 'I':
+			if (setInMap(pos, 'I'))
 				victory_pos.add(pos);
-			}
 			break;
 		default:
-			map[pos[0]][pos[1]] = selection;
+			setInMap(pos, selection);
 		}
 		
 		repaint();
