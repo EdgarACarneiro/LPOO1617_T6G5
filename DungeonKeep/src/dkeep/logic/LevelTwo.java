@@ -17,8 +17,6 @@ public class LevelTwo extends Level {
 		int ogres_number = rand.nextInt(2) + 1;
 		for (int i = 0; i <= ogres_number; ++i)
 			enemies.add(new Ogre(OgreMap.ogre_pos));
-		
-		System.out.println(enemies.size() + " wild Ogres appear !!");
 	}
 	
 	public LevelTwo(char[][] charArr, int[][] victory_pos, boolean activity, boolean hero_armed) {

@@ -55,18 +55,21 @@ public class GameHandler implements java.io.Serializable {
          in.close();
          fileIn.close();
          
-         //Creating current game
-         this.level = game.level;
-         this.gp = game.gp;
-         this.current_lvl = game.current_lvl;
-         this.numOgres = game.numOgres;
-         this.statusInfo = game.statusInfo;
+         if (game == null) {
+        	 throw new ClassNotFoundException();
+         } else {
+	         //Creating current game
+	         this.level = game.level;
+	         this.gp = game.gp;
+	         this.current_lvl = game.current_lvl;
+	         this.numOgres = game.numOgres;
+	         this.statusInfo = game.statusInfo;
+         }
 
 	  }catch(IOException i) {
-         i.printStackTrace();
+		 i.printStackTrace();
          return;
       }catch(ClassNotFoundException c) {
-         System.out.println("GameHandler class not found");
          c.printStackTrace();
          return;
       }
@@ -116,9 +119,9 @@ public class GameHandler implements java.io.Serializable {
 	        out.writeObject(this);
 	        out.close();
 	        fileOut.close();
-	        System.out.printf("Saved game in " + gameFile + ".\n" );
 	        
 	      }catch(IOException i) {
+	    	 //System.err.println("Unable to save GameHandler");
 	         i.printStackTrace();
 	      }
 	}	

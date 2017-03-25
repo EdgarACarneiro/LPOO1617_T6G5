@@ -13,7 +13,7 @@ public class Suspicious extends GuardBehaviour implements Behaviour, java.io.Ser
 	private Random rand = new Random();
 	
 	public Suspicious() {
-		System.out.print("Suspicious Guard!\n");
+
 		direction = 1;
 		count = -1;
 		probability = CONST_PROB;
@@ -21,12 +21,10 @@ public class Suspicious extends GuardBehaviour implements Behaviour, java.io.Ser
 
 	@Override
 	public final int[] getMovement() {
+		
 		// Randomly reverses patrolling direction, after a while
 		if (rand.nextDouble() < probability) {
 			invertDirection();
-			
-			System.out.println("Inverted direction.");
-			
 		}
 		
 		return updateMovement();

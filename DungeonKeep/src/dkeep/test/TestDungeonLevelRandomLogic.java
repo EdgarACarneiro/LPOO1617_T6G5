@@ -2,16 +2,12 @@ package dkeep.test;
 
 import static org.junit.Assert.*;
 
-import java.util.Arrays;
-
 import org.junit.Test;
 
 import dkeep.logic.GameCharacter;
 import dkeep.logic.Guard;
 import dkeep.logic.Guard.Personality;
 import dkeep.logic.LevelOne;
-import dkeep.logic.LevelTwo;
-import dkeep.logic.Ogre;
 import dkeep.logic.Level.State;
 
 public class TestDungeonLevelRandomLogic {

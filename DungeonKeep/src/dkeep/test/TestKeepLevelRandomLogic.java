@@ -108,6 +108,58 @@ public class TestKeepLevelRandomLogic {
 	}
 	
 	@Test
+	public void testVariableNumberOgres() {
+		
+		int numOgres;
+		int validate;
+		LevelTwo level;
+		
+		//Test for 0 Ogres
+		numOgres = 0;
+		validate = 0;
+		level = new LevelTwo(numOgres);
+		
+		for (int i = 0; i < level.getEnemies().size(); ++i) {
+			if (level.getEnemies().get(i) instanceof Ogre)
+				++validate;
+		}
+		assertEquals(numOgres, validate);
+		
+		//Test for 1 Ogre
+		numOgres = 1;
+		validate = 0;
+		level = new LevelTwo(numOgres);
+		
+		for (int i = 0; i < level.getEnemies().size(); ++i) {
+			if (level.getEnemies().get(i) instanceof Ogre)
+				++validate;
+		}
+		assertEquals(numOgres, validate);
+		
+		//Test for 2 Ogres
+		numOgres = 2;
+		validate = 0;
+		level = new LevelTwo(numOgres);
+		
+		for (int i = 0; i < level.getEnemies().size(); ++i) {
+			if (level.getEnemies().get(i) instanceof Ogre)
+				++validate;
+		}
+		assertEquals(numOgres, validate);
+		
+		//Test for 3 Ogres
+		numOgres = 3;
+		validate = 0;
+		level = new LevelTwo(numOgres);
+		
+		for (int i = 0; i < level.getEnemies().size(); ++i) {
+			if (level.getEnemies().get(i) instanceof Ogre)
+				++validate;
+		}
+		assertEquals(numOgres, validate);
+	}
+	
+	@Test
 	public void testDefaultConstructor() {
 		
 		LevelTwo level = new LevelTwo();

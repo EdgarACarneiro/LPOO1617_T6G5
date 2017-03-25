@@ -15,6 +15,11 @@ public class TestDungeonLevelLogic {
 					  {'I', 'k', 'B', 'B', 'X'},
 					  {'X', 'X', 'X', 'X', 'X'}};
 	
+	char[][] board1 = {{'X', 'X',  'X', 'X'},
+			  		   {'X', 'k',  'G', 'X'},
+			  		   {'I', 'H',  'B', 'X'},
+			  		   {'X', 'X',  'X', 'X'}};
+	
 	int[][] victory_pos = {{ 2, 0}, { 3, 0}};
 	
 	boolean enemy_activity = false;
@@ -61,10 +66,11 @@ public class TestDungeonLevelLogic {
 	@Test
 	public void testMoveHeroToGuard() {
 		
-		LevelOne level = new LevelOne (board, enemy_activity, victory_pos);
+		LevelOne level = new LevelOne (board1, true, victory_pos);
 		
-		//One step to the right -> Hero next to Guard
-		assertEquals(State.LOST, level.update(0, 1));
+		//One step to the left -> Doesn't move -> Guard captures Hero
+		assertEquals(State.RUNNING, level.update(-1, 0));
+		
 	}
 	
 	@Test

@@ -18,7 +18,7 @@ public class Drunken extends GuardBehaviour implements Behaviour, java.io.Serial
 	private Random rand = new Random();
 	
 	public Drunken() {
-		System.out.print("Drunken Guard!\n");
+		
 		direction = 1;
 		count = -1;
 		probSleep = CONST_PROB_SLEEP;

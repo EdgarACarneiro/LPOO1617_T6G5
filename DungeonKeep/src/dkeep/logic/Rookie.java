@@ -7,7 +7,6 @@ public class Rookie extends GuardBehaviour implements Behaviour, java.io.Seriali
 	private int count;
 
 	public Rookie() {
-		System.out.print("Rookie Guard!\n");
 		count = -1;
 	}
 
