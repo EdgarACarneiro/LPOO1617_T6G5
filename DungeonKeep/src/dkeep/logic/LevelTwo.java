@@ -10,7 +10,6 @@ public class LevelTwo extends Level {
 		Random rand = new Random();
 		
 		enemies_activity = true;
-		//enemies.add(new Ogre(OgreMap.ogre_pos));
 		gameMap = new OgreMap();  
 		hero = new Hero(OgreMap.hero_pos, 'A', 'K');
 		

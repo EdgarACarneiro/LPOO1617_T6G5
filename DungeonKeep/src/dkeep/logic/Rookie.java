@@ -1,16 +1,8 @@
 package dkeep.logic;
 
-public class Rookie implements Behaviour, java.io.Serializable {
+public class Rookie extends GuardBehaviour implements Behaviour, java.io.Serializable {
 	
 	private static final long serialVersionUID = 15L;
-
-	private final static int[][] guard_mov = { 
-			{ 0, -1}, { 1,  0}, { 1,  0}, { 1,  0}, { 1,  0},
-			{ 0, -1}, { 0, -1}, { 0, -1}, { 0, -1}, { 0, -1},
-			{ 0, -1}, { 1,  0}, { 0,  1}, { 0,  1}, { 0,  1},
-			{ 0,  1}, { 0,  1}, { 0,  1}, { 0,  1}, {-1,  0},
-			{-1,  0}, {-1,  0}, {-1,  0}, {-1,  0}
-	};
 	
 	private int count;
 

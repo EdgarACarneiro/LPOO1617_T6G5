@@ -231,6 +231,7 @@ public class GameGUI {
 							return;
 						}
 						
+						ImageLoader.getInstance().reset();
 						((GamePanel) gamePanel).setGameHandler(game);
 						
 						gamePanel.requestFocusInWindow();

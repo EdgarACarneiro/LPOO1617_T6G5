@@ -1,23 +1,13 @@
 package dkeep.logic;
 import java.util.Random;
 
-// HANDLED!!
-public class Suspicious implements Behaviour, java.io.Serializable {
+
+public class Suspicious extends GuardBehaviour implements Behaviour, java.io.Serializable {
 	
 	private static final long serialVersionUID = 17L;
 	
 	private final static double CONST_PROB = 0.1;
 	
-	private final static int[][] guard_mov = { 
-			{ 0, -1}, { 1,  0}, { 1,  0}, { 1,  0}, { 1,  0},
-			{ 0, -1}, { 0, -1}, { 0, -1}, { 0, -1}, { 0, -1},
-			{ 0, -1}, { 1,  0}, { 0,  1}, { 0,  1}, { 0,  1},
-			{ 0,  1}, { 0,  1}, { 0,  1}, { 0,  1}, {-1,  0},
-			{-1,  0}, {-1,  0}, {-1,  0}, {-1,  0}
-	};
-	
-	private int direction;
-	private int count;
 	private double probability;	// probability of inverting direction
 		
 	private Random rand = new Random();
@@ -27,22 +17,6 @@ public class Suspicious implements Behaviour, java.io.Serializable {
 		direction = 1;
 		count = -1;
 		probability = CONST_PROB;
-	}
-	
-	/*
-	public Suspicious(double prob) {
-		this();
-
-		if (prob > 1 || prob < 0)
-			throw new IllegalArgumentException("Probability must be in range [0, 1]");
-		
-		probability = prob;
-	}*/
-
-	private int invertDirection() {
-		direction *= -1;
-		count -= direction; // revert last move
-		return direction;
 	}
 
 	@Override

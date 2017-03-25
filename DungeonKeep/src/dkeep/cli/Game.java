@@ -11,7 +11,6 @@ public final class Game {
 	
 	public static void main(String[] args) {
 		level = new LevelOne();
-		//level = new LevelTwo();
 		input = new Scanner(System.in);
 		
 		while (updateGame());
