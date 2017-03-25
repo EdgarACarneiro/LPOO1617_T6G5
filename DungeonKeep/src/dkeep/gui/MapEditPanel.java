@@ -53,6 +53,8 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 		images.setImgEdge(this, Math.max(rows, cols));
 		images.rescaleImages();
 		initializeMap();
+		key_pos = null;
+		selection = null;
 		repaint();
 	}
 	
@@ -71,10 +73,11 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 	}
 	
 	public Level getLevel() {
-		if (hero_pos == null)
+		if (hero_pos == null || key_pos == null)
 			return null;
 		
 		map[hero_pos[0]][hero_pos[1]] = 'A';
+		map[key_pos[0]][key_pos[1]] = 'k';
 		int[][] temp_array = new  int[victory_pos.size()][];
 		victory_pos.toArray(temp_array);
 		Level l = new LevelTwo(map, temp_array, true, true);
@@ -137,6 +140,10 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 		if (hero_pos != null)
 			g.drawImage(images.get('A'), hero_pos[1] * images.getImgEdge(), hero_pos[0] * images.getImgEdge(), this);
 		
+		// Draw key
+		if (key_pos != null)
+			g.drawImage(images.get('k'), key_pos[1] * images.getImgEdge(), key_pos[0] * images.getImgEdge(), this);
+		
 		// Draw selection image
 		if (selection != null)
 			g.drawImage(images.get(selection), mousePos.x - images.getImgEdge() / 2, mousePos.y - images.getImgEdge() / 2, this);
@@ -148,8 +155,8 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 			return false;
 		
 		if (pos[0] == 0 || pos[0] == rows - 1 || pos[1] == 0 || pos[1] == cols -1) {
-			if (select == 'S' || select == 'I') {
-				map[pos[0]][pos[1]] = 'I';
+			if (select == 'S' || select == 'I' || select == 'X') {
+				map[pos[0]][pos[1]] = select;
 				return true;
 			} else {
 				return false;
@@ -165,6 +172,14 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 	private boolean setHeroPos(int[] pos) {
 		if (setInMap(pos, 'B')) {
 			hero_pos = pos;
+			return true;
+		} else
+			return false;
+	}
+	
+	private boolean setKeyPos(int[] pos) {
+		if (setInMap(pos, 'B')) {
+			key_pos = pos;
 			return true;
 		} else
 			return false;
@@ -190,6 +205,9 @@ public class MapEditPanel extends JPanel implements MouseListener, MouseMotionLi
 		case 'S': case 'I':
 			if (setInMap(pos, 'I'))
 				victory_pos.add(pos);
+			break;
+		case 'k':
+			setKeyPos(pos);
 			break;
 		default:
 			setInMap(pos, selection);

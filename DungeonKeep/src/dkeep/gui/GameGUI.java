@@ -36,8 +36,6 @@ public class GameGUI {
 		INITIAL, GAME, EDIT
 	};
 	
-	private State state = State.INITIAL;
-
 	private JFrame frame;
 	private JTextField textField;
 	
@@ -74,7 +72,7 @@ public class GameGUI {
 	public GameGUI() {
 		initialize();
 	}
-
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -84,9 +82,64 @@ public class GameGUI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		/**
-		 * Game JPanel
-		 */
+		initializeInitialPanel();
+		initializeGamePanel();
+		initializeEditPanel();
+		
+		switchState(State.INITIAL);
+	}
+	
+	private void initializeInitialPanel() {
+		Initial = new JPanel();
+		Initial.setBounds(0, 0, 710, 578);
+		frame.getContentPane().add(Initial);
+		Initial.setLayout(null);
+		
+		JButton btnStdGame = new JButton("Standard Game");
+		btnStdGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				((GamePanel) gamePanel).setGameHandler(null);
+				switchState(State.GAME);
+			}
+		});
+		
+				btnStdGame.setBounds(280, 68, 138, 60);
+				Initial.add(btnStdGame);
+				
+				JButton btnCustomGame = new JButton("Custom Game");
+				btnCustomGame.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						switchState(State.EDIT);
+					}
+				});
+				btnCustomGame.setBounds(280, 181, 138, 60);
+				Initial.add(btnCustomGame);
+				
+				JButton btnExit = new JButton("Exit");
+				btnExit.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						System.exit(0);
+					}
+				});
+				btnExit.setBounds(280, 302, 138, 60);
+				Initial.add(btnExit);
+				
+				JButton btnLoadGame = new JButton("Load Game");
+				btnLoadGame.setBounds(0, 0, 120, 30);
+				Initial.add(btnLoadGame);
+				btnLoadGame.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+
+						game = new GameHandler();
+						
+						((GamePanel) gamePanel).setGameHandler(game);
+						switchState(State.GAME);
+
+					}
+				});
+	}
+	
+	private void initializeGamePanel() {
 		Game = new JPanel();
 		Game.setBounds(0, 0, 710, 578);
 		frame.getContentPane().add(Game);
@@ -189,58 +242,10 @@ public class GameGUI {
 						gamePanel.requestFocusInWindow();
 					}
 				});
-		Initial = new JPanel();
-		Initial.setBounds(0, 0, 710, 578);
-		frame.getContentPane().add(Initial);
-		Initial.setLayout(null);
-		
-		JButton btnStdGame = new JButton("Standard Game");
-		btnStdGame.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				((GamePanel) gamePanel).setGameHandler(null);
-				switchState(State.GAME);
-			}
-		});
-		
-				btnStdGame.setBounds(280, 68, 138, 60);
-				Initial.add(btnStdGame);
-				
-				JButton btnCustomGame = new JButton("Custom Game");
-				btnCustomGame.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						switchState(State.EDIT);
-					}
-				});
-				btnCustomGame.setBounds(280, 181, 138, 60);
-				Initial.add(btnCustomGame);
-				
-				JButton btnExit = new JButton("Exit");
-				btnExit.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						System.exit(0);
-					}
-				});
-				btnExit.setBounds(280, 302, 138, 60);
-				Initial.add(btnExit);
-				
-				JButton btnLoadGame = new JButton("Load Game");
-				btnLoadGame.setBounds(0, 0, 120, 30);
-				Initial.add(btnLoadGame);
-				btnLoadGame.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
+	}
 
-						game = new GameHandler();
-						
-						((GamePanel) gamePanel).setGameHandler(game);
-						switchState(State.GAME);
 
-					}
-				});
-		
-		
-		/**
-		 * Edit JPanel
-		 */
+	private void initializeEditPanel() {
 		Edit = new JPanel();
 		Edit.setBounds(0, 0, 710, 578);
 		frame.getContentPane().add(Edit);
@@ -361,30 +366,28 @@ public class GameGUI {
 		btnDone.setBounds(554, 34, 117, 58);
 		Edit.add(btnDone);
 		Edit.setVisible(false);
-		
-		switchState(State.INITIAL);
 	}
 
 	
-	// State-Machine - used to control possible transitions and their associated actions (e.g. visible panels)
+	/**
+	 * State-Machine - used to control possible transitions and their associated actions (e.g. visible panels)
+	 * @param st State to change to
+	 */
 	private void switchState(State st) {
 				
 		switch (st) {
 		case INITIAL:
-			state = State.INITIAL;
 			Initial.setVisible(true);
 			Game.setVisible(false);
 			Edit.setVisible(false);
 			break;
 		case GAME:
-			state = State.GAME;
 			Initial.setVisible(false);
 			Game.setVisible(true);
 			Edit.setVisible(false);
 			gamePanel.requestFocusInWindow();
 			break;
 		case EDIT:
-			state = State.EDIT;
 			Initial.setVisible(false);
 			Game.setVisible(false);
 			Edit.setVisible(true);
