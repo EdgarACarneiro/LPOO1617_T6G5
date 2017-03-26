@@ -220,7 +220,7 @@ public class GameGUI {
 				}
 
 				game = new GameHandler(new_level);
-				game.setOptionalArgs(new GameHandler.OptionalArgs(lblStatus, btnMoveUp, btnMoveLeft, btnMoveDown, btnMoveRight));
+				game.setOptionalArgs(new GameHandler.OptionalArgs(lblStatus, btnSaveGame, btnMoveUp, btnMoveLeft, btnMoveDown, btnMoveRight));
 				((GamePanel) gamePanel).setGameHandler(game);
 
 				switchState(State.GAME);
@@ -329,7 +329,7 @@ public class GameGUI {
 				}
 				if (numOgres >= 0 && numOgres <= 5 && gp != null) {
 					game = new GameHandler(gp, numOgres);
-					game.setOptionalArgs(new GameHandler.OptionalArgs(lblStatus, btnMoveUp, btnMoveLeft, btnMoveDown, btnMoveRight));
+					game.setOptionalArgs(new GameHandler.OptionalArgs(lblStatus, btnSaveGame, btnMoveUp, btnMoveLeft, btnMoveDown, btnMoveRight));
 					
 					//Enabling Blocked Buttons
 					enableButtons(btnSaveGame, btnMoveUp, btnMoveLeft, btnMoveDown, btnMoveRight);

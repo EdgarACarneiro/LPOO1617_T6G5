@@ -1,10 +1,20 @@
 package dkeep.logic;
 
+/**
+ * Class Responsible for handling the Hero. Extends from GameChracter.
+ *
+ */
 public class Hero extends GameCharacter implements java.io.Serializable {
 	
+	/**
+	 * long SerialVersionUID. Class's ID for serialization.
+	 */
 	private static final long serialVersionUID = 12L;
 	
-	private boolean hasKey = false;	// future: update with array of items - Inventory (?)
+	/**
+	 * 
+	 */
+	private boolean hasKey = false;
 	
 	public Hero(int[] initial_pos, char... symbs) {
 		super(initial_pos, symbs.length == 0 ? new char[] {'H'} : symbs);

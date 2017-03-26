@@ -7,6 +7,11 @@ package dkeep.logic;
 public abstract class GuardBehaviour implements java.io.Serializable {
 
 	/**
+	 * long SerialVersionUID. Class's ID for serialization.
+	 */
+	private static final long serialVersionUID = 19L;
+
+	/**
 	 * Matrix containing the sequence of guard movements.
 	 */
 	protected final static int[][] guard_mov = { 

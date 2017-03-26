@@ -7,12 +7,12 @@ import java.util.Random;
  *
  */
 public class Drunken extends GuardBehaviour implements Behaviour, java.io.Serializable {
-	
+
 	/**
 	 * long SerialVersionUID. Class's ID for serialization.
 	 */
 	private static final long serialVersionUID = 16L;
-	
+
 	/**
 	 * Constant Probability o Guard falling asleep
 	 */
@@ -25,7 +25,7 @@ public class Drunken extends GuardBehaviour implements Behaviour, java.io.Serial
 	 * Constant Probability of Guard inverting trajectory, when wakes up.
 	 */
 	private final static double CONST_PROB_INVERT = 0.7;
-	
+
 	/**
 	 * Boolean, if set Guard is sleeping, otherwise guard is awake.
 	 */
@@ -42,18 +42,18 @@ public class Drunken extends GuardBehaviour implements Behaviour, java.io.Serial
 	 * Probability of Guard inverting trajectory, when wakes up.
 	 */
 	private double probInvert;
-		
+
 	/**
 	 * Implementation of Randomness
 	 */
 	private Random rand = new Random();
-	
+
 	/**
-	 * default Constructor.
-	 * Initializes superclass count, initial direction, the probabilities of waking up, falling asleep and inverting direction.
+	 * default Constructor. Initializes superclass count, initial direction, the
+	 * probabilities of waking up, falling asleep and inverting direction.
 	 */
 	public Drunken() {
-		
+
 		direction = 1;
 		count = -1;
 		probSleep = CONST_PROB_SLEEP;
@@ -74,7 +74,7 @@ public class Drunken extends GuardBehaviour implements Behaviour, java.io.Serial
 			asleep = true;
 			return null;
 		}
-		
+
 		// Check if still sleeping
 		if (asleep) {
 			// Continue sleeping ?
@@ -86,7 +86,7 @@ public class Drunken extends GuardBehaviour implements Behaviour, java.io.Serial
 			if (rand.nextDouble() < probInvert)
 				invertDirection();
 		}
-		
+
 		return updateMovement();
 	}
 
