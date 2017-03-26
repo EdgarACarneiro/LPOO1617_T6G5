@@ -110,4 +110,15 @@ public class Ogre extends GameCharacter {
 		return true;
 	}
 	
+	@Override
+	public void setInactive() {
+		this.active = false;
+		this.setSymbIdx(1);
+	}
+	
+	@Override
+	public void setActive() {
+		this.active = true;
+		this.setSymbIdx(0);
+	}
 }

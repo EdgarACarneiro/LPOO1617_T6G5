@@ -30,6 +30,10 @@ public class OgreMap extends GameMap {
 		this.valid_symbs = new char[] {'B', 'S', 'k', 'O', '*'};	// Ogres and clubs can overlap
 	}
 	
+	/**
+	 * @param board
+	 * @param victory_pos
+	 */
 	public OgreMap(char[][] board, int[][] victory_pos) {
 		
 		super.setVictoryPos(victory_pos);
