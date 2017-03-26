@@ -3,8 +3,7 @@ package dkeep.logic;
 import java.util.Arrays;
 
 /**
- * Class responsible for handling Game Map's of type DungeonMap methods.
- *
+ * Class responsible for handling Game Map's of type DungeonMap.
  */
 public class DungeonMap extends GameMap implements java.io.Serializable {
 	
@@ -14,7 +13,7 @@ public class DungeonMap extends GameMap implements java.io.Serializable {
 	private static final long serialVersionUID = 11L;
 	
 	/**
-	 * 
+	 * Boolean corresponding to whether doors are open.
 	 */
 	private boolean doors_open = false;
 	
@@ -50,6 +49,11 @@ public class DungeonMap extends GameMap implements java.io.Serializable {
 			};
 	}
 	
+	/**
+	 * Constructor with given map and victory_pos arrays.
+	 * @param board	2D array representing map
+	 * @param victory_pos Array of arrays representing victory positions
+	 */
 	public DungeonMap(char[][] board, int[][] victory_pos) {
 		this.map = board;
 		
@@ -63,6 +67,9 @@ public class DungeonMap extends GameMap implements java.io.Serializable {
 		this.setVictoryPos(victory_pos);
 	}
 
+	/**
+	 * Opens all doors in map
+	 */
 	private void openDoors() {		
 		if (doors_open)
 			return;
@@ -75,6 +82,9 @@ public class DungeonMap extends GameMap implements java.io.Serializable {
 		doors_open = true;
 	}
 	
+	/* (non-Javadoc)
+	 * @see dkeep.logic.GameMap#update(dkeep.logic.Hero)
+	 */
 	@Override
 	public boolean update(Hero hero) {
 		if (Arrays.equals(lever_pos, hero.pos))
