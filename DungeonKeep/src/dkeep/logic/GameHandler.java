@@ -7,9 +7,30 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 
 public class GameHandler implements java.io.Serializable {
+	
+	public static class OptionalArgs {
+		public JLabel statusLbl;
+		public JButton[] movBtns;
+		
+		public OptionalArgs(JLabel statusLbl, JButton... movBtns) {
+			this.statusLbl = statusLbl;
+			this.movBtns = movBtns;
+		}
+		
+		public void enableBtns() {
+			for (JButton btn : movBtns)
+				btn.setEnabled(true);
+		}
+		
+		public void disableBtns() {
+			for (JButton btn : movBtns)
+				btn.setEnabled(false);
+		}
+	}
 	
 	private static final long serialVersionUID = 2L;
 	
@@ -18,8 +39,9 @@ public class GameHandler implements java.io.Serializable {
 	private Level level;
 	private int current_lvl;
 	private String statusInfo;
-	private JLabel statusLbl = null;
 	
+	private OptionalArgs optArgs = null;
+
 	private Guard.Personality gp;
 	private int numOgres;
 
@@ -69,19 +91,26 @@ public class GameHandler implements java.io.Serializable {
 	         this.statusInfo = game.statusInfo;
          }
 
-	  }catch(IOException i) {
+	  } catch(IOException i) {
 		 i.printStackTrace();
          return;
-      }catch(ClassNotFoundException c) {
+      } catch(ClassNotFoundException c) {
          c.printStackTrace();
          return;
       }
 	}
 	
-	public void setStatusLbl(JLabel statusLbl) {
-		this.statusLbl = statusLbl;
-		if (statusLbl != null)
-			statusLbl.setText("New Game!");
+	public void setOptionalArgs(OptionalArgs args) {
+		optArgs = args;
+		
+		if (level == null || args == null)
+			return;
+		
+		if (optArgs.movBtns != null)
+			optArgs.enableBtns();
+		
+		if (optArgs.statusLbl != null)
+			optArgs.statusLbl.setText("New Game!");
 	}
 	
 	private boolean updateLevel() {
@@ -117,8 +146,11 @@ public class GameHandler implements java.io.Serializable {
 			ret = false;
 		}
 		
-		if (statusLbl != null)
-			statusLbl.setText(statusInfo);
+		if (optArgs != null) {
+			optArgs.statusLbl.setText(statusInfo);
+			if (! ret)
+				optArgs.disableBtns();
+		}
 		
 		return ret;
 	}
@@ -132,8 +164,7 @@ public class GameHandler implements java.io.Serializable {
 	        out.close();
 	        fileOut.close();
 	        
-	      }catch(IOException i) {
-	    	 //System.err.println("Unable to save GameHandler");
+	      } catch(IOException i) {
 	         i.printStackTrace();
 	      }
 	}	
@@ -153,7 +184,7 @@ public class GameHandler implements java.io.Serializable {
 		if (level != null)
 			return level.getMap();
 		
-		System.err.println("GH NULL LEVEL - map (char[][]) requested!");
+		System.err.println("GH NULL LEVEL -- map (char[][]) requested!");
 		return null;
 	}
 	
