@@ -72,7 +72,7 @@ public class Ogre extends GameCharacter implements java.io.Serializable {
 	 * depends of gameMap characteristics
 	 * 
 	 * @param gameMap
-	 *            Map used for updating guard activity
+	 *            Map used for updating ogre activity
 	 */
 	private void checkSelfSymb(GameMap gameMap) {
 		if (Arrays.equals(gameMap.getKeyPos(), pos)) {
@@ -94,11 +94,11 @@ public class Ogre extends GameCharacter implements java.io.Serializable {
 
 	/**
 	 * Function responsible for updating the ogre position in the given map, to
-	 * the position (row, col). The position of the guard is dependent of
+	 * the position (row, col). The position of the ogre is dependent of
 	 * gameMap characteristics.
 	 * 
 	 * @param gameMap
-	 *            Map used for updating guard position
+	 *            Map used for updating ogre position
 	 * @param row
 	 *            row of the Matrix to be updated
 	 * @param col
@@ -116,10 +116,10 @@ public class Ogre extends GameCharacter implements java.io.Serializable {
 
 	/**
 	 * Function responsible for updating the ogre position in the given map. The
-	 * position of the guard is dependent of gameMap characteristics.
+	 * position of the ogre is dependent of gameMap characteristics.
 	 * 
 	 * @param gameMap
-	 *            Map used for updating guard position
+	 *            Map used for updating ogre position
 	 * 
 	 * @see dkeep.logic.GameCharacter#update(dkeep.logic.GameMap)
 	 */
