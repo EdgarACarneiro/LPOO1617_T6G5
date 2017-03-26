@@ -26,6 +26,7 @@ public abstract class Level implements java.io.Serializable {
 	 * Hero hero. Level's hero.
 	 */
 	protected Hero hero;
+	
 	/**
 	 * boolean enemies_activity. Boolean containing information regarding
 	 * enemies activity. If true, enemies are active. Otherwise, enemies are
@@ -33,11 +34,13 @@ public abstract class Level implements java.io.Serializable {
 	 * 
 	 */
 	protected boolean enemies_activity;
+	
 	/**
 	 * ArrayList<GameCharacter> enemies. ArrayList containing all the enemy
 	 * character's in the Level.
 	 */
 	protected ArrayList<GameCharacter> enemies = new ArrayList<GameCharacter>();
+	
 	/**
 	 * GameMap gameMap. GameMap containing information regarding the Level's
 	 * map.
@@ -45,7 +48,7 @@ public abstract class Level implements java.io.Serializable {
 	protected GameMap gameMap;
 
 	/**
-	 * Level's Constructor Constructor from a map, it's victory positions and
+	 * Level's Constructor from a char[][] map, its victory positions and
 	 * the enemies activity.
 	 * 
 	 * @param map

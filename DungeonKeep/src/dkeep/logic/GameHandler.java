@@ -10,12 +10,33 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
+/**
+ * Class responsible for handling lower-level game state handling.
+ */
 public class GameHandler implements java.io.Serializable {
 	
+	/**
+	 * Inner class to encapsulate optional arguments for extra functionality:
+	 * updates a status label's text and disables/enables buttons appropriately.
+	 */
 	public static class OptionalArgs {
-		public JLabel statusLbl;
-		public JButton[] movBtns;
 		
+		/**
+		 * Label to be changed on game state changes.
+		 */
+		public JLabel statusLbl;
+		
+		/**
+		 * Buttons to be enabled/disabled according to game state.
+		 */
+		public JButton[] movBtns;
+
+		/**
+		 * Constructor w/ optional number of JButtons as arguments
+		 * 
+		 * @param statusLbl Status Label
+		 * @param movBtns Gameplay buttons
+		 */
 		public OptionalArgs(JLabel statusLbl, JButton... movBtns) {
 			this.statusLbl = statusLbl;
 			this.movBtns = movBtns;
@@ -32,19 +53,52 @@ public class GameHandler implements java.io.Serializable {
 		}
 	}
 	
+	/**
+	 * long SerialVersionUID. Class's ID for serialization.
+	 */
 	private static final long serialVersionUID = 2L;
 	
+	/**
+	 * File path for serialization.
+	 */
 	private static final String gameFile = "savedGames/Game01.ser";
 	
+	/**
+	 * Level currently in play.
+	 */
 	private Level level;
+	
+	/**
+	 * Int representing the current level's number.
+	 */
 	private int current_lvl;
+	
+	/**
+	 * Status Information regarding the game's state.
+	 */
 	private String statusInfo;
 	
+	/**
+	 * OptionalArgs object for extra functionality.
+	 */
 	private OptionalArgs optArgs = null;
 
+	
+	/**
+	 * Chosen guard's personality. Saved parameter for LevelOne.
+	 */
 	private Guard.Personality gp;
+	
+	/**
+	 * Number of Ogres for LevelTwo.
+	 */
 	private int numOgres;
 
+	/**
+	 * Constructor with specific parameters for each level.
+	 * @param gp	Guard's personality
+	 * @param numOgres	Number of Ogres
+	 */
 	public GameHandler(Guard.Personality gp, int numOgres) {
 		this.gp = gp;
 		this.numOgres = numOgres;
@@ -53,6 +107,10 @@ public class GameHandler implements java.io.Serializable {
 		level = new LevelOne(this.gp);
 	}
 	
+	/**
+	 * Constructor with already constructed level.
+	 * @param l Level to be played.
+	 */
 	public GameHandler(Level l) {
 		if (l == null) {
 			System.err.println("GH constructor called with null Level");
@@ -70,6 +128,10 @@ public class GameHandler implements java.io.Serializable {
 			System.err.println("INVALID LEVEL");
 	}
 	
+	/**
+	 * Default constructor with serialization.
+	 * Used to load a previously saved GameHandler.
+	 */
 	public GameHandler() {
 		GameHandler game = null;
 	     
@@ -100,6 +162,10 @@ public class GameHandler implements java.io.Serializable {
       }
 	}
 	
+	/**
+	 * Sets self OptionalArgs thus activating extra functionality.
+	 * @param args	OptionalArgs properly populated
+	 */
 	public void setOptionalArgs(OptionalArgs args) {
 		optArgs = args;
 		
@@ -113,6 +179,10 @@ public class GameHandler implements java.io.Serializable {
 			optArgs.statusLbl.setText("New Game!");
 	}
 	
+	/**
+	 * Updates current level and status label.
+	 * @return whether current level is still in play.
+	 */
 	private boolean updateLevel() {
 		switch (current_lvl) {	
 		case 1:
@@ -130,6 +200,14 @@ public class GameHandler implements java.io.Serializable {
 		return true;
 	}
 	
+	/**
+	 * Updates current level with given hero movement.
+	 * Appropriately sets the status and enables/disables the gameplay buttons.
+	 * 
+	 * @param row Rows hero moved.
+	 * @param col Columns hero moved.
+	 * @return whether current level is still in play.
+	 */
 	public boolean update(int row, int col) {
 		Level.State state = level.update(row, col);
 		boolean ret = true;
@@ -155,7 +233,9 @@ public class GameHandler implements java.io.Serializable {
 		return ret;
 	}
 		
-	//Saving the current Game session
+	/**
+	 * Saves the current game session.
+	 */
 	public void saveGame() {
 		try {
 	        FileOutputStream fileOut = new FileOutputStream(gameFile);
@@ -167,12 +247,12 @@ public class GameHandler implements java.io.Serializable {
 	      } catch(IOException i) {
 	         i.printStackTrace();
 	      }
-	}	
-	
-	public String getStatusInfo() {
-		return statusInfo;
 	}
 	
+	/**
+	 * Getter method for level's characters.
+	 * @return List of characters in play.
+	 */
 	public ArrayList<GameCharacter> getCharacters() {
 		if (level != null)
 			return level.getCharacters();
@@ -180,6 +260,10 @@ public class GameHandler implements java.io.Serializable {
 			return null;
 	}
 	
+	/**
+	 * Getter method for the current Map.
+	 * @return The current map in a 2D char array.
+	 */
 	public char[][] getMap() {
 		if (level != null)
 			return level.getMap();
