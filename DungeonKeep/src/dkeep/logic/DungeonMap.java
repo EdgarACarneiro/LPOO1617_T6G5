@@ -2,7 +2,7 @@ package dkeep.logic;
 
 import java.util.Arrays;
 
-public class DungeonMap extends GameMap {
+public class DungeonMap extends GameMap implements java.io.Serializable {
 	
 	private static final long serialVersionUID = 11L;
 	

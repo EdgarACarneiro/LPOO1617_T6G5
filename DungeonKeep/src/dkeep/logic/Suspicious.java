@@ -3,33 +3,34 @@ import java.util.Random;
 
 
 /**
- * @author 
+ *  Class responsible for Guards' Behavior of type Suspicious
  *
  */
 public class Suspicious extends GuardBehaviour implements Behaviour, java.io.Serializable {
 	
 	/**
-	 * 
+	 * long SerialVersionUID. Class's ID for serialization.
 	 */
 	private static final long serialVersionUID = 17L;
 	
 	/**
-	 * 
+	 * Constant Probability used as probability for Guard inverting trajectory
 	 */
 	private final static double CONST_PROB = 0.1;
 	
 	/**
-	 * 
+	 * Probability of Guard inverting trajectory.
 	 */
-	private double probability;	// probability of inverting direction
+	private double probability;	
 		
 	/**
-	 * 
+	 * Implementation of Randomness
 	 */
 	private Random rand = new Random();
 	
 	/**
-	 * 
+	 * default Constructor.
+	 * Initializes superclass count, initial direction, and the the probability of inverting trajectory
 	 */
 	public Suspicious() {
 
@@ -38,7 +39,9 @@ public class Suspicious extends GuardBehaviour implements Behaviour, java.io.Ser
 		probability = CONST_PROB;
 	}
 
-	/** (non-Javadoc)
+	/** 
+	 * Function responsible for updating Suspicious guard's movement
+	 * 
 	 * @see dkeep.logic.Behaviour#getMovement()
 	 */
 	@Override

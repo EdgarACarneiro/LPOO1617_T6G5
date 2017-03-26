@@ -1,7 +1,7 @@
 package dkeep.logic;
 import java.util.Random;
 
-public class Guard extends GameCharacter {
+public class Guard extends GameCharacter implements java.io.Serializable {
 	
 	private static final long serialVersionUID = 7L;
 	

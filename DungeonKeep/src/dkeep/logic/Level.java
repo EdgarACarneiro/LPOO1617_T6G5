@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Abstract class responsible for handling Level's generic methods.
  * 
  */
-public abstract class Level implements java.io.Serializable{
+public abstract class Level implements java.io.Serializable {
 	
 	/**
 	 * long SerialVersionUID. Class's ID for serialization.
@@ -202,7 +202,7 @@ public abstract class Level implements java.io.Serializable{
 	}
 	
 	/**
-	 * @return ArrayList contatining all the game characters: enemies and hero.
+	 * @return ArrayList containing all the game characters: enemies and hero.
 	 */
 	public ArrayList<GameCharacter> getCharacters() {
 		ArrayList<GameCharacter> ret = new ArrayList<GameCharacter>();

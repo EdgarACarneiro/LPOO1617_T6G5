@@ -1,6 +1,6 @@
 package dkeep.logic;
 
-public class Hero extends GameCharacter {
+public class Hero extends GameCharacter implements java.io.Serializable {
 	
 	private static final long serialVersionUID = 12L;
 	

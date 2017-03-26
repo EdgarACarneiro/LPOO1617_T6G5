@@ -2,21 +2,56 @@ package dkeep.logic;
 
 import java.util.Random;
 
+/**
+ * Class responsible for Guards' Behavior of type Drunken
+ *
+ */
 public class Drunken extends GuardBehaviour implements Behaviour, java.io.Serializable {
 	
+	/**
+	 * long SerialVersionUID. Class's ID for serialization.
+	 */
 	private static final long serialVersionUID = 16L;
 	
+	/**
+	 * Constant Probability o Guard falling asleep
+	 */
 	private final static double CONST_PROB_SLEEP = 0.2;
+	/**
+	 * Constant Probability of Guard waking up, when he is sleeping
+	 */
 	private final static double CONST_PROB_WAKE = 0.5;
+	/**
+	 * Constant Probability of Guard inverting trajectory, when wakes up.
+	 */
 	private final static double CONST_PROB_INVERT = 0.7;
 	
+	/**
+	 * Boolean, if set Guard is sleeping, otherwise guard is awake.
+	 */
 	private boolean asleep;
-	private double probSleep;		// probability of falling asleep
-	private double probWake;		// probability of waking up, if asleep
-	private double probInvert;		// probability of inverting direction
+	/**
+	 * Probability of Guard waking up, when he is sleeping
+	 */
+	private double probSleep;
+	/**
+	 * Probability of Guard waking up, when he is sleeping
+	 */
+	private double probWake;
+	/**
+	 * Probability of Guard inverting trajectory, when wakes up.
+	 */
+	private double probInvert;
 		
+	/**
+	 * Implementation of Randomness
+	 */
 	private Random rand = new Random();
 	
+	/**
+	 * default Constructor.
+	 * Initializes superclass count, initial direction, the probabilities of waking up, falling asleep and inverting direction.
+	 */
 	public Drunken() {
 		
 		direction = 1;
@@ -27,6 +62,11 @@ public class Drunken extends GuardBehaviour implements Behaviour, java.io.Serial
 		asleep = false;
 	}
 
+	/**
+	 * Function responsible for updating Drunken guard's movement
+	 * 
+	 * @see dkeep.logic.Behaviour#getMovement()
+	 */
 	@Override
 	public int[] getMovement() {
 		// Randomly falls asleep

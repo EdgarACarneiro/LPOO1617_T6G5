@@ -6,7 +6,7 @@ import dkeep.logic.Guard.Personality;
  * Class responsible for handling Level's of type Level One methods.
  *
  */
-public class LevelOne extends Level {
+public class LevelOne extends Level implements java.io.Serializable {
 	
 	/**
 	 * long SerialVersionUID. Class's ID for serialization.
@@ -48,7 +48,7 @@ public class LevelOne extends Level {
 	 * Sets enemies active.
 	 * Sets gameMap as a default DungeonMap.
 	 * Sets Hero Position to the DungeonMap's hero position.
-	 * Adds a single Guard, as a enemy, at the DungeonMaps' guard position, with Personlaity gp.
+	 * Adds a single Guard, as a enemy, at the DungeonMaps' guard position, with Personality gp.
 	 * 
 	 * @param gp. Level One gurad's personality.
 	 */

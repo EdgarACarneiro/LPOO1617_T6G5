@@ -1,7 +1,7 @@
 package dkeep.logic;
 
 /**
- * Class responsible for Guard Behaviours of type Rookie
+ * Class responsible for Guards' Behaviour of type Rookie
  *
  */
 public class Rookie extends GuardBehaviour implements Behaviour, java.io.Serializable {
@@ -10,11 +10,6 @@ public class Rookie extends GuardBehaviour implements Behaviour, java.io.Seriali
 	 * long SerialVersionUID. Class's ID for serialization.
 	 */
 	private static final long serialVersionUID = 15L;
-	
-	/**
-	 * int count. Integer responsible for controlling guard's movement.
-	 */
-	private int count;
 
 	/**
 	 * Default Constructor:
@@ -25,7 +20,7 @@ public class Rookie extends GuardBehaviour implements Behaviour, java.io.Seriali
 	}
 
 	/** 
-	 * Function responsible for updating Rookie guard's movement-
+	 * Function responsible for updating Rookie guard's movement
 	 * 
 	 * @see dkeep.logic.Behaviour#getMovement()
 	 */

@@ -1,7 +1,14 @@
 package dkeep.logic;
 
-public abstract class GuardBehaviour {
+/**
+ * Abstract generic class responsible for controlling all Guard Behaviors.
+ *
+ */
+public abstract class GuardBehaviour implements java.io.Serializable {
 
+	/**
+	 * Matrix containing the sequence of guard movements.
+	 */
 	protected final static int[][] guard_mov = { 
 			{ 0, -1}, { 1,  0}, { 1,  0}, { 1,  0}, { 1,  0},
 			{ 0, -1}, { 0, -1}, { 0, -1}, { 0, -1}, { 0, -1},
@@ -10,15 +17,31 @@ public abstract class GuardBehaviour {
 			{-1,  0}, {-1,  0}, {-1,  0}, {-1,  0}
 	};
 	
+	/**
+	 * Counter used to iterate through the guard_mov Matrix.
+	 */
 	protected int count;
+	/**
+	 * Controller of the direction of iteration through the guard_mov Matrix.
+	 */
 	protected int direction;
 
+	/**
+	 * Inverts the current direction of the Guard's movement.
+	 * 
+	 * @return current direction.
+	 */
 	protected int invertDirection() {
 		direction *= -1;
 		count -= direction;
 		return direction;
 	}
 	
+	/**
+	 * Function responsible for updating the Guard's Movement
+	 * 
+	 * @return Current guard movement.
+	 */
 	protected int[] updateMovement() {
 		count += direction;
 		

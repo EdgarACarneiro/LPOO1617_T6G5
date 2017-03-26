@@ -6,7 +6,7 @@ import java.util.Random;
  * Class responsible for handling Level's of type Level Two methods.
  * 
  */
-public class LevelTwo extends Level {
+public class LevelTwo extends Level implements java.io.Serializable {
 	
 	/**
 	 * long SerialVersionUID. Class's ID for serialization

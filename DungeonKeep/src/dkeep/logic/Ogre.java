@@ -6,7 +6,7 @@ import java.util.Random;
  * @author 
  *
  */
-public class Ogre extends GameCharacter {
+public class Ogre extends GameCharacter implements java.io.Serializable {
 	
 	/**
 	 * 

@@ -5,7 +5,7 @@ import java.util.Arrays;
  * @author 
  *
  */
-public class OgreMap extends GameMap {
+public class OgreMap extends GameMap implements java.io.Serializable {
 	
 	/**
 	 * 
