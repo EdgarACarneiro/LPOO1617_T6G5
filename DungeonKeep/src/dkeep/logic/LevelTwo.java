@@ -3,18 +3,22 @@ package dkeep.logic;
 import java.util.Random;
 
 /**
- * @author 
- *
+ * Class responsible for handling Level's of type Level Two methods.
+ * 
  */
 public class LevelTwo extends Level {
 	
 	/**
-	 * 
+	 * long SerialVersionUID. Class's ID for serialization
 	 */
 	private static final long serialVersionUID = 5L;
 		
 	/**
-	 * 
+	 * Default Constructor:
+	 * Set enemies active.
+	 * Sets game Map as a new Ogre Map.
+	 * Sets Hero Position to the OgreMap's hero position.
+	 * Adds a random number of ogres, as enemies, at the OgreMap's enemies position.
 	 */
 	public LevelTwo() {
 		Random rand = new Random();
@@ -30,10 +34,14 @@ public class LevelTwo extends Level {
 	}
 	
 	/**
-	 * @param charArr
-	 * @param victory_pos
-	 * @param activity
-	 * @param hero_armed
+	 * Level Two Constructor:
+	 * Constructor from a map, it's victory positions , the enemies activity and if the hero is armed.
+	 * Calls a superclass constructor.
+	 * 
+	 * @param map A matrix of chars containing the map's visual representation.
+	 * @param victory_pos A array of positions containing the victory positions of the map.
+	 * @param activity Boolean that if set all enemies are active, otherwise all enemies are inactive.
+	 * @param hero_armed Booleean the if set the hero is armed, otherwise the hero is unarmed.
 	 */
 	public LevelTwo(char[][] charArr, int[][] victory_pos, boolean activity, boolean hero_armed) {
 		super(charArr, victory_pos, activity);
@@ -44,7 +52,13 @@ public class LevelTwo extends Level {
 	}
 	
 	/**
-	 * @param numOgres
+	 * Level Two Constructor:
+	 * Sets enemies active.
+	 * Sets gameMap as a default OgreMap.
+	 * Sets Hero Position to the DungeonMap's hero position.
+	 * Adds numOgres number of Ogres, as enemies, at the OgreMap's enemy position.
+	 *
+	 * @param numOgres. Level Two number of Ogres.
 	 */
 	public LevelTwo(int numOgres) {
 		
@@ -57,7 +71,9 @@ public class LevelTwo extends Level {
 			enemies.add(new Ogre(OgreMap.ogre_pos));
 	}
 	
-	/** (non-Javadoc)
+	/** 
+	 * Returning next Level, but in this case there is no next Level.
+	 * 
 	 * @see dkeep.logic.Level#nextLevel()
 	 */
 	@Override
@@ -66,7 +82,9 @@ public class LevelTwo extends Level {
 		return null;
 	}
 
-	/** (non-Javadoc)
+	/** 
+	 * Function returning this level's Hero.
+	 * 
 	 * @see dkeep.logic.Level#getHero()
 	 */
 	@Override

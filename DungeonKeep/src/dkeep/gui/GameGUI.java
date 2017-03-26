@@ -246,6 +246,7 @@ public class GameGUI {
 
 		switch (st) {
 		case INITIAL:
+			game = null;
 			Initial.setVisible(true);
 			Game.setVisible(false);
 			Edit.setVisible(false);
@@ -271,7 +272,7 @@ public class GameGUI {
 	private void moveButtonUpdate(int row, int col) {
 		Boolean ret = game.update(row, col);
 		
-		if (ret != null && ret == false);
+		if (ret != null && ret == false)
 			disableButtons(btnSaveGame, btnMoveUp, btnMoveLeft, btnMoveDown, btnMoveRight);
 			
 		gamePanel.repaint();
