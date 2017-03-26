@@ -2,16 +2,35 @@ package dkeep.logic;
 
 import java.util.Arrays;
 
+/**
+ * Class responsible for handling Game Map's of type DungeonMap methods.
+ *
+ */
 public class DungeonMap extends GameMap implements java.io.Serializable {
 	
+	/**
+	 * long SerialVersionUID. Class's ID for serialization.
+	 */
 	private static final long serialVersionUID = 11L;
 	
+	/**
+	 * 
+	 */
 	private boolean doors_open = false;
 	
+	/**
+	 * Position of the lever in the Dungeon Map
+	 */
 	private static int[] lever_pos = {8, 7};
 	
+	/**
+	 * Initial hero position in the Dungeon Map
+	 */
 	public static int[] hero_pos = {1, 1};	// initial hero position
 	
+	/**
+	 * Initial guard position in the Dungeon Map
+	 */
 	public static int[] guard_pos = {1, 8};	// initial guard position
 	
 	public DungeonMap() {
