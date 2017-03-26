@@ -7,6 +7,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import javax.swing.JLabel;
+
 public class GameHandler implements java.io.Serializable {
 	
 	private static final long serialVersionUID = 2L;
@@ -16,6 +18,7 @@ public class GameHandler implements java.io.Serializable {
 	private Level level;
 	private int current_lvl;
 	private String statusInfo;
+	private JLabel statusLbl = null;
 	
 	private Guard.Personality gp;
 	private int numOgres;
@@ -75,6 +78,12 @@ public class GameHandler implements java.io.Serializable {
       }
 	}
 	
+	public void setStatusLbl(JLabel statusLbl) {
+		this.statusLbl = statusLbl;
+		if (statusLbl != null)
+			statusLbl.setText("New Game!");
+	}
+	
 	private boolean updateLevel() {
 		switch (current_lvl) {	
 		case 1:
@@ -94,21 +103,24 @@ public class GameHandler implements java.io.Serializable {
 	
 	public boolean update(int row, int col) {
 		Level.State state = level.update(row, col);
+		boolean ret = true;
 		
 		switch (state) {
 		case RUNNING:
 			statusInfo = "You can play now.";
 			break;
-
 		case WON:
-			return(updateLevel());
-			
+			ret = updateLevel();
+			break;
 		case LOST:
 			statusInfo = "Game Over.";
-			return false;
+			ret = false;
 		}
 		
-		return true;
+		if (statusLbl != null)
+			statusLbl.setText(statusInfo);
+		
+		return ret;
 	}
 		
 	//Saving the current Game session

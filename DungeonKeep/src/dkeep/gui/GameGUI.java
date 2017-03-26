@@ -218,6 +218,7 @@ public class GameGUI {
 				}
 
 				game = new GameHandler(new_level);
+				game.setStatusLbl(lblStatus);
 				((GamePanel) gamePanel).setGameHandler(game);
 
 				switchState(State.GAME);
@@ -267,7 +268,6 @@ public class GameGUI {
 			disableButtons(btnSaveGame, btnMoveUp, btnMoveLeft, btnMoveDown, btnMoveRight);
 			
 		gamePanel.repaint();
-		lblStatus.setText(game.getStatusInfo());
 		gamePanel.requestFocusInWindow();
 	}
 	
@@ -321,6 +321,7 @@ public class GameGUI {
 				}
 				if (numOgres >= 0 && numOgres <= 5 && gp != null) {
 					game = new GameHandler(gp, numOgres);
+					game.setStatusLbl(lblStatus);
 					
 					//Enabling Blocked Buttons
 					enableButtons(btnSaveGame, btnMoveUp, btnMoveLeft, btnMoveDown, btnMoveRight);
