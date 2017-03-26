@@ -11,6 +11,8 @@ public class Hero extends GameCharacter {
 		
 		if (symbs.length > 0)
 			armed = true;
+		
+		checkSelfSymb();
 	}
 	
 	public void update(GameMap gameMap) {
@@ -19,6 +21,7 @@ public class Hero extends GameCharacter {
 	
 	@Override
 	public void update(GameMap gameMap, int row, int col) {
+		checkSelfSymb();
 		if (! this.active)
 			return;
 		
@@ -33,6 +36,15 @@ public class Hero extends GameCharacter {
 	public void keyFoundStatus(boolean status) {	// future: picks key item
 		if ( (hasKey = status) == true )
 			this.setSymbIdx(1);
+	}
+	
+	private void checkSelfSymb() {
+		if (hasKey)
+			setSymbIdx(1);
+		else if (armed)
+			setSymbIdx(2);
+		else
+			setSymbIdx(0);
 	}
 	
 	public boolean hasKey() {

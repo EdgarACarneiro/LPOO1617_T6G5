@@ -126,6 +126,6 @@ public class GamePanel extends JPanel implements KeyListener {
 	}
 	
 	private boolean gameUpdate(int row, int col) {
-		return gameUpdate(row, col);
+		return gh.update(row, col);
 	}
 }
