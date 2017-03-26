@@ -170,7 +170,6 @@ public class GameGUI {
 		lblStatus.setBounds(16, 20, 485, 29);
 		Game.add(lblStatus);
 		lblStatus.setFont(new Font("Malayalam MN", Font.PLAIN, 20));
-		lblStatus.setText("You can now begin a New Game!");
 		
 		moveButtonsInitialize();
 		saveButtonInitialize();
@@ -418,7 +417,7 @@ public class GameGUI {
 	btnFloor.addMouseListener(new MouseAdapter() {
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			((MapEditPanel) editPanel).setSelection('B');
+			setEditionSelection('B');
 		}
 	});
 	btnFloor.setBounds(588, 100, 60, 60);
@@ -429,7 +428,7 @@ public class GameGUI {
 	btnWall.addMouseListener(new MouseAdapter() {
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			((MapEditPanel) editPanel).setSelection('X');
+			setEditionSelection('X');
 		}
 	});
 	btnWall.setBounds(588, 170, 60, 60);
@@ -440,7 +439,7 @@ public class GameGUI {
 	btnOgre.addMouseListener(new MouseAdapter() {
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			((MapEditPanel) editPanel).setSelection('O');
+			setEditionSelection('O');
 		}
 	});
 	btnOgre.setBounds(588, 240, 60, 60);
@@ -450,7 +449,7 @@ public class GameGUI {
 	btnDoor.addMouseListener(new MouseAdapter() {
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			((MapEditPanel) editPanel).setSelection('I');
+			setEditionSelection('I');
 		}
 	});
 	btnDoor.setBounds(588, 310, 60, 60);
@@ -460,7 +459,7 @@ public class GameGUI {
 	btnKey.addMouseListener(new MouseAdapter() {
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			((MapEditPanel) editPanel).setSelection('k');
+			setEditionSelection('k');
 		}
 	});
 	btnKey.setBounds(588, 380, 60, 60);
@@ -470,11 +469,15 @@ public class GameGUI {
 	btnHero.addMouseListener(new MouseAdapter() {
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			((MapEditPanel) editPanel).setSelection('A');
+			setEditionSelection('A');
 		}
 	});
 	btnHero.setBounds(588, 450, 60, 60);
 	Edit.add(btnHero);
+	}
+	
+	private void setEditionSelection(char c) {
+		((MapEditPanel) editPanel).setSelection(c);
 	}
 	
 	private void mapRowsColsInitialize(int min_lines, int max_lines) {

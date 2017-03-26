@@ -100,10 +100,10 @@ public class GamePanel extends JPanel implements KeyListener {
 		Boolean ret = null;
 		
 		switch (e.getKeyCode()) {
-		case KeyEvent.VK_UP:	ret = gh.update(-1, 0);	break;
-		case KeyEvent.VK_LEFT:	ret = gh.update(0, -1);	break;
-		case KeyEvent.VK_DOWN:	ret = gh.update(1, 0);	break;
-		case KeyEvent.VK_RIGHT:	ret = gh.update(0, 1);	break;
+		case KeyEvent.VK_UP:	ret = gameUpdate(-1, 0);break;
+		case KeyEvent.VK_LEFT:	ret = gameUpdate(0, -1);break;
+		case KeyEvent.VK_DOWN:	ret = gameUpdate(1, 0);	break;
+		case KeyEvent.VK_RIGHT:	ret = gameUpdate(0, 1);	break;
 		}
 		
 		if (ret != null && ret == false)
@@ -123,5 +123,9 @@ public class GamePanel extends JPanel implements KeyListener {
 		default:
 			System.out.println("Key released: " + e.getKeyCode());
 		}
+	}
+	
+	private boolean gameUpdate(int row, int col) {
+		return gameUpdate(row, col);
 	}
 }
