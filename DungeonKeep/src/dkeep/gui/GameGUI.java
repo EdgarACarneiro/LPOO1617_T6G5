@@ -431,6 +431,7 @@ public class GameGUI {
 
 		switch (st) {
 		case INITIAL:
+			game = null;
 			Initial.setVisible(true);
 			Game.setVisible(false);
 			Edit.setVisible(false);
