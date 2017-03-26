@@ -2,12 +2,11 @@ package dkeep.gui;
 
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.JPanel;
 import dkeep.logic.GameHandler;
 import dkeep.logic.GameCharacter;
 import dkeep.logic.Ogre;
-
-
 
 public class GamePanel extends JPanel implements KeyListener {
 
