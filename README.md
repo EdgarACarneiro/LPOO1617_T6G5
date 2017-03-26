@@ -8,5 +8,5 @@ EclEmma:
 FEUP - Laboratório de Programação Orientada por Objectos
 
       Membros:
-      André  Miguel Ferreira da Cruz
-      Edgar Filipe Amorim Gomes Carneiro
+      André  Miguel Ferreira da Cruz      - up201503776@fe.up.pt - 201503776
+      Edgar Filipe Amorim Gomes Carneiro  - up201503784@fe.up.pt - 201503784
