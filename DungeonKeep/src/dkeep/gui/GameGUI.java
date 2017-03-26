@@ -38,6 +38,7 @@ public class GameGUI {
 	private GameHandler game;
 
 	private JLabel lblStatus;
+	private JLabel infoLbl;
 
 	private JPanel Initial;
 	private JPanel Game;
@@ -204,7 +205,7 @@ public class GameGUI {
 		lblColumns.setBounds(38, 34, 61, 16);
 		Edit.add(lblColumns);
 
-		mapRowsColsInitialize(MapEditPanel.MIN_LINES, MapEditPanel.MAX_LINES);
+		initializeEditSpinners(MapEditPanel.MIN_LINES, MapEditPanel.MAX_LINES);
 
 		mapElementsInitialize();
 		
@@ -213,6 +214,7 @@ public class GameGUI {
 			public void actionPerformed(ActionEvent e) {
 				Level new_level = ((MapEditPanel) editPanel).getLevel();
 				if (new_level == null) {
+					infoLbl.setText("Invalid map characteristics");
 					System.err.println("Invalid map characteristics");
 					return;
 				}
@@ -226,7 +228,11 @@ public class GameGUI {
 		});
 		btnDone.setBounds(554, 34, 117, 58);
 		Edit.add(btnDone);
-		Edit.setVisible(false);
+		
+		infoLbl = new JLabel("");
+		infoLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		infoLbl.setBounds(228, 19, 236, 26);
+		Edit.add(infoLbl);
 	}
 
 	/**
@@ -255,6 +261,7 @@ public class GameGUI {
 			Initial.setVisible(false);
 			Game.setVisible(false);
 			Edit.setVisible(true);
+			infoLbl.setText("");
 			((MapEditPanel) editPanel).reset();
 			break;
 		}
@@ -481,7 +488,7 @@ public class GameGUI {
 		((MapEditPanel) editPanel).setSelection(c);
 	}
 	
-	private void mapRowsColsInitialize(int min_lines, int max_lines) {
+	private void initializeEditSpinners(int min_lines, int max_lines) {
 		JSpinner spinnerRows = new JSpinner();
 		spinnerRows.setModel(new SpinnerNumberModel(10, min_lines, max_lines, 1));
 		spinnerRows.addChangeListener(new ChangeListener() {
