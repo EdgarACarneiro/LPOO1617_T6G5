@@ -36,17 +36,10 @@ public class LevelTwo extends Level implements java.io.Serializable {
 	 * the enemies activity and if the hero is armed. Calls a superclass
 	 * constructor.
 	 * 
-	 * @param map
-	 *            A matrix of chars containing the map's visual representation.
-	 * @param victory_pos
-	 *            A array of positions containing the victory positions of the
-	 *            map.
-	 * @param activity
-	 *            Boolean that if set all enemies are active, otherwise all
-	 *            enemies are inactive.
-	 * @param hero_armed
-	 *            Booleean the if set the hero is armed, otherwise the hero is
-	 *            unarmed.
+	 * @param charArr A matrix of chars containing the map's visual representation.
+	 * @param victory_pos A array of positions containing the victory positions of the map.
+	 * @param activity Boolean corresponding to whether enemies are active.
+	 * @param hero_armed Boolean corresponding to whether hero is active.
 	 */
 	public LevelTwo(char[][] charArr, int[][] victory_pos, boolean activity, boolean hero_armed) {
 		super(charArr, victory_pos, activity);

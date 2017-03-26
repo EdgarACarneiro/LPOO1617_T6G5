@@ -36,7 +36,7 @@ public abstract class Level implements java.io.Serializable {
 	protected boolean enemies_activity;
 	
 	/**
-	 * ArrayList<GameCharacter> enemies. ArrayList containing all the enemy
+	 * ArrayList enemies. ArrayList containing all the enemy
 	 * character's in the Level.
 	 */
 	protected ArrayList<GameCharacter> enemies = new ArrayList<GameCharacter>();
