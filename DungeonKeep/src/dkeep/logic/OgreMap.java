@@ -36,10 +36,12 @@ public class OgreMap extends GameMap {
 		
 		this.map = board;
 		
-		for (int i = 0 ; i < board.length; ++i) {
-			for (int j = 0; j < board[0].length; ++j) {
-				if (board[i][j] == 'k')
+		for (int i = 0 ; i < map.length; ++i) {
+			for (int j = 0; j < map[0].length; ++j) {
+				if (board[i][j] == 'k') {
 					key_pos = new int[] {i, j};
+					map[i][j] = 'B';
+				}
 			}
 		}
 		
@@ -66,6 +68,7 @@ public class OgreMap extends GameMap {
 		if (Arrays.equals(key_pos, hero.pos)) {
 			key_found = true;
 			hero.keyFoundStatus(true);
+			key_pos = null;
 		}
 		
 		return super.update(hero);

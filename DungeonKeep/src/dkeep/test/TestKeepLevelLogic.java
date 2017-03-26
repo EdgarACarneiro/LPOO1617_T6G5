@@ -35,11 +35,19 @@ public class TestKeepLevelLogic {
 		
 		//One step down
 		assertEquals(State.RUNNING, level.update(1,  0));
+		
+		//Checking key in map
+		assertEquals(level.getMap()[3][1], 'k');
+		
 		//One step down
 		assertEquals(State.RUNNING, level.update(1,  0));
 		
 		//Check if Hero symbol is 'K'
 		assertEquals(level.getHero().getSymb(), 'K');
+		
+		//Check if key was picked up
+		level.update(-1, 0);
+		assertEquals(level.getMap()[3][1], 'B');
 	}
 	
 	@Test
