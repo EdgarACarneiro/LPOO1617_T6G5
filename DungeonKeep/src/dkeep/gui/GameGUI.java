@@ -31,7 +31,7 @@ public class GameGUI {
 
 	public static final int EDIT_MIN_LINES = 5;
 	public static final int EDIT_MAX_LINES = 15;
-	
+
 	private JFrame frame;
 	private JTextField textField;
 
@@ -45,7 +45,13 @@ public class GameGUI {
 
 	private JPanel gamePanel;
 	private JPanel editPanel;
-
+	
+	private JButton btnMoveUp;
+	private JButton btnMoveLeft;
+	private JButton btnMoveRight;
+	private JButton btnMoveDown;
+	private JButton btnSaveGame;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -146,26 +152,26 @@ public class GameGUI {
 		Game.add(gamePanel);
 
 		JLabel lblNumberOfOgres = new JLabel("Number of Ogres");
-		lblNumberOfOgres.setBounds(547, 231, 109, 19);
+		lblNumberOfOgres.setBounds(547, 341, 109, 19);
 		Game.add(lblNumberOfOgres);
 		lblNumberOfOgres.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNumberOfOgres.setFont(new Font("Malayalam MN", Font.PLAIN, 13));
 
 		textField = new JTextField();
-		textField.setBounds(536, 262, 130, 26);
+		textField.setBounds(536, 372, 130, 26);
 		Game.add(textField);
 		textField.setHorizontalAlignment(SwingConstants.CENTER);
 		textField.setText("2");
 		textField.setColumns(10);
 
 		JLabel lblGuardPersonality = new JLabel("Guard Personality");
-		lblGuardPersonality.setBounds(549, 380, 107, 19);
+		lblGuardPersonality.setBounds(549, 420, 107, 19);
 		Game.add(lblGuardPersonality);
 		lblGuardPersonality.setHorizontalAlignment(SwingConstants.CENTER);
 		lblGuardPersonality.setFont(new Font("Malayalam MN", Font.PLAIN, 13));
 
 		JComboBox<String> comboBox = new JComboBox<String>();
-		comboBox.setBounds(542, 411, 124, 27);
+		comboBox.setBounds(542, 450, 124, 27);
 		Game.add(comboBox);
 		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] { "Rookie", "Drunken", "Suspicious" }));
 		comboBox.setToolTipText("Persona");
@@ -175,14 +181,56 @@ public class GameGUI {
 		lblStatus.setBounds(16, 20, 485, 29);
 		Game.add(lblStatus);
 		lblStatus.setFont(new Font("Malayalam MN", Font.PLAIN, 20));
-
-		JButton btnSaveGame = new JButton("Save Game");
+		lblStatus.setText("You can now begin a New Game!");
+		
+		btnMoveUp = new JButton("Up");
+		btnMoveUp.setBounds(547, 150, 109, 30);
+		Game.add(btnMoveUp);
+		btnMoveUp.setEnabled(false);
+		btnMoveUp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				moveButtonUpdate(-1, 0);
+			}
+		});
+		
+		btnMoveLeft = new JButton("Left");
+		btnMoveLeft.setBounds(547, 190, 109, 30);
+		Game.add(btnMoveLeft);
+		btnMoveLeft.setEnabled(false);
+		btnMoveLeft.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				moveButtonUpdate(0, -1);
+			}
+		});
+		
+		btnMoveRight = new JButton("Right");
+		btnMoveRight.setBounds(547, 230, 109, 30);
+		Game.add(btnMoveRight);
+		btnMoveRight.setEnabled(false);
+		btnMoveRight.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				moveButtonUpdate(0, 1);
+			}
+		});
+		
+		btnMoveDown = new JButton("Down");
+		btnMoveDown.setBounds(547, 270, 109, 30);
+		Game.add(btnMoveDown);
+		btnMoveDown.setEnabled(false);
+		btnMoveDown.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				moveButtonUpdate(1, 0);
+			}
+		});
+		
+		btnSaveGame = new JButton("Save Game");
 		btnSaveGame.setBounds(547, 78, 109, 30);
 		Game.add(btnSaveGame);
-		btnSaveGame.setEnabled(true);
+		btnSaveGame.setEnabled(false);
 		btnSaveGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				game.saveGame();
+				lblStatus.setText("Saved Game!");
 				gamePanel.requestFocusInWindow();
 			}
 		});
@@ -226,6 +274,10 @@ public class GameGUI {
 				}
 				if (numOgres >= 0 && numOgres <= 5 && gp != null) {
 					game = new GameHandler(gp, numOgres);
+					
+					//Enabling Blocked Buttons
+					enableButtons(btnSaveGame, btnMoveUp, btnMoveLeft, btnMoveDown, btnMoveRight);
+					
 					lblStatus.setText("Game in progress!");
 				} else {
 					lblStatus.setText("Invalid number of Ogres.");
@@ -258,8 +310,8 @@ public class GameGUI {
 		lblColumns.setBounds(38, 34, 61, 16);
 		Edit.add(lblColumns);
 
-		//int min_lines = MapEditPanel.MIN_LINES;
-		//int max_lines = MapEditPanel.MAX_LINES;
+		// int min_lines = MapEditPanel.MIN_LINES;
+		// int max_lines = MapEditPanel.MAX_LINES;
 		int min_lines = EDIT_MIN_LINES;
 		int max_lines = EDIT_MAX_LINES;
 
@@ -384,6 +436,7 @@ public class GameGUI {
 			Edit.setVisible(false);
 			break;
 		case GAME:
+			checkMoveButtons();
 			Initial.setVisible(false);
 			Game.setVisible(true);
 			Edit.setVisible(false);
@@ -398,5 +451,32 @@ public class GameGUI {
 		}
 
 	}
-
+	
+	private void moveButtonUpdate(int row, int col) {
+		Boolean ret = game.update(row, col);
+		
+		if (ret != null && ret == false)
+			disableButtons(btnSaveGame, btnMoveUp, btnMoveLeft, btnMoveDown, btnMoveRight);
+			
+		gamePanel.repaint();
+		lblStatus.setText(game.getStatusInfo());
+		gamePanel.requestFocusInWindow();
+	}
+	
+	private void checkMoveButtons() {
+		if (game != null)
+			enableButtons(btnSaveGame, btnMoveUp, btnMoveLeft, btnMoveDown, btnMoveRight);
+		else
+			disableButtons(btnSaveGame, btnMoveUp, btnMoveLeft, btnMoveDown, btnMoveRight);
+	}
+	
+	private void enableButtons(JButton...buttons) {
+		for (JButton b : buttons)
+			b.setEnabled(true);
+	}
+	
+	private void disableButtons(JButton...buttons) {
+		for (JButton b : buttons)
+			b.setEnabled(false);
+	}
 }
