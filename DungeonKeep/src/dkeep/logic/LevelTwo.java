@@ -2,10 +2,20 @@ package dkeep.logic;
 
 import java.util.Random;
 
+/**
+ * @author 
+ *
+ */
 public class LevelTwo extends Level {
 	
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 5L;
 		
+	/**
+	 * 
+	 */
 	public LevelTwo() {
 		Random rand = new Random();
 		
@@ -19,6 +29,12 @@ public class LevelTwo extends Level {
 			enemies.add(new Ogre(OgreMap.ogre_pos));
 	}
 	
+	/**
+	 * @param charArr
+	 * @param victory_pos
+	 * @param activity
+	 * @param hero_armed
+	 */
 	public LevelTwo(char[][] charArr, int[][] victory_pos, boolean activity, boolean hero_armed) {
 		super(charArr, victory_pos, activity);
 		
@@ -27,6 +43,9 @@ public class LevelTwo extends Level {
 		this.gameMap = new OgreMap(gameMap.getMap(), victory_pos);
 	}
 	
+	/**
+	 * @param numOgres
+	 */
 	public LevelTwo(int numOgres) {
 		
 		enemies_activity = true;
@@ -38,12 +57,18 @@ public class LevelTwo extends Level {
 			enemies.add(new Ogre(OgreMap.ogre_pos));
 	}
 	
+	/** (non-Javadoc)
+	 * @see dkeep.logic.Level#nextLevel()
+	 */
 	@Override
 	public Level nextLevel() {
 		// there's no next level - return null
 		return null;
 	}
 
+	/** (non-Javadoc)
+	 * @see dkeep.logic.Level#getHero()
+	 */
 	@Override
 	public Hero getHero() {
 		return hero;

@@ -105,7 +105,6 @@ public abstract class GameCharacter implements java.io.Serializable {
 	
 	public void setActive() {
 		this.active = true;
-		//this.setSymbIdx(0);
 	}
 	
 	public int[] getPos() {

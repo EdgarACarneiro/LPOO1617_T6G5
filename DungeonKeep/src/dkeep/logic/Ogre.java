@@ -2,13 +2,29 @@ package dkeep.logic;
 import java.util.Arrays;
 import java.util.Random;
 
+/**
+ * @author 
+ *
+ */
 public class Ogre extends GameCharacter {
 	
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 8L;
 	
+	/**
+	 * 
+	 */
 	private static Random rand = new Random();
+	/**
+	 * 
+	 */
 	private int TURN_WAKE_UP = 2;
 		
+	/**
+	 * 
+	 */
 	private static final int[][] moves = {
 			{ 1, 0},
 			{-1, 0},
@@ -16,19 +32,34 @@ public class Ogre extends GameCharacter {
 			{ 0,-1}
 	};
 	
+	/**
+	 * 
+	 */
 	private int[] club;
+	/**
+	 * 
+	 */
 	private int sleep_turn;
 
+	/**
+	 * @param initial_pos
+	 */
 	public Ogre(int[] initial_pos) {
 		super(initial_pos, 'O', '8', '$');
 		club = new int[] {initial_pos[0]+1, initial_pos[1]};
 		armed = true;
 	}
 	
+	/**
+	 * @return
+	 */
 	public static int[] randomMove() {
 		return moves[rand.nextInt(moves.length)];
 	}
 	
+	/**
+	 * 
+	 */
 	private void swingClub() {
 		int[] club_dir = randomMove();
 		
@@ -36,6 +67,9 @@ public class Ogre extends GameCharacter {
 		club[1] = pos[1] + club_dir[1];
 	}
 	
+	/**
+	 * @param gameMap
+	 */
 	private void checkSelfSymb(GameMap gameMap) {
 		if ( Arrays.equals(gameMap.getKeyPos(), pos) ) {
 			this.setSymbIdx(2);
@@ -47,10 +81,16 @@ public class Ogre extends GameCharacter {
 		}
 	}
 	
+	/**
+	 * @return
+	 */
 	public int[] getClubPos() {
 		return club;
 	}
 	
+	/** (non-Javadoc)
+	 * @see dkeep.logic.GameCharacter#update(dkeep.logic.GameMap, int, int)
+	 */
 	@Override
 	public void update(GameMap gameMap, int row, int col) {
 		super.update(gameMap, row, col);

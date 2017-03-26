@@ -29,6 +29,9 @@ public class GameGUI {
 		INITIAL, GAME, EDIT
 	};
 
+	public static final int EDIT_MIN_LINES = 5;
+	public static final int EDIT_MAX_LINES = 15;
+	
 	private JFrame frame;
 	private JTextField textField;
 
@@ -255,8 +258,10 @@ public class GameGUI {
 		lblColumns.setBounds(38, 34, 61, 16);
 		Edit.add(lblColumns);
 
-		int min_lines = MapEditPanel.MIN_LINES;
-		int max_lines = MapEditPanel.MAX_LINES;
+		//int min_lines = MapEditPanel.MIN_LINES;
+		//int max_lines = MapEditPanel.MAX_LINES;
+		int min_lines = EDIT_MIN_LINES;
+		int max_lines = EDIT_MAX_LINES;
 
 		JSpinner spinnerRows = new JSpinner();
 		spinnerRows.setModel(new SpinnerNumberModel(10, min_lines, max_lines, 1));

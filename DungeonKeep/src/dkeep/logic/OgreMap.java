@@ -1,16 +1,34 @@
 package dkeep.logic;
 import java.util.Arrays;
 
+/**
+ * @author 
+ *
+ */
 public class OgreMap extends GameMap {
 	
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 9L;
 	
+	/**
+	 * 
+	 */
 	public static final int[] ogre_pos = {1, 4};
+	/**
+	 * 
+	 */
 	public static final int[] hero_pos = {7, 1};	// initial hero position
 	
+	/**
+	 * 
+	 */
 	private boolean key_found = false;
 	
-	// Reduce code duplication in constructors!!
+	/**
+	 * 
+	 */
 	public OgreMap() {
 		super.setVictoryPos(new int[][] {{1, 0}});
 		key_pos[0] = 1; key_pos[1] = 8;
@@ -52,6 +70,9 @@ public class OgreMap extends GameMap {
 		this.valid_symbs = new char[] {'B', 'S', 'k', 'O', '*'};
 	}
 	
+	/** (non-Javadoc)
+	 * @see dkeep.logic.GameMap#getMap()
+	 */
 	@Override
 	public char[][] getMap() {
 		char[][] ret = new char[map.length][map[0].length];
@@ -67,6 +88,9 @@ public class OgreMap extends GameMap {
 		return ret;
 	}
 	
+	/** (non-Javadoc)
+	 * @see dkeep.logic.GameMap#update(dkeep.logic.Hero)
+	 */
 	@Override
 	public boolean update(Hero hero) {
 		if (Arrays.equals(key_pos, hero.pos)) {
