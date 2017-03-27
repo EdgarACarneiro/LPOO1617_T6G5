@@ -6,7 +6,7 @@ EclEmma:
 ![alt tag](http://i.imgur.com/S3sGGmS.png)
 
 PIT:
-![alt tag](http://imgur.com/N1HI7To.png)
+![alt tag](http://imgur.com/a/LjX2D.png)
 
 FEUP - Laboratório de Programação Orientada por Objectos
 
