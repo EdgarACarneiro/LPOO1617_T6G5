@@ -65,8 +65,6 @@ public class GameMap implements java.io.Serializable {
 	 * @return Matrix of chars representing the Map
 	 */
 	public char[][] getMap() {
-		if (map == null)
-			System.err.println("NULL map requested!");
 		return map;
 	}
 	

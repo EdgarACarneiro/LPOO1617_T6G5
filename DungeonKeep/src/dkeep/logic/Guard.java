@@ -51,7 +51,6 @@ public class Guard extends GameCharacter implements java.io.Serializable {
 			strategy = new Suspicious();
 			break;
 		default:
-			System.err.println("Error in Guard Constructor!!");
 		}
 	}
 

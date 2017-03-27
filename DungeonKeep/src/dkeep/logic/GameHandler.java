@@ -19,7 +19,7 @@ public class GameHandler implements java.io.Serializable {
 	 * Inner class to encapsulate optional arguments for extra functionality:
 	 * updates a status label's text and disables/enables buttons appropriately.
 	 */
-	public static class OptionalArgs {
+	public static class OptionalArgs implements java.io.Serializable{
 		
 		/**
 		 * Label to be changed on game state changes.
@@ -113,7 +113,6 @@ public class GameHandler implements java.io.Serializable {
 	 */
 	public GameHandler(Level l) {
 		if (l == null) {
-			System.err.println("GH constructor called with null Level");
 			return;
 		}
 		
@@ -124,8 +123,7 @@ public class GameHandler implements java.io.Serializable {
 			numOgres = 3;
 		} else if (level instanceof LevelTwo) {
 			current_lvl = 2;
-		} else
-			System.err.println("INVALID LEVEL");
+		}
 	}
 	
 	/**

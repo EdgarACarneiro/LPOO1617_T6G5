@@ -51,7 +51,6 @@ public abstract class GameCharacter implements java.io.Serializable {
 		pos[1] = initial_pos[1];
 
 		if (symb.length == 0) {
-			System.err.println("No symbol provided for character constructor. Using placeholder 'P'.");
 			symbols = new char[] { 'P' };
 		} else {
 			symbols = symb;
